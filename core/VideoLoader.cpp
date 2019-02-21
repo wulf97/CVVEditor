@@ -1,5 +1,5 @@
 #include "VideoLoader.h"
 
-VideoLoader::VideoLoader() {
+VideoLoader::VideoLoader(QObject *parent) : QObject(parent) {
 
 }

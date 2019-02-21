@@ -4,7 +4,7 @@ Core::Core(QObject *parent) : QObject(parent) {
     m_VLoader = new VideoLoader(this);
 
     /* Связывание Core с внутренними модулями */
-    connect(this, SIGNAL(uploadVideo(QString*)), m_VLoader, SLOT(uploadVideo(QString*));
+    connect(this, SIGNAL(uploadVideo(QString*)), m_VLoader, SLOT(uploadVideo(QString*)));
     connect(this, SIGNAL(playVideo()), m_VLoader, SLOT(playVideo()));
     connect(this, SIGNAL(stopVideo()), m_VLoader, SLOT(stopVideo()));
     connect(this, SIGNAL(pauseVideo()), m_VLoader, SLOT(pauseVideo()));
