@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "VideoCutter.h"
 #include "ui_VideoCutter.h"
 
@@ -12,5 +14,5 @@ VideoCutter::~VideoCutter() {
 }
 
 void VideoCutter::videoLen(int len) {
-
+    qDebug() << "slot: videoLen()" << endl;
 }

@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "PluginList.h"
 #include "ui_PluginList.h"
 

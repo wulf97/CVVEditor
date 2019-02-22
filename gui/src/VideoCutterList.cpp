@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "VideoCutterList.h"
 #include "ui_VideoCutterList.h"
 

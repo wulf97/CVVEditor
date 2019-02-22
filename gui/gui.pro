@@ -1,4 +1,4 @@
-include(general_config.pri)
+include(../general_config.pri)
 
 QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -9,6 +9,26 @@ TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
+
+VPATH = ./src
+INCLUDEPATH += ../core
+
+unix {
+    QMAKE_LFLAGS += -no-pie
+    LIBS += -lcore
+}
+
+win32 {
+    win32-g++{
+        LIBS += \
+            $${DESTDIR}/libcore.a
+    }
+
+    win32-msvc*{
+        LIBS += \
+            $${DESTDIR}/core.lib \
+    }
+}
 
 SOURCES += \
     src/main.cpp \
@@ -37,5 +57,3 @@ FORMS += \
     ui/VideoCutterList.ui \
     ui/VideoCutter.ui
 
-DISTFILES += \
-    general_config.pri

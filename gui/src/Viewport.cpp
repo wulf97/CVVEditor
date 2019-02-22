@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "Viewport.h"
 #include "ui_Viewport.h"
 
@@ -12,5 +14,5 @@ Viewport::~Viewport() {
 }
 
 void Viewport::updateFrame(QImage *img) {
-
+    qDebug() << "slot: updateFrame(QImage*)" << endl;
 }

@@ -1,3 +1,4 @@
+include(../general_config.pri)
 include(ocv_config.pri)
 
 QT -= gui
@@ -18,5 +19,4 @@ HEADERS += \
     PluginManager.h \
     VideoLoader.h
 
-DISTFILES += \
-    ocv_config.pri
+message("Build core")

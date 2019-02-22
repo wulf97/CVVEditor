@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "VideoControlBar.h"
 #include "ui_VideoControlBar.h"
 
@@ -12,5 +14,5 @@ VideoControlBar::~VideoControlBar() {
 }
 
 void VideoControlBar::stoped() {
-
+    qDebug() << "slot: stoped()" << endl;
 }
