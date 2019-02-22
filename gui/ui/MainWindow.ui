@@ -31,19 +31,83 @@
       </property>
       <widget class="QWidget" name="verticalLayoutWidget">
        <layout class="QVBoxLayout" name="leftAria">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QWidget" name="widget" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_6">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QSplitter" name="splitter_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
              <widget class="QWidget" name="verticalLayoutWidget_3">
-              <layout class="QVBoxLayout" name="topAria"/>
+              <layout class="QVBoxLayout" name="topAria">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+              </layout>
              </widget>
              <widget class="QWidget" name="verticalLayoutWidget_4">
-              <layout class="QVBoxLayout" name="bottomAria"/>
+              <layout class="QVBoxLayout" name="bottomAria">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QScrollArea" name="scrollArea">
+                 <property name="widgetResizable">
+                  <bool>true</bool>
+                 </property>
+                 <widget class="QWidget" name="scrollAreaWidgetContents">
+                  <property name="geometry">
+                   <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>274</width>
+                    <height>212</height>
+                   </rect>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <layout class="QVBoxLayout" name="videoCutterLayout">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </widget>
            </item>
@@ -53,7 +117,45 @@
        </layout>
       </widget>
       <widget class="QWidget" name="verticalLayoutWidget_2">
-       <layout class="QVBoxLayout" name="rightAria"/>
+       <layout class="QVBoxLayout" name="rightAria">
+        <item>
+         <widget class="QScrollArea" name="scrollArea_2">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>284</width>
+             <height>434</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>5</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <layout class="QVBoxLayout" name="PluginListLayout"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>

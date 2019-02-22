@@ -44,8 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Компановка виджетов */
     ui->topAria->addWidget(viewport);
     ui->topAria->addWidget(vControlBar);
-    ui->bottomAria->addWidget(videoCutterList);
-    ui->rightAria->addWidget(pluginList);
+    ui->videoCutterLayout->addWidget(videoCutterList);
+    ui->PluginListLayout->addWidget(pluginList);
 }
 
 MainWindow::~MainWindow() {
