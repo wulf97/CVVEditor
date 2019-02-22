@@ -57,3 +57,6 @@ FORMS += \
     ui/VideoCutterList.ui \
     ui/VideoCutter.ui
 
+RESOURCES += \
+    ../res.qrc
+
