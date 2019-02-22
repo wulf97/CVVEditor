@@ -13,6 +13,8 @@ class VideoControlBar : public QWidget {
 public:
     explicit VideoControlBar(QWidget *parent = nullptr);
     ~VideoControlBar();
+
+    void sendSignals();
 public slots:
     void stoped();
 signals:

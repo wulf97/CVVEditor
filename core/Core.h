@@ -10,7 +10,6 @@ class Core : public QObject {
 public:
     Core(QObject *parent = nullptr);
 
-    void setGUI(QObject*);
 signals:
     void uploadVideo(QString*);
     void playVideo();
@@ -20,7 +19,6 @@ signals:
     void updateFrame(QImage*);
     void stoped();
 private:
-    QObject *m_gui;
     VideoLoader *m_VLoader = nullptr;
 };
 

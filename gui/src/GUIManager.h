@@ -15,7 +15,6 @@ public:
     GUIManager(QObject *parent = nullptr);
     virtual ~GUIManager();
 
-    void setCore(QObject*);
     Viewport *getViewport() const;
     VideoControlBar *getVideoControlBar() const;
     VideoCutterList *getVideoCutterList() const;
@@ -29,7 +28,6 @@ signals:
     void updateFrame(QImage*);
     void stoped();
 private:
-    QObject *m_core;
     Viewport *m_viewport;
     VideoControlBar *m_videoControlBar;
     VideoCutterList *m_videoCutterList;

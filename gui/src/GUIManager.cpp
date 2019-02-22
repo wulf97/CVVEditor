@@ -5,17 +5,6 @@ GUIManager::GUIManager(QObject *parent) : QObject(parent) {
     m_videoControlBar = new VideoControlBar();
     m_videoCutterList = new VideoCutterList();
     m_pluginList = new PluginList();
-}
-
-GUIManager::~GUIManager() {
-    delete m_viewport;
-    delete m_videoControlBar;
-    delete m_videoCutterList;
-    delete m_pluginList;
-}
-
-void GUIManager::setCore(QObject *core) {
-    m_core = core;
 
     /* Проброс сигналов к модулям GUIManager */
     connect(this, SIGNAL(updateFrame(QImage*)), m_viewport, SLOT(updateFrame(QImage*)));
@@ -26,6 +15,13 @@ void GUIManager::setCore(QObject *core) {
     connect(m_videoControlBar, SIGNAL(playVideo()), SIGNAL(playVideo()));
     connect(m_videoControlBar, SIGNAL(stopVideo()), SIGNAL(stopVideo()));
     connect(m_videoControlBar, SIGNAL(pauseVideo()), SIGNAL(pauseVideo()));
+}
+
+GUIManager::~GUIManager() {
+    delete m_viewport;
+    delete m_videoControlBar;
+    delete m_videoCutterList;
+    delete m_pluginList;
 }
 
 Viewport *GUIManager::getViewport() const {
