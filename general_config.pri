@@ -11,10 +11,11 @@ unix {
 
         CONFIG += staticlib
 
-        RCC_DIR = $${_PRO_FILE_PWD_}/../../build
-        MOC_DIR = $${_PRO_FILE_PWD_}/../../build
-        OBJECTS_DIR = $${_PRO_FILE_PWD_}/../../build
-        UI_DIR = $${_PRO_FILE_PWD_}/../../build
+        RCC_DIR = $${_PRO_FILE_PWD_}/../../build/rcc
+        MOC_DIR = $${_PRO_FILE_PWD_}/../../build/moc
+        OBJECTS_DIR = $${_PRO_FILE_PWD_}/../../build/obj
+        UI_DIR = $${_PRO_FILE_PWD_}/../../build/ui
+        MAKEFILE = $${_PRO_FILE_PWD_}/../../build/Makefile
 }
 
 win32 {
@@ -28,8 +29,9 @@ win32 {
 
         CONFIG += staticlib
 
-        RCC_DIR = $${_PRO_FILE_PWD_}/../../build
-        MOC_DIR = $${_PRO_FILE_PWD_}/../../build
-        OBJECTS_DIR = $${_PRO_FILE_PWD_}/../../build
-        UI_DIR = $${_PRO_FILE_PWD_}/../../build
+        RCC_DIR = $${_PRO_FILE_PWD_}/../../build/rcc
+        MOC_DIR = $${_PRO_FILE_PWD_}/../../build/moc
+        OBJECTS_DIR = $${_PRO_FILE_PWD_}/../../build/obj
+        UI_DIR = $${_PRO_FILE_PWD_}/../../build/ui
+        MAKEFILE = $${_PRO_FILE_PWD_}/../../build/Makefile
 }

@@ -15,9 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
 
-    QHBoxLayout *mainLayout = new QHBoxLayout();
-    QWidget *centralWidget = new QWidget(this);
-
     GUIManager *guiManage = new GUIManager();
     Core *core = new Core();
     /* Получение модулей gui от GUIManager */
@@ -45,10 +42,10 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Проверка работы сигналов */
     vControlBar->sendSignals();
     /* Компановка виджетов */
-    mainLayout->addWidget(vControlBar);
-
-    centralWidget->setLayout(mainLayout);
-    this->setCentralWidget(centralWidget);
+    ui->topAria->addWidget(viewport);
+    ui->topAria->addWidget(vControlBar);
+    ui->bottomAria->addWidget(videoCutterList);
+    ui->rightAria->addWidget(pluginList);
 }
 
 MainWindow::~MainWindow() {
