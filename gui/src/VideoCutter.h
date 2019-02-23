@@ -13,6 +13,7 @@ class VideoCutter : public QWidget {
 public:
     explicit VideoCutter(QWidget *parent = nullptr);
     ~VideoCutter();
+
 public slots:
     void videoLen(int);
 signals:

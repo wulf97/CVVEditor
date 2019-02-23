@@ -25,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-
     /* Объединение Core и GUIManager */
     /* Отправка сигналов */
     connect(guiManage, SIGNAL(uploadVideo(QString*)), core, SIGNAL(uploadVideo(QString*)));
@@ -40,7 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     /* Проверка работы сигналов */
-    vControlBar->sendSignals();
+    core->testSignals();
+    guiManage->testSignals();
     /* Компановка виджетов */
     ui->topAria->addWidget(viewport);
     ui->topAria->addWidget(vControlBar);

@@ -10,6 +10,7 @@ class Core : public QObject {
 public:
     Core(QObject *parent = nullptr);
 
+    void testSignals();
 signals:
     void uploadVideo(QString*);
     void playVideo();

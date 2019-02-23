@@ -18,7 +18,7 @@ VideoControlBar::~VideoControlBar() {
 }
 
 /* Функция для тестирование работы сигналов */
-void VideoControlBar::sendSignals() {
+void VideoControlBar::testSignals() {
     qDebug() << "Response on VideoControlBar signals:" << endl;
     qDebug() << "***" << endl;
     emit playVideo();

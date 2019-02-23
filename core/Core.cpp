@@ -16,3 +16,8 @@ Core::Core(QObject *parent) : QObject(parent) {
     connect(m_VLoader, SIGNAL(updateFrame(QImage*)), this, SIGNAL(updateFrame(QImage*)));
     connect(m_VLoader, SIGNAL(stoped()), this, SIGNAL(stoped()));
 }
+
+void Core::testSignals() {
+    qDebug() << "********** Test core **********" << endl;
+    m_VLoader->testSignals();
+}

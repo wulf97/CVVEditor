@@ -1,7 +1,7 @@
 include(../general_config.pri)
 include(ocv_config.pri)
 
-QT -= gui
+QT += gui
 
 TARGET = core
 TEMPLATE = lib

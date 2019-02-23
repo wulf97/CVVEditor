@@ -14,7 +14,7 @@ public:
     explicit VideoControlBar(QWidget *parent = nullptr);
     ~VideoControlBar();
 
-    void sendSignals();
+    void testSignals();
 public slots:
     void stoped();
 signals:

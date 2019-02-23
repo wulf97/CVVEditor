@@ -15,6 +15,8 @@ public:
     GUIManager(QObject *parent = nullptr);
     virtual ~GUIManager();
 
+    void testSignals();
+
     Viewport *getViewport() const;
     VideoControlBar *getVideoControlBar() const;
     VideoCutterList *getVideoCutterList() const;

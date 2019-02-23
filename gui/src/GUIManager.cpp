@@ -17,6 +17,11 @@ GUIManager::GUIManager(QObject *parent) : QObject(parent) {
     connect(m_videoControlBar, SIGNAL(pauseVideo()), SIGNAL(pauseVideo()));
 }
 
+void GUIManager::testSignals() {
+    qDebug() << "********** Test gui **********" << endl;
+    m_videoControlBar->testSignals();
+}
+
 GUIManager::~GUIManager() {
     delete m_viewport;
     delete m_videoControlBar;

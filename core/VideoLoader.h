@@ -7,6 +7,8 @@ class VideoLoader : public QObject {
     Q_OBJECT
 public:
     VideoLoader(QObject *parent = nullptr);
+
+    void testSignals();
 public slots:
     /* Загрузка видео */
     void uploadVideo(QString*);
