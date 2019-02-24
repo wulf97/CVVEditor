@@ -23,7 +23,7 @@ RangeSlider::RangeSlider(QWidget* aParent)
 
     setMouseTracking(true);
 
-    this->setFixedHeight(50);
+    this->setFixedHeight(25);
 }
 
 void RangeSlider::paintEvent(QPaintEvent* aEvent) {
