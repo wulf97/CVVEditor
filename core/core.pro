@@ -1,5 +1,5 @@
+include(../ocv_config.pri)
 include(../general_config.pri)
-include(ocv_config.pri)
 
 QT += gui
 

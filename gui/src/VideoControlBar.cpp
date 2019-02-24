@@ -11,6 +11,8 @@ VideoControlBar::VideoControlBar(QWidget *parent) :
     connect(ui->play, SIGNAL(released()), this, SIGNAL(playVideo()));
     connect(ui->pause, SIGNAL(released()), this, SIGNAL(pauseVideo()));
     connect(ui->stop, SIGNAL(released()), this, SIGNAL(stopVideo()));
+    connect(ui->add, SIGNAL(released()), this, SIGNAL(getVideoFilePath()));
+
 }
 
 VideoControlBar::~VideoControlBar() {

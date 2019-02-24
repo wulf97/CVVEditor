@@ -9,12 +9,14 @@ GUIManager::GUIManager(QObject *parent) : QObject(parent) {
     /* Проброс сигналов к модулям GUIManager */
     connect(this, SIGNAL(updateFrame(QImage*)), m_viewport, SLOT(updateFrame(QImage*)));
     connect(this, SIGNAL(stoped()), m_videoControlBar, SLOT(stoped()));
-    connect(this, SIGNAL(videoLen(int)), m_videoCutterList, SIGNAL(videoLen(int)));
+    connect(this, SIGNAL(videoLen(int)), m_videoCutterList, SLOT(videoLen(int)));
 
     /* Проброс сигналов от модулей GUIManager */
     connect(m_videoControlBar, SIGNAL(playVideo()), SIGNAL(playVideo()));
     connect(m_videoControlBar, SIGNAL(stopVideo()), SIGNAL(stopVideo()));
     connect(m_videoControlBar, SIGNAL(pauseVideo()), SIGNAL(pauseVideo()));
+
+    connect(m_videoCutterList, SIGNAL(uploadVideo(QString*)), SIGNAL(uploadVideo(QString*)));
 }
 
 void GUIManager::testSignals() {

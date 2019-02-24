@@ -15,6 +15,8 @@ Core::Core(QObject *parent) : QObject(parent) {
     connect(m_VLoader, SIGNAL(videoLen(int)), this, SIGNAL(videoLen(int)));
     connect(m_VLoader, SIGNAL(updateFrame(QImage*)), this, SIGNAL(updateFrame(QImage*)));
     connect(m_VLoader, SIGNAL(stoped()), this, SIGNAL(stoped()));
+
+    emit uploadVideo(new QString());
 }
 
 void Core::testSignals() {

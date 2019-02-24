@@ -37,10 +37,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(core, SIGNAL(updateFrame(QImage*)), guiManage, SIGNAL(updateFrame(QImage*)));
     connect(core, SIGNAL(stoped()), guiManage, SIGNAL(stoped()));
 
+    /* Объединение внутренних модулей gui */
+    connect(vControlBar, SIGNAL(getVideoFilePath()),videoCutterList, SLOT(getVideoFilePath()));
 
     /* Проверка работы сигналов */
-    core->testSignals();
-    guiManage->testSignals();
+//    core->testSignals();
+//    guiManage->testSignals();
+
     /* Компановка виджетов */
     ui->topAria->addWidget(viewport);
     ui->topAria->addWidget(vControlBar);

@@ -11,11 +11,10 @@ class VideoCutter : public QWidget {
     Q_OBJECT
 
 public:
-    explicit VideoCutter(QWidget *parent = nullptr);
+    explicit VideoCutter(QWidget *parent = nullptr, int spinBoxValue = 0, QString endTime = "00:00");
     ~VideoCutter();
+    void setSpinBoxValue(int);
 
-public slots:
-    void videoLen(int);
 signals:
     void uploadVideo(QString*);
 private:

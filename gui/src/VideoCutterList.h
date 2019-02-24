@@ -16,6 +16,8 @@ public:
 
 signals:
     void uploadVideo(QString*);
+public slots:
+    void getVideoFilePath();
     void videoLen(int);
 private:
     Ui::VideoCutterList *ui;

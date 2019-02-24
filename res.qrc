@@ -1,8 +1,9 @@
 <RCC>
     <qresource prefix="/">
-	<file>res/stylesheet/style.qss</file>
+        <file>res/stylesheet/style.qss</file>
         <file>res/img/play.png</file>
         <file>res/img/pause.png</file>
         <file>res/img/stop.png</file>
+        <file>res/img/plus.png</file>
     </qresource>
 </RCC>

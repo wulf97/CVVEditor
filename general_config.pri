@@ -15,7 +15,6 @@ unix {
         MOC_DIR = $${_PRO_FILE_PWD_}/../../build/moc
         OBJECTS_DIR = $${_PRO_FILE_PWD_}/../../build/obj
         UI_DIR = $${_PRO_FILE_PWD_}/../../build/ui
-        MAKEFILE = $${_PRO_FILE_PWD_}/../../build/Makefile
 }
 
 win32{

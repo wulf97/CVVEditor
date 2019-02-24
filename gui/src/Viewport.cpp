@@ -15,4 +15,7 @@ Viewport::~Viewport() {
 
 void Viewport::updateFrame(QImage *img) {
     qDebug() << "slot: updateFrame(QImage*)" << endl;
+
+    *img = img->scaledToWidth(ui->viewport->width());
+    ui->viewport->setPixmap(QPixmap::fromImage(*img));
 }

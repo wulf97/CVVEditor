@@ -21,6 +21,7 @@ signals:
     void playVideo();
     void stopVideo();
     void pauseVideo();
+    void getVideoFilePath();
 private:
     Ui::VideoControlBar *ui;
 };
