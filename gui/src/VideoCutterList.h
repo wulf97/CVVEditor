@@ -22,10 +22,12 @@ public slots:
     void videoLen(int);
     void onCheckBoxStateChanged(int);
 private:
+    void addNewCutter(QString*);
     Ui::VideoCutterList *ui;
     int countOfVideo;
     QVBoxLayout *layout = new QVBoxLayout();
     QList <QWidget*> listOfVideoCutterVidgets;
+    QString videoFilePath = nullptr;
 };
 
 #endif // VIDEOCUTTERLIST_H

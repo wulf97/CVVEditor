@@ -1,8 +1,10 @@
-VERSION_BUILD = 343
+#VERSION_BUILD = 343
+VERSION_BUILD = 345
 
 win32-msvc*{
-    INCLUDEPATH += C:/Projects/OpenCV/opencv/build/install/include
-    LIBS += -LC:/Projects/OpenCV/opencv/build/install/x64/vc15/lib
+    #INCLUDEPATH += C:/Projects/OpenCV/opencv/build/install/include
+    INCLUDEPATH += C:/opencv/mybuild/install/include
+    LIBS += -LC:/opencv/mybuild/install/x64/vc15/lib
     CONFIG(debug, debug|release) {
         LIBS += -lopencv_core$${VERSION_BUILD}d
         LIBS += -lopencv_imgproc$${VERSION_BUILD}d
