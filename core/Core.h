@@ -12,10 +12,16 @@ public:
 
     void testSignals();
 signals:
+    /* Сигналы для внутренних модулей */
     void uploadVideo(QString*, bool);
     void playVideo();
     void stopVideo();
     void pauseVideo();
+    void setTime(int);
+    void setStartTime(int);
+    void setEndTime(int);
+
+    /* Сигналы для внешних модулей */
     void videoLen(int);
     void updateFrame(QImage*);
     void stoped();

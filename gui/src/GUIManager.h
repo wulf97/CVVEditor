@@ -22,13 +22,19 @@ public:
     VideoCutterList *getVideoCutterList() const;
     PluginList *getPluginList() const;
 signals:
+    /* Сигналы для внутренних модулей */
+    void videoLen(int);
+    void updateFrame(QImage*);
+    void stoped();
+
+    /* Сигналы для внешних модулей */
     void uploadVideo(QString*, bool);
     void playVideo();
     void stopVideo();
     void pauseVideo();
-    void videoLen(int);
-    void updateFrame(QImage*);
-    void stoped();
+    void setTime(int);
+    void setStartTime(int);
+    void setEndTime(int);
 private:
     Viewport *m_viewport;
     VideoControlBar *m_videoControlBar;

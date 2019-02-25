@@ -18,9 +18,15 @@ public:
 public slots:
     void stoped();
 signals:
+    /* Сигналы для для внешних модулей */
     void playVideo();
     void stopVideo();
     void pauseVideo();
+    void setTime(int);
+    void setStartTime(int);
+    void setEndTime(int);
+
+    /* Сигналы для внутренних модулей */
     void getVideoFilePath();
 private:
     Ui::VideoControlBar *ui;

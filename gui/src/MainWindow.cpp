@@ -31,6 +31,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(guiManage, SIGNAL(playVideo()), core, SIGNAL(playVideo()));
     connect(guiManage, SIGNAL(stopVideo()), core, SIGNAL(stopVideo()));
     connect(guiManage, SIGNAL(pauseVideo()), core, SIGNAL(pauseVideo()));
+    connect(guiManage, SIGNAL(setTime(int)), core, SIGNAL(setTime(int)));
+    connect(guiManage, SIGNAL(setStartTime(int)), core, SIGNAL(setStartTime(int)));
+    connect(guiManage, SIGNAL(setEndTime(int)), core, SIGNAL(setEndTime(int)));
 
     /* Получение сигналов */
     connect(core, SIGNAL(videoLen(int)), guiManage, SIGNAL(videoLen(int)));

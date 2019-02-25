@@ -86,6 +86,27 @@ void VideoLoader::pauseVideo() {
     }
 }
 
+/* Установить текущее время */
+void VideoLoader::setTime(int time) {
+    qDebug() << "slot: setTime(int)" << endl;
+
+    m_mTime = time;
+}
+
+/* Установить начальное время в секундах */
+void VideoLoader::setStartTime(int time) {
+    qDebug() << "slot: setStartTime(int)" << endl;
+
+    m_mStartTime = time;
+}
+
+/* Установить конечный время в секундах */
+void VideoLoader::setEndTime(int time) {
+    qDebug() << "slot: setEndTime(int)" << endl;
+
+    m_mEndTime = time;
+}
+
 /*************************************/
 void VideoLoader::update() {
     Mat frame;

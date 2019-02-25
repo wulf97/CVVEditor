@@ -10,6 +10,9 @@ Core::Core(QObject *parent) : QObject(parent) {
     connect(this, SIGNAL(playVideo()), m_VLoader, SLOT(playVideo()));
     connect(this, SIGNAL(stopVideo()), m_VLoader, SLOT(stopVideo()));
     connect(this, SIGNAL(pauseVideo()), m_VLoader, SLOT(pauseVideo()));
+    connect(this, SIGNAL(setTime(int)), m_VLoader, SLOT(setTime(int)));
+    connect(this, SIGNAL(setStartTime(int)), m_VLoader, SLOT(setStartTime(int)));
+    connect(this, SIGNAL(setEndTime(int)), m_VLoader, SLOT(setEndTime(int)));
 
     /* Проброс сигналов от модулей Core */
     connect(m_VLoader, SIGNAL(videoLen(int)), this, SIGNAL(videoLen(int)));
