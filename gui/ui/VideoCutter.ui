@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>516</width>
+    <width>553</width>
     <height>48</height>
    </rect>
   </property>
@@ -45,7 +45,7 @@
          <item>
           <widget class="QLabel" name="startTime">
            <property name="text">
-            <string>00:00</string>
+            <string>00:00:00</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -59,7 +59,7 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>30</width>
              <height>20</height>
             </size>
            </property>

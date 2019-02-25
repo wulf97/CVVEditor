@@ -28,19 +28,45 @@ void VideoCutterList::videoLen(int length) {
     int seconds = 0;
     int minutes = length/60000;
     int hours = 0;
+    QString second, minute, hour;
+    if (minutes == 0) {
+        seconds = length/1000;
+    }
+    else {
+        if (minutes > 60) {
+            hours = minutes/60;
+            minutes = minutes%60;
+        }
 
-    qDebug() << length;
-
-    if (minutes > 60) {
-        hours = minutes/60;
-        minutes = minutes%60;
+        seconds = minutes%60;
     }
 
-    seconds = minutes%60;
-    if (hours == 0) {
-         lengthOfFilm = QString::number(minutes) + ":" + QString::number(seconds);
+    if(QString::number(seconds).length() == 1) {
+        second = "0" + QString::number(seconds);
     } else {
-         lengthOfFilm = QString::number(hours) + ":" + QString::number(minutes) + ":" + QString::number(seconds);
+        second = QString::number(seconds);
+    }
+
+    if(QString::number(minutes).length() == 1) {
+        minute = "0" + QString::number(minutes);
+    } else {
+        minute = QString::number(minutes);
+    }
+
+    if(QString::number(hours).length() == 1) {
+        hour = "0" + QString::number(hours);
+    } else {
+        hour = QString::number(hours);
+    }
+
+    if (hours == 0) {
+        if (minutes == 0){
+            lengthOfFilm = "00:00:" + second;
+        } else {
+            lengthOfFilm = "00:" + minute + ':' + second;
+        }
+    } else {
+        lengthOfFilm = hour +':' + minute + ':' + second;
     }
 
     addNewCutter(&lengthOfFilm);
