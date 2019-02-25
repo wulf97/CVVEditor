@@ -43,10 +43,20 @@ private slots:
 private:
     VideoCapture m_video;
     QTimer m_timer;
-    QString *m_path;
+    /* Флаг для проверки открытия видео */
+    bool m_isOpened = false;
+    /* Путь к видео */
+    QString *m_path = nullptr;
+    /* Текущий кадр видео */
     QImage *m_frame = nullptr;
+    /* Количество кадров в секунду */
     int m_fps = 0;
-    int m_frameCount = 0;
+    /* Текущее время в миллисекундах */
+    int m_mTime = 0;
+    /* Начальное время фрагмента видео */
+    int m_mStartTime = 0;
+    /* Конечное время фрагмента видео */
+    int m_mEndTime = 0;
 };
 
 #endif // VIDEOLOADER_H
