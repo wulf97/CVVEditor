@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QVBoxLayout>
 
+#include "VideoCutter.h"
+
 namespace Ui {
 class VideoCutterList;
 }
@@ -16,7 +18,7 @@ public:
     ~VideoCutterList();
 
 signals:
-    void uploadVideo(QString*);
+    void uploadVideo(QString*, bool);
 public slots:
     void getVideoFilePath();
     void videoLen(int);
@@ -26,7 +28,7 @@ private:
     Ui::VideoCutterList *ui;
     int countOfVideo;
     QVBoxLayout *layout = new QVBoxLayout();
-    QList <QWidget*> listOfVideoCutterVidgets;
+    QList<VideoCutter*> listOfVideoCutterWidgets;
     QString videoFilePath = nullptr;
 };
 

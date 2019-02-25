@@ -21,8 +21,7 @@ VideoCutter::~VideoCutter() {
     delete ui;
 }
 
-QString* VideoCutter::getVideoFilePath()
-{
+QString* VideoCutter::getVideoFilePath() {
     return &videoFilePath;
 }
 
@@ -30,25 +29,21 @@ void VideoCutter::setSpinBoxValue(int value) {
     ui->spinBox->setValue(value);
 }
 
-void VideoCutter::setCheckBoxValue(bool value)
-{
+void VideoCutter::setCheckBoxValue(bool value) {
     ui->checkBox->setChecked(value);
 }
 
-int VideoCutter::getSpinBoxValue()
-{
+int VideoCutter::getSpinBoxValue() {
     return(ui->spinBox->value());
 }
 
-bool VideoCutter::getCheckBoxValue()
-{
+bool VideoCutter::getCheckBoxValue() {
     return(ui->checkBox->isChecked());
 }
 
-void VideoCutter::on_checkBox_stateChanged(int arg1)
-{
-    if(getCheckBoxValue()){
+void VideoCutter::on_checkBox_stateChanged(int arg1) {
+    if(getCheckBoxValue()) {
     emit checkBoxStateChanged(getSpinBoxValue());
-    emit uploadVideo(getVideoFilePath());
+    emit uploadVideo(getVideoFilePath(), false);
     }
 }

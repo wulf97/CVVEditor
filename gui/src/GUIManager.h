@@ -22,7 +22,7 @@ public:
     VideoCutterList *getVideoCutterList() const;
     PluginList *getPluginList() const;
 signals:
-    void uploadVideo(QString*);
+    void uploadVideo(QString*, bool);
     void playVideo();
     void stopVideo();
     void pauseVideo();

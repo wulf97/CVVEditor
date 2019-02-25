@@ -21,7 +21,7 @@ void VideoLoader::testSignals() {
 
 /******** Описание слотов ********/
 /* Загрузка видео */
-void VideoLoader::uploadVideo(QString *path) {
+void VideoLoader::uploadVideo(QString *path, bool fl) {
     qDebug() << "slot: uploadVideo(QString*)" << endl;
 
     m_path = new QString(*path);
@@ -31,7 +31,11 @@ void VideoLoader::uploadVideo(QString *path) {
     if (m_video.isOpened()) {
         m_isOpened = true;
         m_fps = m_video.get(CAP_PROP_FPS);
-        emit videoLen(m_video.get(CAP_PROP_FRAME_COUNT)/m_fps*1000);
+
+        if (fl) {
+            emit videoLen(m_video.get(CAP_PROP_FRAME_COUNT)/m_fps*1000);
+        }
+
         update();
         m_video.release();
     } else {

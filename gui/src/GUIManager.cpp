@@ -16,7 +16,7 @@ GUIManager::GUIManager(QObject *parent) : QObject(parent) {
     connect(m_videoControlBar, SIGNAL(stopVideo()), SIGNAL(stopVideo()));
     connect(m_videoControlBar, SIGNAL(pauseVideo()), SIGNAL(pauseVideo()));
 
-    connect(m_videoCutterList, SIGNAL(uploadVideo(QString*)), SIGNAL(uploadVideo(QString*)));
+    connect(m_videoCutterList, SIGNAL(uploadVideo(QString*, bool)), SIGNAL(uploadVideo(QString*, bool)));
 }
 
 void GUIManager::testSignals() {

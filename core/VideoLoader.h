@@ -18,7 +18,7 @@ public:
     void testSignals();
 public slots:
     /* Загрузить видео */
-    void uploadVideo(QString*);
+    void uploadVideo(QString*, bool);
     /* Начать отправку кадров */
     void playVideo();
     /* Останавливить отправку кадров и сбрасить счетчик кадров */

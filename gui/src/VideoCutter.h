@@ -20,7 +20,7 @@ public:
     bool getCheckBoxValue();
 
 signals:
-    void uploadVideo(QString*);
+    void uploadVideo(QString*, bool);
     void checkBoxStateChanged(int);
 private slots:
     void on_checkBox_stateChanged(int arg1);

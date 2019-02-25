@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* Объединение Core и GUIManager */
     /* Отправка сигналов */
-    connect(guiManage, SIGNAL(uploadVideo(QString*)), core, SIGNAL(uploadVideo(QString*)));
+    connect(guiManage, SIGNAL(uploadVideo(QString*, bool)), core, SIGNAL(uploadVideo(QString*, bool)));
     connect(guiManage, SIGNAL(playVideo()), core, SIGNAL(playVideo()));
     connect(guiManage, SIGNAL(stopVideo()), core, SIGNAL(stopVideo()));
     connect(guiManage, SIGNAL(pauseVideo()), core, SIGNAL(pauseVideo()));
