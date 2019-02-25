@@ -48,6 +48,12 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="viewport">
+       <property name="minimumSize">
+        <size>
+         <width>548</width>
+         <height>398</height>
+        </size>
+       </property>
        <property name="styleSheet">
         <string notr="true">background-color: rgb(0, 0, 0);</string>
        </property>

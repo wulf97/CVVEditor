@@ -5,5 +5,7 @@
         <file>res/img/pause.png</file>
         <file>res/img/stop.png</file>
         <file>res/img/plus.png</file>
+        <file>res/img/down.png</file>
+        <file>res/img/up.png</file>
     </qresource>
 </RCC>
