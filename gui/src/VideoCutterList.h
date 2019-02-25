@@ -19,12 +19,14 @@ public:
 
 signals:
     void uploadVideo(QString*, bool);
+    void sendNameOfFile(QString);
     void setStartTime(int);
     void setEndTime(int);
 public slots:
     void getVideoFilePath();
     void videoLen(int);
     void onCheckBoxStateChanged(int);
+    bool move(QWidget *widget, QString direction);
 private:
     void addNewCutter(QString*);
     Ui::VideoCutterList *ui;
@@ -32,6 +34,7 @@ private:
     QVBoxLayout *layout = new QVBoxLayout();
     QList<VideoCutter*> listOfVideoCutterWidgets;
     QString videoFilePath = nullptr;
+    QString fileName = nullptr;
 };
 
 #endif // VIDEOCUTTERLIST_H
