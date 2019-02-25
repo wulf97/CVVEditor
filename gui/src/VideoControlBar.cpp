@@ -32,3 +32,15 @@ void VideoControlBar::testSignals() {
 void VideoControlBar::stoped() {
     qDebug() << "slot: stoped()" << endl;
 }
+
+void VideoControlBar::setStartTime(int time) {
+    qDebug() << "slot: setStartTime(int)" << endl;
+
+    m_startTime = time;
+}
+
+void VideoControlBar::setEndTime(int time) {
+    qDebug() << "slot: setEndTime(int)" << endl;
+
+    m_endTime = time;
+}

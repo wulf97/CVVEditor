@@ -17,19 +17,21 @@ public:
     void testSignals();
 public slots:
     void stoped();
+    void setStartTime(int);
+    void setEndTime(int);
 signals:
     /* Сигналы для для внешних модулей */
     void playVideo();
     void stopVideo();
     void pauseVideo();
     void setTime(int);
-    void setStartTime(int);
-    void setEndTime(int);
 
     /* Сигналы для внутренних модулей */
     void getVideoFilePath();
 private:
     Ui::VideoControlBar *ui;
+    int m_startTime = 0;
+    int m_endTime = 0;
 };
 
 #endif // VIDEOCONTROLBAR_H
