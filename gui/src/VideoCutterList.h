@@ -19,7 +19,6 @@ public:
 
 signals:
     void uploadVideo(QString*, bool);
-    void sendNameOfFile(QString);
     void setStartTime(int);
     void setEndTime(int);
 public slots:

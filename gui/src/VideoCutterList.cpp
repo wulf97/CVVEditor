@@ -27,23 +27,18 @@ void VideoCutterList::getVideoFilePath() {
 }
 
 void VideoCutterList::videoLen(int length) {
+    int seconds;
+    int minutes;
+    int hours;
+
+    QString second;
+    QString minute;
+    QString hour;
     QString lengthOfFilm;
-    int seconds = 0;
-    int minutes = length/60000;
-    int hours = 0;
-    QString second, minute, hour;
-    if (minutes == 0) {
-        seconds = length/1000;
-    }
-    else {
-        if (minutes > 60) {
-            hours = minutes/60;
-            minutes = minutes%60;
-        }
 
-        seconds = minutes%60;
-    }
-
+    seconds = (length/1000)%60;
+    minutes = ((length/1000)/60)%60;
+    hours = ((length/1000)/60)/60;
     if(QString::number(seconds).length() == 1) {
         second = "0" + QString::number(seconds);
     } else {
@@ -73,6 +68,7 @@ void VideoCutterList::videoLen(int length) {
     }
 
     addNewCutter(&lengthOfFilm);
+    emit(setEndTime(length));
 }
 
 void VideoCutterList::onCheckBoxStateChanged(int number) {

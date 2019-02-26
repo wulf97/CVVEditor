@@ -68,7 +68,9 @@ void VideoControlBar::setEndTime(int time) {
 }
 
 void VideoControlBar::updateTime(int time) {
+    int endTime = m_endTime - time;
     ui->startTime->setText(msecToTime(time));
+    ui->endTime->setText(msecToTime(endTime));
 }
 
 /* Перевод мсек во время ЧЧ:ММ:СС */
@@ -77,9 +79,43 @@ QString VideoControlBar::msecToTime(int time) {
     int minuts;
     int hours;
 
+    QString second;
+    QString minute;
+    QString hour;
+    QString lengthOfFilm;
+
     seconds = (time/1000)%60;
     minuts = ((time/1000)/60)%60;
     hours = ((time/1000)/60)/60;
 
-    return QString("%1:%2:%3").arg(hours).arg(minuts).arg(seconds);
+    if(QString::number(seconds).length() == 1) {
+        second = "0" + QString::number(seconds);
+    } else {
+        second = QString::number(seconds);
+    }
+
+    if(QString::number(minuts).length() == 1) {
+        minute = "0" + QString::number(minuts);
+    } else {
+        minute = QString::number(minuts);
+    }
+
+    if(QString::number(hours).length() == 1) {
+        hour = "0" + QString::number(hours);
+    } else {
+        hour = QString::number(hours);
+    }
+
+    if (hours == 0) {
+        if (minuts == 0){
+            lengthOfFilm = "00:00:" + second;
+        } else {
+            lengthOfFilm = "00:" + minute + ':' + second;
+        }
+    } else {
+        lengthOfFilm = hour +':' + minute + ':' + second;
+    }
+
+
+    return lengthOfFilm;
 }
