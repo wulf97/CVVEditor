@@ -84,7 +84,6 @@ void VideoLoader::pauseVideo() {
     qDebug() << "slot: pauseVideo()" << endl;
 
     if (m_isOpened) {
-        m_mTime = m_video.get(CAP_PROP_POS_MSEC);
         m_timer.stop();
         m_video.release();
     }
@@ -120,6 +119,7 @@ void VideoLoader::update() {
         if (!frame.empty()) {
             cvtColor(frame, frame, CV_BGR2RGB);
             m_frame = new QImage(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
+            m_mTime = m_video.get(CAP_PROP_POS_MSEC);
             emit updateFrame(m_frame);
             emit updateTime(m_mTime);
             delete m_frame;

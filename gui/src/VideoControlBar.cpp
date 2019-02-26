@@ -67,6 +67,10 @@ void VideoControlBar::setEndTime(int time) {
     ui->endTime->setText(msecToTime(time - m_startTime));
 }
 
+void VideoControlBar::updateTime(int time) {
+    ui->startTime->setText(msecToTime(time));
+}
+
 /* Перевод мсек во время ЧЧ:ММ:СС */
 QString VideoControlBar::msecToTime(int time) {
     int seconds;

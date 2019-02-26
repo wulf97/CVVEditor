@@ -18,6 +18,7 @@ Core::Core(QObject *parent) : QObject(parent) {
     connect(m_VLoader, SIGNAL(videoLen(int)), this, SIGNAL(videoLen(int)));
     connect(m_VLoader, SIGNAL(updateFrame(QImage*)), this, SIGNAL(updateFrame(QImage*)));
     connect(m_VLoader, SIGNAL(stoped()), this, SIGNAL(stoped()));
+    connect(m_VLoader, SIGNAL(updateTime(int)), this, SIGNAL(updateTime(int)));
 }
 
 void Core::testSignals() {

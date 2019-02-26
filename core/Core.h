@@ -25,6 +25,7 @@ signals:
     void videoLen(int);
     void updateFrame(QImage*);
     void stoped();
+    void updateTime(int);
 private:
     VideoLoader *m_VLoader = nullptr;
 };

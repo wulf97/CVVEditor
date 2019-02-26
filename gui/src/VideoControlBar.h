@@ -22,6 +22,7 @@ public slots:
     void stoped();
     void setStartTime(int);
     void setEndTime(int);
+    void updateTime(int);
 signals:
     /* Сигналы для для внешних модулей */
     void playVideo();

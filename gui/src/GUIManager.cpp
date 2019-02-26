@@ -9,6 +9,7 @@ GUIManager::GUIManager(QObject *parent) : QObject(parent) {
     /* Проброс сигналов к модулям GUIManager */
     connect(this, SIGNAL(updateFrame(QImage*)), m_viewport, SLOT(updateFrame(QImage*)));
     connect(this, SIGNAL(stoped()), m_videoControlBar, SLOT(stoped()));
+    connect(this, SIGNAL(updateTime(int)), m_videoControlBar, SLOT(updateTime(int)));
     connect(this, SIGNAL(videoLen(int)), m_videoCutterList, SLOT(videoLen(int)));
 
     /* Проброс сигналов от модулей GUIManager */
