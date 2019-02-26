@@ -24,6 +24,10 @@ void VideoLoader::testSignals() {
 void VideoLoader::uploadVideo(QString *path, bool fl) {
     qDebug() << "slot: uploadVideo(QString*)" << endl;
 
+    if (m_path) {
+        delete m_path;
+    }
+
     m_path = new QString(*path);
     m_mTime = 0;
     m_video.open(m_path->toStdString());
@@ -66,8 +70,8 @@ void VideoLoader::stopVideo() {
     if (m_isOpened) {
         emit stoped();
 
-        m_mTime = 1000/m_fps;
-        m_video.set(CAP_PROP_POS_MSEC, m_mTime);
+        m_mTime = m_mStartTime;
+        m_video.set(CAP_PROP_POS_MSEC, m_mStartTime);
         update();
 
         m_timer.stop();
@@ -117,6 +121,7 @@ void VideoLoader::update() {
             cvtColor(frame, frame, CV_BGR2RGB);
             m_frame = new QImage(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
             emit updateFrame(m_frame);
+            emit updateTime(m_mTime);
             delete m_frame;
         }
     } else {

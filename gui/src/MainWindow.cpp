@@ -41,7 +41,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(core, SIGNAL(stoped()), guiManage, SIGNAL(stoped()));
 
     /* Объединение внутренних модулей gui */
-    connect(vControlBar, SIGNAL(getVideoFilePath()),videoCutterList, SLOT(getVideoFilePath()));
+    connect(vControlBar, SIGNAL(getVideoFilePath()), videoCutterList, SLOT(getVideoFilePath()));
+    connect(videoCutterList, SIGNAL(setStartTime(int)), vControlBar, SLOT(setStartTime(int)));
+    connect(videoCutterList, SIGNAL(setEndTime(int)), vControlBar, SLOT(setEndTime(int)));
 
     /* Проверка работы сигналов */
 //    core->testSignals();

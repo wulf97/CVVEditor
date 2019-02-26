@@ -42,6 +42,8 @@ signals:
     /* Сообщает об остановки видео,
      * если счетчик кадров равен длине видео */
     void stoped();
+    /* Передает текущее время в мсек */
+    void updateTime(int);
 private slots:
     void update();
 private:

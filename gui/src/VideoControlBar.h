@@ -16,6 +16,9 @@ public:
 
     void testSignals();
 public slots:
+    void play();
+    void pause();
+    void stop();
     void stoped();
     void setStartTime(int);
     void setEndTime(int);
@@ -28,6 +31,8 @@ signals:
 
     /* Сигналы для внутренних модулей */
     void getVideoFilePath();
+private:
+    QString msecToTime(int);
 private:
     Ui::VideoControlBar *ui;
     int m_startTime = 0;
