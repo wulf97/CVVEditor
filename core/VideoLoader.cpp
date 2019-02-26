@@ -117,6 +117,7 @@ void VideoLoader::update() {
             cvtColor(frame, frame, CV_BGR2RGB);
             m_frame = new QImage(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
             emit updateFrame(m_frame);
+            delete m_frame;
         }
     } else {
         emit stoped();
