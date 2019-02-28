@@ -35,7 +35,9 @@ signals:
     /* Сигналы для внутренних модулей */
     void getVideoFilePath();
 private slots:
-    void on_slider_sliderMoved(int position);
+    void on_slider_sliderReleased();
+
+    void on_slider_valueChanged(int value);
 
 private:
     QString msecToTime(int);
@@ -43,6 +45,8 @@ private:
     Ui::VideoControlBar *ui;
     int m_startTime = 0;
     int m_endTime = 0;
+    bool sliderMove = false;
+    int sliderTime = 0;
 };
 
 #endif // VIDEOCONTROLBAR_H

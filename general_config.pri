@@ -31,12 +31,12 @@ win32{
 
     BASEDIR = $${IN_PWD}
     DebugBuild {
-        DESTDIR = $${_PRO_FILE_PWD_}/../debug
-        BUILDDIR = $${_PRO_FILE_PWD_}/../trash/build-debug$${TARGET}
+        DESTDIR = $${_PRO_FILE_PWD_}/../../debug
+        BUILDDIR = $${_PRO_FILE_PWD_}/../../trash/build-debug$${TARGET}
     }
     ReleaseBuild {
-        DESTDIR = $${_PRO_FILE_PWD_}/../release
-        BUILDDIR = $${_PRO_FILE_PWD_}/../trash/build-release$${TARGET}
+        DESTDIR = $${_PRO_FILE_PWD_}/../../release
+        BUILDDIR = $${_PRO_FILE_PWD_}/../../trash/build-release$${TARGET}
     }
     OBJECTS_DIR = $${BUILDDIR}/obj
     MOC_DIR = $${BUILDDIR}/moc

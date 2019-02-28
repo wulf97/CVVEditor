@@ -94,6 +94,7 @@ void VideoLoader::setTime(int time) {
     qDebug() << "slot: setTime(int)" << endl;
 
     m_mTime = time;
+    m_video.set(CAP_PROP_POS_MSEC, time);
 }
 
 /* Установить начальное время в мсек */
@@ -103,7 +104,7 @@ void VideoLoader::setStartTime(int time) {
     m_mStartTime = time;
 }
 
-/* Установить конечный время в мсек */
+/* Установить конечное время в мсек */
 void VideoLoader::setEndTime(int time) {
     qDebug() << "slot: setEndTime(int)" << endl;
 
