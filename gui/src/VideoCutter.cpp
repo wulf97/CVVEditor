@@ -60,7 +60,6 @@ void VideoCutter::setNameOfFile(QString filename) {
 }
 
 
-
 void VideoCutter::on_checkBox_stateChanged(int arg1) {
     if(getCheckBoxValue()) {
         emit checkBoxStateChanged(getNumberInListValue());

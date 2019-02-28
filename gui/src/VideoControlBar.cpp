@@ -18,6 +18,7 @@ VideoControlBar::VideoControlBar(QWidget *parent) :
     connect(ui->play, SIGNAL(released()), this, SLOT(play()));
     connect(ui->pause, SIGNAL(released()), this, SLOT(pause()));
     connect(ui->stop, SIGNAL(released()), this, SLOT(stop()));
+    ui->slider->setValue(0);
 }
 
 VideoControlBar::~VideoControlBar() {
@@ -32,6 +33,12 @@ void VideoControlBar::testSignals() {
     emit stopVideo();
     emit pauseVideo();
     qDebug() << "***" << endl;
+}
+
+void VideoControlBar::setSliderPosition(int currenTime)
+{
+    ui->slider->setValue((currenTime));
+
 }
 
 void VideoControlBar::play() {
@@ -63,14 +70,19 @@ void VideoControlBar::setEndTime(int time) {
     qDebug() << "slot: setEndTime(int)" << endl;
 
     m_endTime = time;
-
     ui->endTime->setText(msecToTime(time - m_startTime));
 }
 
 void VideoControlBar::updateTime(int time) {
+    setSliderPosition(time);
     int endTime = m_endTime - time;
     ui->startTime->setText(msecToTime(time));
     ui->endTime->setText(msecToTime(endTime));
+}
+
+void VideoControlBar::setSliderMaxValue(int)
+{
+    ui->slider->setMaximum(m_endTime);
 }
 
 /* Перевод мсек во время ЧЧ:ММ:СС */
@@ -116,6 +128,10 @@ QString VideoControlBar::msecToTime(int time) {
         lengthOfFilm = hour +':' + minute + ':' + second;
     }
 
-
     return lengthOfFilm;
+}
+
+void VideoControlBar::on_slider_sliderMoved(int position)
+{
+
 }

@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(vControlBar, SIGNAL(getVideoFilePath()), videoCutterList, SLOT(getVideoFilePath()));
     connect(videoCutterList, SIGNAL(setStartTime(int)), vControlBar, SLOT(setStartTime(int)));
     connect(videoCutterList, SIGNAL(setEndTime(int)), vControlBar, SLOT(setEndTime(int)));
+    connect(videoCutterList, SIGNAL(setMaxValueToSlider(int)), vControlBar,SLOT(setSliderMaxValue(int)));
 
     /* Проверка работы сигналов */
 //    core->testSignals();

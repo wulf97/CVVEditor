@@ -15,6 +15,7 @@ public:
     ~VideoControlBar();
 
     void testSignals();
+    void setSliderPosition(int);
 public slots:
     void play();
     void pause();
@@ -23,6 +24,7 @@ public slots:
     void setStartTime(int);
     void setEndTime(int);
     void updateTime(int);
+    void setSliderMaxValue(int);
 signals:
     /* Сигналы для для внешних модулей */
     void playVideo();
@@ -32,6 +34,9 @@ signals:
 
     /* Сигналы для внутренних модулей */
     void getVideoFilePath();
+private slots:
+    void on_slider_sliderMoved(int position);
+
 private:
     QString msecToTime(int);
 private:

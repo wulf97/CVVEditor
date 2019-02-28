@@ -21,6 +21,7 @@ signals:
     void uploadVideo(QString*, bool);
     void setStartTime(int);
     void setEndTime(int);
+    void setMaxValueToSlider(int length);
 public slots:
     void getVideoFilePath();
     void videoLen(int);

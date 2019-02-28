@@ -68,7 +68,9 @@ void VideoCutterList::videoLen(int length) {
     }
 
     addNewCutter(&lengthOfFilm);
-    emit(setEndTime(length));
+    emit (setEndTime(length));
+    emit (setMaxValueToSlider(length));
+
 }
 
 void VideoCutterList::onCheckBoxStateChanged(int number) {
