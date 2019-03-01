@@ -31,6 +31,7 @@ private:
     void addNewCutter(QString*);
     Ui::VideoCutterList *ui;
     int countOfVideo;
+    int m_length;
     QVBoxLayout *layout = new QVBoxLayout();
     QList<VideoCutter*> listOfVideoCutterWidgets;
     QString videoFilePath = nullptr;

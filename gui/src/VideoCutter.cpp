@@ -8,17 +8,33 @@
 #include "ui_VideoCutter.h"
 #include "RangeSlider.h"
 
-VideoCutter::VideoCutter(QWidget *parent, int NumberInList, QString endTime, QString VideoFilePath) :
+VideoCutter::VideoCutter(QWidget *parent, int NumberInList, QString endTimeString, int endTimeNumber, QString VideoFilePath) :
     QWidget(parent),
     ui(new Ui::VideoCutter) {
     ui->setupUi(this);
+    m_RangeSlider = new RangeSlider();
+    ui->horizontalLayout_5->addWidget(m_RangeSlider);
     videoFilePath = VideoFilePath;
     numberInList = NumberInList;
-    ui->endTime->setText(endTime);
+    ui->endTime->setText(endTimeString);
+    setMinimumValue(0);
+    setMaximumValue(endTimeNumber);
+    connect(m_RangeSlider,SIGNAL(lowerValueChanged(int)), this, SLOT(onLowerValueChanged(int)));
+    connect(m_RangeSlider,SIGNAL(upperValueChanged(int)), this, SLOT(onUpperValueChanged(int)));
 }
 
 VideoCutter::~VideoCutter() {
     delete ui;
+}
+
+void VideoCutter::setMaximumValue(int max)
+{
+    m_RangeSlider->setMaximum(max);
+}
+
+void VideoCutter::setMinimumValue(int min)
+{
+    m_RangeSlider->setMinimum(min);
 }
 
 
@@ -57,6 +73,18 @@ QString* VideoCutter::getVideoFilePath() {
 void VideoCutter::setNameOfFile(QString filename) {
 
     ui->nameOfFileLabel->setText(filename);
+}
+
+void VideoCutter::onLowerValueChanged(int aLowerValue)
+{
+    lowerValue = aLowerValue;
+    qDebug()<<lowerValue;
+}
+
+void VideoCutter::onUpperValueChanged(int aUpperValue)
+{
+    upperValue = aUpperValue;
+    qDebug()<<upperValue;
 }
 
 

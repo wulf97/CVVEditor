@@ -2,6 +2,7 @@
 #define VIDEOCUTTER_H
 
 #include <QWidget>
+#include <RangeSlider.h>
 
 namespace Ui {
 class VideoCutter;
@@ -11,16 +12,35 @@ class VideoCutter : public QWidget {
     Q_OBJECT
 
 public:
-    explicit VideoCutter(QWidget *parent = nullptr, int numberInList = 0, QString endTime = "00:00", QString videoFilePath = nullptr);
+    explicit VideoCutter(QWidget *parent = nullptr, int numberInList = 0, QString endTimeString = "00:00",int endTimeNumber = 0, QString videoFilePath = nullptr);
     ~VideoCutter();
-    void setNumberInListValue(int);
-    void setCheckBoxValue(bool);
-    int getNumberInListValue();
-    bool getCheckBoxValue();
-    void setNumberLabel(QString);
-    QString *getVideoFilePath();
-    void setNameOfFile(QString);
 
+    void setMaximumValue(int);
+    void getMaximumValue();
+
+    void setMinimumValue(int);
+    void getMinimumValue();
+
+    int getCurrentLeftPosition();
+    void setCurrentLeftPosition();
+
+    //int getCurrentRightPosition();
+    void setCurrentRightPosition();
+
+    void setNumberInListValue(int);
+    int getNumberInListValue();
+
+    void setCheckBoxValue(bool);
+    bool getCheckBoxValue();
+
+    void setNumberLabel(QString);
+
+    QString *getVideoFilePath();
+
+    void setNameOfFile(QString);
+public slots:
+    void onLowerValueChanged(int aLowerValue);
+    void onUpperValueChanged(int aUpperValue);
 signals:
     void uploadVideo(QString*, bool);
     void checkBoxStateChanged(int);
@@ -34,8 +54,11 @@ private slots:
 
 private:
     Ui::VideoCutter *ui;
+    RangeSlider* m_RangeSlider = nullptr;
     QString videoFilePath = nullptr;
     int numberInList = 0;
+    int upperValue = 0;
+    int lowerValue = 0;
 };
 
 #endif // VIDEOCUTTER_H

@@ -75,9 +75,7 @@ void VideoControlBar::setEndTime(int time) {
 }
 
 void VideoControlBar::updateTime(int time) {
-    if (!sliderMove){
-        setSliderPosition(time);
-    }
+    setSliderPosition(time);
     int endTime = m_endTime - time;
     ui->startTime->setText(msecToTime(time));
     ui->endTime->setText(msecToTime(endTime));
@@ -136,12 +134,12 @@ QString VideoControlBar::msecToTime(int time) {
 
 void VideoControlBar::on_slider_sliderReleased()
 {
-    sliderMove = false;
+    //sliderMove = false;
 }
 
 void VideoControlBar::on_slider_valueChanged(int value)
 {
-    sliderMove = true;
+    //sliderMove = true;
     sliderTime = value;
     play();
 }

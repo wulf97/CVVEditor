@@ -30,7 +30,7 @@ void VideoCutterList::videoLen(int length) {
     int seconds;
     int minutes;
     int hours;
-
+    m_length = length;
     QString second;
     QString minute;
     QString hour;
@@ -85,7 +85,7 @@ void VideoCutterList::onCheckBoxStateChanged(int number) {
 void VideoCutterList::addNewCutter(QString *lengthOfFilm) {
     if(lengthOfFilm) {
         countOfVideo++;
-        VideoCutter* m_VideoCutter = new VideoCutter(nullptr, countOfVideo, *lengthOfFilm, videoFilePath);
+        VideoCutter* m_VideoCutter = new VideoCutter(nullptr, countOfVideo, *lengthOfFilm, m_length, videoFilePath);
         m_VideoCutter->setNumberLabel(QString::number(countOfVideo));
         m_VideoCutter->setNumberInListValue(countOfVideo);
         m_VideoCutter->setCheckBoxValue(true);
