@@ -77,6 +77,7 @@ void VideoControlBar::setEndTime(int time) {
 
     m_endTime = time;
     ui->endTime->setText(msecToTime(time - m_startTime));
+    setSliderMaxValue(m_endTime);
 }
 
 void VideoControlBar::updateTime(int time) {
@@ -140,3 +141,4 @@ QString VideoControlBar::msecToTime(int time) {
 void VideoControlBar::sliderMove(int value) {
     emit setTime(value);
 }
+

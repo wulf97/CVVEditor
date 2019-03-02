@@ -35,9 +35,12 @@ public:
 
     void setNumberLabel(QString);
 
+
     QString *getVideoFilePath();
+    int getLengthOfVideo();
 
     void setNameOfFile(QString);
+    void setLenghtOfVideo(int);
 public slots:
     void onLowerValueChanged(int aLowerValue);
     void onUpperValueChanged(int aUpperValue);
@@ -46,6 +49,7 @@ signals:
     void checkBoxStateChanged(int);
     void upBtn(QWidget*,QString);
     void downBtn(QWidget*,QString);
+    void sendLengthOfVideo(int);//отправка длины видео для VideoControlBar
 
 private slots:
     void on_checkBox_stateChanged(int arg1);
@@ -56,6 +60,7 @@ private:
     Ui::VideoCutter *ui;
     RangeSlider* m_RangeSlider = nullptr;
     QString videoFilePath = nullptr;
+    int lengthOfFilm = 0;
     int numberInList = 0;
     int upperValue = 0;
     int lowerValue = 0;

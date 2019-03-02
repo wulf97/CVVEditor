@@ -70,9 +70,19 @@ QString* VideoCutter::getVideoFilePath() {
     return &videoFilePath;
 }
 
+int VideoCutter::getLengthOfVideo()
+{
+    return lengthOfFilm;
+}
+
 void VideoCutter::setNameOfFile(QString filename) {
 
     ui->nameOfFileLabel->setText(filename);
+}
+
+void VideoCutter::setLenghtOfVideo(int length)
+{
+    lengthOfFilm = length;
 }
 
 void VideoCutter::onLowerValueChanged(int aLowerValue)
@@ -92,6 +102,7 @@ void VideoCutter::on_checkBox_stateChanged(int arg1) {
     if(getCheckBoxValue()) {
         emit checkBoxStateChanged(getNumberInListValue());
         emit uploadVideo(getVideoFilePath(), false);
+        emit sendLengthOfVideo(lengthOfFilm);
     }
 }
 

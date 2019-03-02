@@ -44,4 +44,5 @@ private:
     int m_endTime = 0;
 };
 
+
 #endif // VIDEOCONTROLBAR_H

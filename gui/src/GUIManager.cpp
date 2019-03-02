@@ -21,6 +21,7 @@ GUIManager::GUIManager(QObject *parent) : QObject(parent) {
     connect(m_videoCutterList, SIGNAL(uploadVideo(QString*, bool)), SIGNAL(uploadVideo(QString*, bool)));
     connect(m_videoCutterList, SIGNAL(setStartTime(int)), SIGNAL(setStartTime(int)));
     connect(m_videoCutterList, SIGNAL(setEndTime(int)), SIGNAL(setEndTime(int)));
+    connect(m_videoCutterList, SIGNAL(sendLengthOfVideo(int)),m_videoControlBar,SLOT(setEndTime(int)));
 }
 
 void GUIManager::testSignals() {
