@@ -4,8 +4,8 @@
 #include "ui_VideoControlBar.h"
 
 VideoControlBar::VideoControlBar(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::VideoControlBar) {
+                                 QWidget(parent),
+                                 ui(new Ui::VideoControlBar) {
     ui->setupUi(this);
 
     ui->play->setDisabled(true);

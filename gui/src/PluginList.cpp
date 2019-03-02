@@ -6,8 +6,8 @@
 #include "ui_PluginList.h"
 
 PluginList::PluginList(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::PluginList) {
+                       QWidget(parent),
+                       ui(new Ui::PluginList) {
     ui->setupUi(this);
 
     QVBoxLayout *layout = new QVBoxLayout();

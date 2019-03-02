@@ -12,9 +12,8 @@
 #include "Core.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow) {
-
+                       QMainWindow(parent),
+                       ui(new Ui::MainWindow) {
     GUIManager *guiManage = new GUIManager();
     Core *core = new Core();
     /* Получение модулей gui от GUIManager */
@@ -22,6 +21,22 @@ MainWindow::MainWindow(QWidget *parent) :
     VideoControlBar *vControlBar = guiManage->getVideoControlBar();
     VideoCutterList *videoCutterList = guiManage->getVideoCutterList();
     PluginList *pluginList = guiManage->getPluginList();
+
+    /* Меню */
+    QMenu *menuFile = new QMenu("File", this);
+    QMenu *menuVideo = new QMenu("Video", this);
+
+    m_actionNewProject = new QAction("New Project", this);
+    m_actionOpenProject = new QAction("Open Project", this);
+    m_actionOpenRecent = new QAction("Open Recent", this);
+    m_actionSave = new QAction("Save", this);
+    m_actionSaveAs = new QAction("Save As", this);
+
+    m_actionPlay = new QAction("Play", this);
+    m_actionPause = new QAction("Pause", this);
+    m_actionStop = new QAction("Stop", this);
+    m_actionAdd = new QAction("Add new", this);
+    m_actionExport = new QAction("Export", this);
 
     ui->setupUi(this);
 
@@ -48,6 +63,22 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(videoCutterList, SIGNAL(setEndTime(int)), vControlBar, SLOT(setEndTime(int)));
     connect(videoCutterList, SIGNAL(setMaxValueToSlider(int)), vControlBar,SLOT(setSliderMaxValue(int)));
 
+    /* Сигналы меню */
+    connect(m_actionPlay, SIGNAL(triggered(bool)), vControlBar, SIGNAL(playVideo()));
+    connect(m_actionPlay, SIGNAL(triggered(bool)), this, SLOT(play()));
+
+    connect(m_actionPause, SIGNAL(triggered(bool)), vControlBar, SIGNAL(pauseVideo()));
+    connect(m_actionPause, SIGNAL(triggered(bool)), this, SLOT(pause()));
+
+    connect(m_actionStop, SIGNAL(triggered(bool)), vControlBar, SIGNAL(stopVideo()));
+    connect(m_actionStop, SIGNAL(triggered(bool)), this, SLOT(stop()));
+
+    connect(m_actionAdd, SIGNAL(triggered(bool)), videoCutterList, SLOT(getVideoFilePath()));
+
+    connect(vControlBar, SIGNAL(playVideo()), this, SLOT(play()));
+    connect(vControlBar, SIGNAL(pauseVideo()), this, SLOT(pause()));
+    connect(vControlBar, SIGNAL(stopVideo()), this, SLOT(stop()));
+
     /* Проверка работы сигналов */
 //    core->testSignals();
 //    guiManage->testSignals();
@@ -57,8 +88,65 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->topAria->addWidget(vControlBar);
     ui->videoCutterLayout->addWidget(videoCutterList);
     ui->PluginListLayout->addWidget(pluginList);
+
+    /* Компановка меню */
+    ui->menuBar->addMenu(menuFile);
+    menuFile->addAction(m_actionNewProject);
+    menuFile->addAction(m_actionOpenProject);
+    menuFile->addAction(m_actionOpenRecent);
+    menuFile->addSeparator();
+    menuFile->addAction(m_actionSave);
+    menuFile->addAction(m_actionSaveAs);
+
+    m_actionNewProject->setShortcut(QKeySequence("Ctrl+n"));
+    m_actionOpenProject->setShortcut(QKeySequence("Ctrl+o"));
+    m_actionSave->setShortcut(QKeySequence("Ctrl+s"));
+    m_actionSaveAs->setShortcut(QKeySequence("Ctrl+Shift+s"));
+
+    m_actionNewProject->setDisabled(true);
+    m_actionOpenProject->setDisabled(true);
+    m_actionOpenRecent->setDisabled(true);
+    m_actionSave->setDisabled(true);
+    m_actionSaveAs->setDisabled(true);
+
+    ui->menuBar->addMenu(menuVideo);
+    menuVideo->addAction(m_actionPlay);
+    menuVideo->addAction(m_actionPause);
+    menuVideo->addAction(m_actionStop);
+    menuVideo->addSeparator();
+    menuVideo->addAction(m_actionAdd);
+    menuVideo->addAction(m_actionExport);
+
+    m_actionPlay->setShortcut(QKeySequence("Alt+r"));
+    m_actionPause->setShortcut(QKeySequence("Alt+p"));
+    m_actionStop->setShortcut(QKeySequence("Alt+s"));
+    m_actionAdd->setShortcut(QKeySequence("Alt+n"));
+    m_actionExport->setShortcut(QKeySequence("Alt+e"));
+
+    m_actionPlay->setDisabled(true);
+    m_actionPause->setDisabled(true);
+    m_actionStop->setDisabled(true);
+    m_actionExport->setDisabled(true);
 }
 
 MainWindow::~MainWindow() {
     delete ui;
+}
+
+void MainWindow::play() {
+    m_actionPlay->setDisabled(true);
+    m_actionPause->setEnabled(true);
+    m_actionStop->setEnabled(true);
+}
+
+void MainWindow::pause() {
+    m_actionPlay->setEnabled(true);
+    m_actionPause->setDisabled(true);
+    m_actionStop->setEnabled(true);
+}
+
+void MainWindow::stop() {
+    m_actionPlay->setEnabled(true);
+    m_actionPause->setDisabled(true);
+    m_actionStop->setDisabled(true);
 }
