@@ -19,6 +19,7 @@ public:
 
 signals:
     void uploadVideo(QString*, bool);
+    void stopVideo();
     void setStartTime(int);
     void setEndTime(int);
     void setMaxValueToSlider(int length);

@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* Объединение внутренних модулей gui */
     connect(vControlBar, SIGNAL(getVideoFilePath()), videoCutterList, SLOT(getVideoFilePath()));
+    connect(videoCutterList, SIGNAL(stopVideo()), vControlBar, SIGNAL(stopVideo()));
     connect(videoCutterList, SIGNAL(setStartTime(int)), vControlBar, SLOT(setStartTime(int)));
     connect(videoCutterList, SIGNAL(setEndTime(int)), vControlBar, SLOT(setEndTime(int)));
     connect(videoCutterList, SIGNAL(setMaxValueToSlider(int)), vControlBar,SLOT(setSliderMaxValue(int)));

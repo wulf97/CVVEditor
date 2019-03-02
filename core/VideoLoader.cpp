@@ -37,7 +37,7 @@ void VideoLoader::uploadVideo(QString *path, bool fl) {
         m_fps = m_video.get(CAP_PROP_FPS);
 
         if (fl) {
-            emit videoLen(m_video.get(CAP_PROP_FRAME_COUNT)/m_fps*1000);
+            emit videoLen(m_video.get(CAP_PROP_FRAME_COUNT)*1000/m_fps);
         }
 
         update();
@@ -126,6 +126,7 @@ void VideoLoader::update() {
             delete m_frame;
         }
     } else {
+        emit updateTime(0);
         emit stoped();
         m_timer.stop();
     }

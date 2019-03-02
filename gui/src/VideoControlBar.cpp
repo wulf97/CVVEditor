@@ -8,16 +8,20 @@ VideoControlBar::VideoControlBar(QWidget *parent) :
     ui(new Ui::VideoControlBar) {
     ui->setupUi(this);
 
+    ui->play->setDisabled(true);
     ui->pause->setDisabled(true);
+    ui->stop->setDisabled(true);
 
     connect(ui->play, SIGNAL(released()), this, SIGNAL(playVideo()));
     connect(ui->pause, SIGNAL(released()), this, SIGNAL(pauseVideo()));
     connect(ui->stop, SIGNAL(released()), this, SIGNAL(stopVideo()));
     connect(ui->add, SIGNAL(released()), this, SIGNAL(getVideoFilePath()));
+    connect(ui->slider, SIGNAL(sliderMoved(int)), this, SLOT(sliderMove(int)));
 
-    connect(ui->play, SIGNAL(released()), this, SLOT(play()));
-    connect(ui->pause, SIGNAL(released()), this, SLOT(pause()));
-    connect(ui->stop, SIGNAL(released()), this, SLOT(stop()));
+    connect(this, SIGNAL(playVideo()), this, SLOT(play()));
+    connect(this, SIGNAL(pauseVideo()), this, SLOT(pause()));
+    connect(this, SIGNAL(stopVideo()), this, SLOT(stop()));
+
     ui->slider->setValue(0);
 }
 
@@ -35,16 +39,16 @@ void VideoControlBar::testSignals() {
     qDebug() << "***" << endl;
 }
 
-void VideoControlBar::setSliderPosition(int currenTime)
-{
-    ui->slider->setValue((currenTime));
-
+void VideoControlBar::setSliderPosition(int currenTime) {
+    ui->slider->setValue(currenTime);
 }
 
 void VideoControlBar::play() {
-    emit setTime(sliderTime);
     ui->play->setDisabled(true);
     ui->pause->setEnabled(true);
+    ui->stop->setEnabled(true);
+
+//    emit setTime(sliderTime);
 }
 
 void VideoControlBar::pause() {
@@ -55,6 +59,7 @@ void VideoControlBar::pause() {
 void VideoControlBar::stop() {
     ui->play->setEnabled(true);
     ui->pause->setDisabled(true);
+    ui->stop->setDisabled(true);
 }
 
 void VideoControlBar::stoped() {
@@ -75,14 +80,14 @@ void VideoControlBar::setEndTime(int time) {
 }
 
 void VideoControlBar::updateTime(int time) {
-    setSliderPosition(time);
     int endTime = m_endTime - time;
+
+    setSliderPosition(time);
     ui->startTime->setText(msecToTime(time));
     ui->endTime->setText(msecToTime(endTime));
 }
 
-void VideoControlBar::setSliderMaxValue(int)
-{
+void VideoControlBar::setSliderMaxValue(int) {
     ui->slider->setMaximum(m_endTime);
 }
 
@@ -132,14 +137,6 @@ QString VideoControlBar::msecToTime(int time) {
     return lengthOfFilm;
 }
 
-void VideoControlBar::on_slider_sliderReleased()
-{
-    //sliderMove = false;
-}
-
-void VideoControlBar::on_slider_valueChanged(int value)
-{
-    //sliderMove = true;
-    sliderTime = value;
-    play();
+void VideoControlBar::sliderMove(int value) {
+    emit setTime(value);
 }
