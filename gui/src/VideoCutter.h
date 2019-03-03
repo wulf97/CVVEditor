@@ -43,6 +43,7 @@ public:
     void setLenghtOfVideo(int);
 
     bool getValueOfCheckBox();
+    QString videoLen(int);
 public slots:
     void onLowerValueChanged(int aLowerValue);
     void onUpperValueChanged(int aUpperValue);

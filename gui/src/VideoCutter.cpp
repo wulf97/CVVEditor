@@ -94,17 +94,66 @@ bool VideoCutter::getValueOfCheckBox()
     return ui->checkBox->isChecked();
 }
 
+QString VideoCutter::videoLen(int length)
+{
+    int seconds;
+    int minutes;
+    int hours;
+
+    QString second;
+    QString minute;
+    QString hour;
+    QString lengthOfFilm;
+
+    seconds = (length/1000)%60;
+    minutes = ((length/1000)/60)%60;
+    hours = ((length/1000)/60)/60;
+    if(QString::number(seconds).length() == 1) {
+        second = "0" + QString::number(seconds);
+    } else {
+        second = QString::number(seconds);
+    }
+
+    if(QString::number(minutes).length() == 1) {
+        minute = "0" + QString::number(minutes);
+    } else {
+        minute = QString::number(minutes);
+    }
+
+    if(QString::number(hours).length() == 1) {
+        hour = "0" + QString::number(hours);
+    } else {
+        hour = QString::number(hours);
+    }
+
+    if (hours == 0) {
+        if (minutes == 0){
+            lengthOfFilm = "00:00:" + second;
+        } else {
+            lengthOfFilm = "00:" + minute + ':' + second;
+        }
+    } else {
+        lengthOfFilm = hour +':' + minute + ':' + second;
+    }
+
+    return lengthOfFilm;
+
+}
+
 void VideoCutter::onLowerValueChanged(int aLowerValue)
 {
     qDebug() << "Min: " << lowerValue;
     lowerValue = aLowerValue;
+    ui->startTime->setText(videoLen(aLowerValue));
     emit setStartTime(aLowerValue);
+
 }
 
 void VideoCutter::onUpperValueChanged(int aUpperValue)
 {
     qDebug() << "Max: " << upperValue;
     upperValue = aUpperValue;
+    ui->endTime->setText(videoLen(aUpperValue));
     emit setEndTime(aUpperValue);
 }
 
