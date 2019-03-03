@@ -84,6 +84,7 @@ void VideoControlBar::updateTime(int time) {
     int endTime = m_endTime - time;
 
     setSliderPosition(time);
+
     ui->startTime->setText(msecToTime(time));
     ui->endTime->setText(msecToTime(endTime));
 }
@@ -97,6 +98,7 @@ void VideoControlBar::slotSetSliderPosition(int time)
 {
     setTime(time);
     setSliderPosition(time);
+    updateTime(time);
 }
 
 /* Перевод мсек во время ЧЧ:ММ:СС */
@@ -148,5 +150,6 @@ QString VideoControlBar::msecToTime(int time) {
 void VideoControlBar::sliderMove(int value) {
     emit setTime(value);
     emit sendTime (value);
+    updateTime(value);
 }
 

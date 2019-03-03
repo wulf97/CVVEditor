@@ -112,8 +112,9 @@ void VideoCutter::on_checkBox_stateChanged(int arg1) {
     if(getCheckBoxValue()) {
         emit checkBoxStateChanged(getNumberInListValue());
         emit uploadVideo(getVideoFilePath(), false);
-        emit sendCurrentPositionSlider(currentTimeInControlBar);
         emit sendLengthOfVideo(lengthOfFilm);
+        emit sendCurrentPositionSlider(currentTimeInControlBar);
+
     }
 }
 
