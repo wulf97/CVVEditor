@@ -54,11 +54,13 @@ signals:
     void downBtn(QWidget*,QString);
     void sendLengthOfVideo(int);//отправка длины видео для VideoControlBar
     void sendCurrentPositionSlider(int);
+    void sendNumberToDelete(int);
 
 private slots:
     void on_checkBox_stateChanged(int arg1);
     void on_upBtn_clicked();
     void on_downBtn_clicked();
+    void deleteMe();
 
 private:
     Ui::VideoCutter *ui;

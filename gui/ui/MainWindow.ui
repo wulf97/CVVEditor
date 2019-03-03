@@ -71,6 +71,12 @@
                </property>
                <item>
                 <widget class="QScrollArea" name="scrollArea">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>250</height>
+                  </size>
+                 </property>
                  <property name="frameShape">
                   <enum>QFrame::Box</enum>
                  </property>
@@ -83,7 +89,7 @@
                     <x>0</x>
                     <y>0</y>
                     <width>386</width>
-                    <height>512</height>
+                    <height>514</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout">
@@ -141,7 +147,7 @@
              <x>0</x>
              <y>0</y>
              <width>377</width>
-             <height>532</height>
+             <height>535</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -183,7 +189,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

@@ -31,6 +31,7 @@ public slots:
     void onCheckBoxStateChanged(int);
     bool move(QWidget *widget, QString direction);
     void sendCurrentTimeToCutter(int);
+    void deleteVideoCutter(int);
 private:
     void addNewCutter(QString*,int);
     Ui::VideoCutterList *ui;

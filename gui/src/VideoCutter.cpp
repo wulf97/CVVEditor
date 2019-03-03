@@ -21,6 +21,7 @@ VideoCutter::VideoCutter(QWidget *parent, int NumberInList, QString endTimeStrin
     setMaximumValue(endTimeNumber);
     connect(m_RangeSlider,SIGNAL(lowerValueChanged(int)), this, SLOT(onLowerValueChanged(int)));
     connect(m_RangeSlider,SIGNAL(upperValueChanged(int)), this, SLOT(onUpperValueChanged(int)));
+    connect(ui->deleteBtn, SIGNAL(released()), this, SLOT(deleteMe()));
 }
 
 VideoCutter::~VideoCutter() {
@@ -126,4 +127,9 @@ void VideoCutter::on_upBtn_clicked()
 void VideoCutter::on_downBtn_clicked()
 {
     emit downBtn(this,"MoveDown");
+}
+
+void VideoCutter::deleteMe()
+{
+    emit (sendNumberToDelete(getNumberInListValue()));
 }

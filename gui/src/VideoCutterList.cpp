@@ -2,6 +2,7 @@
 #include <QLayout>
 #include <QPushButton>
 #include <QFileDialog>
+#include <QMessageBox>
 
 #include "VideoCutterList.h"
 #include "ui_VideoCutterList.h"
@@ -104,6 +105,8 @@ void VideoCutterList::addNewCutter(QString *lengthOfFilm, int time) {
         connect(m_VideoCutter, SIGNAL(downBtn(QWidget*,QString)), this, SLOT(move(QWidget*,QString)));
         connect(m_VideoCutter, SIGNAL(sendLengthOfVideo(int)), this, SIGNAL(sendLengthOfVideo(int)));
         connect(m_VideoCutter, SIGNAL(sendCurrentPositionSlider(int)), this, SIGNAL(sendCurrentPositionSlider(int)));
+        connect(m_VideoCutter, SIGNAL(sendNumberToDelete(int)), this, SLOT(deleteVideoCutter(int)));
+
 
         layout->addWidget(m_VideoCutter);
         this->setLayout(layout);
@@ -152,5 +155,40 @@ void VideoCutterList::sendCurrentTimeToCutter(int time)
             p->rememberCurrentTimeOfVideo(time);
         }
     }
+
+}
+
+void VideoCutterList::deleteVideoCutter(int number)
+{
+    for(auto i : listOfVideoCutterWidgets) {
+        VideoCutter* p = dynamic_cast<VideoCutter*>(i);
+        if(p->getNumberInListValue() == number) {
+            if(p->getCheckBoxValue()) {
+                QMessageBox messageBox;
+                messageBox.critical(0,"Ошибка","Невозможно удалить данное видео (уберите галочку)");
+                messageBox.setFixedSize(500,200);
+            } else {
+                delete p;
+                listOfVideoCutterWidgets.removeOne(p);
+                countOfVideo--;
+            }
+        }
+    }
+
+    if(!listOfVideoCutterWidgets.empty()){
+        if(listOfVideoCutterWidgets[0]->getNumberInListValue() != 1){
+            listOfVideoCutterWidgets[0]->setNumberInListValue(1);
+            listOfVideoCutterWidgets[0]->setNumberLabel("1");
+        }
+        for (int i = 0; i < listOfVideoCutterWidgets.size(); i++) {
+            if(i != 0){
+                if((listOfVideoCutterWidgets[i]->getNumberInListValue() - listOfVideoCutterWidgets[i-1]->getNumberInListValue()) != 1){
+                    listOfVideoCutterWidgets[i]->setNumberInListValue(listOfVideoCutterWidgets[i]->getNumberInListValue() - 1);
+                    listOfVideoCutterWidgets[i]->setNumberLabel(QString::number(listOfVideoCutterWidgets[i]->getNumberInListValue()));
+                }
+            }
+        }
+    }
+
 
 }
