@@ -104,6 +104,7 @@ void VideoLoader::setStartTime(int time) {
     qDebug() << "slot: setStartTime(int)" << endl;
 
     m_mStartTime = time;
+    m_video.set(CAP_PROP_POS_MSEC, time);
 }
 
 /* Установить конечное время в мсек */
@@ -118,14 +119,16 @@ void VideoLoader::update() {
     Mat frame;
 
     if (m_video.isOpened()) {
-        m_video >> frame;
-        if (!frame.empty()) {
-            cvtColor(frame, frame, CV_BGR2RGB);
-            m_frame = new QImage(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
-            m_mTime = m_video.get(CAP_PROP_POS_MSEC);
-            emit updateFrame(m_frame);
-            emit updateTime(m_mTime);
-            delete m_frame;
+        if (m_mTime < m_mEndTime) {
+            m_video >> frame;
+            if (!frame.empty()) {
+                cvtColor(frame, frame, CV_BGR2RGB);
+                m_frame = new QImage(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
+                m_mTime = m_video.get(CAP_PROP_POS_MSEC);
+                emit updateFrame(m_frame);
+                emit updateTime(m_mTime - m_mStartTime);
+                delete m_frame;
+            }
         }
     } else {
         emit updateTime(0);

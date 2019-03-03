@@ -49,6 +49,8 @@ public slots:
     void rememberCurrentTimeOfVideo(int);
 signals:
     void uploadVideo(QString*, bool);
+    void setStartTime(int);
+    void setEndTime(int);
     void checkBoxStateChanged(int);
     void upBtn(QWidget*,QString);
     void downBtn(QWidget*,QString);

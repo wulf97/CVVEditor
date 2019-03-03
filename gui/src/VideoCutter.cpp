@@ -19,8 +19,11 @@ VideoCutter::VideoCutter(QWidget *parent, int NumberInList, QString endTimeStrin
     ui->endTime->setText(endTimeString);
     setMinimumValue(0);
     setMaximumValue(endTimeNumber);
+
     connect(m_RangeSlider,SIGNAL(lowerValueChanged(int)), this, SLOT(onLowerValueChanged(int)));
     connect(m_RangeSlider,SIGNAL(upperValueChanged(int)), this, SLOT(onUpperValueChanged(int)));
+    connect(this, SIGNAL(setStartTime(int)), parent, SIGNAL(setStartTime(int)));
+    connect(this, SIGNAL(setEndTime(int)), parent, SIGNAL(setEndTime(int)));
 }
 
 VideoCutter::~VideoCutter() {
@@ -92,14 +95,16 @@ bool VideoCutter::getValueOfCheckBox()
 
 void VideoCutter::onLowerValueChanged(int aLowerValue)
 {
+    qDebug() << "Min: " << lowerValue;
     lowerValue = aLowerValue;
-    qDebug()<<lowerValue;
+    emit setStartTime(aLowerValue);
 }
 
 void VideoCutter::onUpperValueChanged(int aUpperValue)
 {
+    qDebug() << "Max: " << upperValue;
     upperValue = aUpperValue;
-    qDebug()<<upperValue;
+    emit setEndTime(aUpperValue);
 }
 
 void VideoCutter::rememberCurrentTimeOfVideo(int time)
