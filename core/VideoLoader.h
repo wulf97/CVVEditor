@@ -19,6 +19,8 @@ public:
 public slots:
     /* Загрузить видео */
     void uploadVideo(QString*, bool);
+    /* Выгрузка видео */
+    void unloadVideo();
     /* Начать отправку кадров */
     void playVideo();
     /* Останавливить отправку кадров и сбрасить счетчик кадров */

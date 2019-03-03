@@ -88,8 +88,8 @@ void VideoControlBar::updateTime(int time) {
     ui->endTime->setText(msecToTime(endTime));
 }
 
-void VideoControlBar::setSliderMaxValue(int) {
-    ui->slider->setMaximum(m_endTime);
+void VideoControlBar::setSliderMaxValue(int len) {
+    ui->slider->setMaximum(len);
 }
 
 
