@@ -41,15 +41,19 @@ public:
 
     void setNameOfFile(QString);
     void setLenghtOfVideo(int);
+
+    bool getValueOfCheckBox();
 public slots:
     void onLowerValueChanged(int aLowerValue);
     void onUpperValueChanged(int aUpperValue);
+    void rememberCurrentTimeOfVideo(int);
 signals:
     void uploadVideo(QString*, bool);
     void checkBoxStateChanged(int);
     void upBtn(QWidget*,QString);
     void downBtn(QWidget*,QString);
     void sendLengthOfVideo(int);//отправка длины видео для VideoControlBar
+    void sendCurrentPositionSlider(int);
 
 private slots:
     void on_checkBox_stateChanged(int arg1);
@@ -64,6 +68,7 @@ private:
     int numberInList = 0;
     int upperValue = 0;
     int lowerValue = 0;
+    int currentTimeInControlBar = 0;
 };
 
 #endif // VIDEOCUTTER_H

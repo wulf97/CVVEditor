@@ -92,6 +92,13 @@ void VideoControlBar::setSliderMaxValue(int) {
     ui->slider->setMaximum(m_endTime);
 }
 
+
+void VideoControlBar::slotSetSliderPosition(int time)
+{
+    setTime(time);
+    setSliderPosition(time);
+}
+
 /* Перевод мсек во время ЧЧ:ММ:СС */
 QString VideoControlBar::msecToTime(int time) {
     int seconds;
@@ -140,5 +147,6 @@ QString VideoControlBar::msecToTime(int time) {
 
 void VideoControlBar::sliderMove(int value) {
     emit setTime(value);
+    emit sendTime (value);
 }
 

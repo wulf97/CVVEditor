@@ -17,11 +17,17 @@ GUIManager::GUIManager(QObject *parent) : QObject(parent) {
     connect(m_videoControlBar, SIGNAL(stopVideo()), SIGNAL(stopVideo()));
     connect(m_videoControlBar, SIGNAL(pauseVideo()), SIGNAL(pauseVideo()));
     connect(m_videoControlBar, SIGNAL(setTime(int)), SIGNAL(setTime(int)));
+    connect(m_videoControlBar, SIGNAL(sendTime(int)), m_videoCutterList, SLOT(sendCurrentTimeToCutter(int)));
 
     connect(m_videoCutterList, SIGNAL(uploadVideo(QString*, bool)), SIGNAL(uploadVideo(QString*, bool)));
     connect(m_videoCutterList, SIGNAL(setStartTime(int)), SIGNAL(setStartTime(int)));
     connect(m_videoCutterList, SIGNAL(setEndTime(int)), SIGNAL(setEndTime(int)));
     connect(m_videoCutterList, SIGNAL(sendLengthOfVideo(int)),m_videoControlBar,SLOT(setEndTime(int)));
+    connect(m_videoCutterList, SIGNAL(sendCurrentPositionSlider(int)),m_videoControlBar,SLOT(slotSetSliderPosition(int)));
+
+
+
+
 }
 
 void GUIManager::testSignals() {

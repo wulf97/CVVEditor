@@ -85,6 +85,11 @@ void VideoCutter::setLenghtOfVideo(int length)
     lengthOfFilm = length;
 }
 
+bool VideoCutter::getValueOfCheckBox()
+{
+    return ui->checkBox->isChecked();
+}
+
 void VideoCutter::onLowerValueChanged(int aLowerValue)
 {
     lowerValue = aLowerValue;
@@ -97,11 +102,17 @@ void VideoCutter::onUpperValueChanged(int aUpperValue)
     qDebug()<<upperValue;
 }
 
+void VideoCutter::rememberCurrentTimeOfVideo(int time)
+{
+    currentTimeInControlBar = time;
+}
+
 
 void VideoCutter::on_checkBox_stateChanged(int arg1) {
     if(getCheckBoxValue()) {
         emit checkBoxStateChanged(getNumberInListValue());
         emit uploadVideo(getVideoFilePath(), false);
+        emit sendCurrentPositionSlider(currentTimeInControlBar);
         emit sendLengthOfVideo(lengthOfFilm);
     }
 }

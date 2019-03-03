@@ -25,12 +25,14 @@ public slots:
     void setEndTime(int);
     void updateTime(int);
     void setSliderMaxValue(int);
+    void slotSetSliderPosition(int);
 signals:
     /* Сигналы для для внешних модулей */
     void playVideo();
     void stopVideo();
     void pauseVideo();
     void setTime(int);
+    void sendTime(int);
 
     /* Сигналы для внутренних модулей */
     void getVideoFilePath();

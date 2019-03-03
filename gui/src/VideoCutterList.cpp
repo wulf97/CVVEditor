@@ -103,6 +103,7 @@ void VideoCutterList::addNewCutter(QString *lengthOfFilm, int time) {
         connect(m_VideoCutter, SIGNAL(upBtn(QWidget*,QString)), this, SLOT(move(QWidget*,QString)));
         connect(m_VideoCutter, SIGNAL(downBtn(QWidget*,QString)), this, SLOT(move(QWidget*,QString)));
         connect(m_VideoCutter, SIGNAL(sendLengthOfVideo(int)), this, SIGNAL(sendLengthOfVideo(int)));
+        connect(m_VideoCutter, SIGNAL(sendCurrentPositionSlider(int)), this, SIGNAL(sendCurrentPositionSlider(int)));
 
         layout->addWidget(m_VideoCutter);
         this->setLayout(layout);
@@ -141,4 +142,15 @@ bool VideoCutterList::move(QWidget *widget, QString direction)
     }
 
     return true;
+}
+
+void VideoCutterList::sendCurrentTimeToCutter(int time)
+{
+    for(auto i : listOfVideoCutterWidgets) {
+        VideoCutter* p = dynamic_cast<VideoCutter*>(i);
+        if(p->getValueOfCheckBox()) {
+            p->rememberCurrentTimeOfVideo(time);
+        }
+    }
+
 }

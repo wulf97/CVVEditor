@@ -24,11 +24,13 @@ signals:
     void setEndTime(int);
     void setMaxValueToSlider(int length);
     void sendLengthOfVideo(int);//отправка длины видео для VideoControlBar
+    void sendCurrentPositionSlider(int);
 public slots:
     void getVideoFilePath();
     void videoLen(int);
     void onCheckBoxStateChanged(int);
     bool move(QWidget *widget, QString direction);
+    void sendCurrentTimeToCutter(int);
 private:
     void addNewCutter(QString*,int);
     Ui::VideoCutterList *ui;
