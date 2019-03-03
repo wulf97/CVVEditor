@@ -19,6 +19,7 @@ public:
 
 signals:
     void uploadVideo(QString*, bool);
+    void unloadVideo();
     void stopVideo();
     void setStartTime(int);
     void setEndTime(int);

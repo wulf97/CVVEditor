@@ -30,6 +30,7 @@ signals:
 
     /* Сигналы для внешних модулей */
     void uploadVideo(QString*, bool);
+    void unloadVideo();
     void playVideo();
     void stopVideo();
     void pauseVideo();

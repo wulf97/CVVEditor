@@ -55,7 +55,10 @@ void VideoLoader::uploadVideo(QString *path, bool fl) {
 void VideoLoader::unloadVideo() {
     qDebug() << "slot: unloadVideo()" << endl;
 
+    m_isOpened = false;
 
+    m_timer.stop();
+    m_video.release();
 }
 
 /* Начинает отправку кадров */
