@@ -7,6 +7,7 @@ Core::Core(QObject *parent) : QObject(parent) {
 
     /* Проброс сигналов к модулям Core */
     connect(this, SIGNAL(uploadVideo(QString*, bool)), m_VLoader, SLOT(uploadVideo(QString*, bool)));
+    connect(this, SIGNAL(unloadVideo()), m_VLoader, SLOT(unloadVideo()));
     connect(this, SIGNAL(playVideo()), m_VLoader, SLOT(playVideo()));
     connect(this, SIGNAL(stopVideo()), m_VLoader, SLOT(stopVideo()));
     connect(this, SIGNAL(pauseVideo()), m_VLoader, SLOT(pauseVideo()));

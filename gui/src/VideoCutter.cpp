@@ -22,6 +22,7 @@ VideoCutter::VideoCutter(QWidget *parent, int NumberInList, QString endTimeStrin
 
     connect(m_RangeSlider,SIGNAL(lowerValueChanged(int)), this, SLOT(onLowerValueChanged(int)));
     connect(m_RangeSlider,SIGNAL(upperValueChanged(int)), this, SLOT(onUpperValueChanged(int)));
+    connect(ui->deleteBtn, SIGNAL(released()), this, SLOT(deleteMe()));
     connect(this, SIGNAL(setStartTime(int)), parent, SIGNAL(setStartTime(int)));
     connect(this, SIGNAL(setEndTime(int)), parent, SIGNAL(setEndTime(int)));
 }
@@ -117,8 +118,9 @@ void VideoCutter::on_checkBox_stateChanged(int arg1) {
     if(getCheckBoxValue()) {
         emit checkBoxStateChanged(getNumberInListValue());
         emit uploadVideo(getVideoFilePath(), false);
-        emit sendCurrentPositionSlider(currentTimeInControlBar);
         emit sendLengthOfVideo(lengthOfFilm);
+        emit sendCurrentPositionSlider(currentTimeInControlBar);
+
     }
 }
 
@@ -130,4 +132,9 @@ void VideoCutter::on_upBtn_clicked()
 void VideoCutter::on_downBtn_clicked()
 {
     emit downBtn(this,"MoveDown");
+}
+
+void VideoCutter::deleteMe()
+{
+    emit (sendNumberToDelete(getNumberInListValue()));
 }

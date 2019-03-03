@@ -19,6 +19,7 @@ public:
 
 signals:
     void uploadVideo(QString*, bool);
+    void unloadVideo();
     void stopVideo();
     void setStartTime(int);
     void setEndTime(int);
@@ -31,6 +32,7 @@ public slots:
     void onCheckBoxStateChanged(int);
     bool move(QWidget *widget, QString direction);
     void sendCurrentTimeToCutter(int);
+    void deleteVideoCutter(int);
 private:
     void addNewCutter(QString*,int);
     Ui::VideoCutterList *ui;

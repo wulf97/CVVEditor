@@ -20,10 +20,11 @@ GUIManager::GUIManager(QObject *parent) : QObject(parent) {
     connect(m_videoControlBar, SIGNAL(sendTime(int)), m_videoCutterList, SLOT(sendCurrentTimeToCutter(int)));
 
     connect(m_videoCutterList, SIGNAL(uploadVideo(QString*, bool)), SIGNAL(uploadVideo(QString*, bool)));
+    connect(m_videoCutterList, SIGNAL(unloadVideo()), SIGNAL(unloadVideo()));
     connect(m_videoCutterList, SIGNAL(setStartTime(int)), SIGNAL(setStartTime(int)));
     connect(m_videoCutterList, SIGNAL(setEndTime(int)), SIGNAL(setEndTime(int)));
-    connect(m_videoCutterList, SIGNAL(sendLengthOfVideo(int)),m_videoControlBar,SLOT(setEndTime(int)));
-    connect(m_videoCutterList, SIGNAL(sendCurrentPositionSlider(int)),m_videoControlBar,SLOT(slotSetSliderPosition(int)));
+    connect(m_videoCutterList, SIGNAL(sendLengthOfVideo(int)), m_videoControlBar, SLOT(setEndTime(int)));
+    connect(m_videoCutterList, SIGNAL(sendCurrentPositionSlider(int)), m_videoControlBar, SLOT(slotSetSliderPosition(int)));
 
 
 

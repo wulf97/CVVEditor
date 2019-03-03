@@ -7,5 +7,6 @@
         <file>res/img/plus.png</file>
         <file>res/img/down.png</file>
         <file>res/img/up.png</file>
+        <file>res/img/delete.png</file>
     </qresource>
 </RCC>

@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Объединение Core и GUIManager */
     /* Отправка сигналов */
     connect(guiManage, SIGNAL(uploadVideo(QString*, bool)), core, SIGNAL(uploadVideo(QString*, bool)));
+    connect(guiManage, SIGNAL(unloadVideo()), core, SIGNAL(unloadVideo()));
     connect(guiManage, SIGNAL(playVideo()), core, SIGNAL(playVideo()));
     connect(guiManage, SIGNAL(stopVideo()), core, SIGNAL(stopVideo()));
     connect(guiManage, SIGNAL(pauseVideo()), core, SIGNAL(pauseVideo()));
@@ -62,6 +63,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(videoCutterList, SIGNAL(setStartTime(int)), vControlBar, SLOT(setStartTime(int)));
     connect(videoCutterList, SIGNAL(setEndTime(int)), vControlBar, SLOT(setEndTime(int)));
     connect(videoCutterList, SIGNAL(setMaxValueToSlider(int)), vControlBar,SLOT(setSliderMaxValue(int)));
+    connect(videoCutterList, SIGNAL(unloadVideo()), vControlBar, SLOT(unloadVideo()));
 
     /* Сигналы меню */
     connect(m_actionPlay, SIGNAL(triggered(bool)), vControlBar, SIGNAL(playVideo()));
@@ -78,6 +80,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(vControlBar, SIGNAL(playVideo()), this, SLOT(play()));
     connect(vControlBar, SIGNAL(pauseVideo()), this, SLOT(pause()));
     connect(vControlBar, SIGNAL(stopVideo()), this, SLOT(stop()));
+    connect(videoCutterList, SIGNAL(unloadVideo()), this, SLOT(unloadVideo()));
 
     /* Проверка работы сигналов */
 //    core->testSignals();
@@ -147,6 +150,12 @@ void MainWindow::pause() {
 
 void MainWindow::stop() {
     m_actionPlay->setEnabled(true);
+    m_actionPause->setDisabled(true);
+    m_actionStop->setDisabled(true);
+}
+
+void MainWindow::unloadVideo() {
+    m_actionPlay->setDisabled(true);
     m_actionPause->setDisabled(true);
     m_actionStop->setDisabled(true);
 }

@@ -51,6 +51,16 @@ void VideoLoader::uploadVideo(QString *path, bool fl) {
     }
 }
 
+/* Выгрузка видео */
+void VideoLoader::unloadVideo() {
+    qDebug() << "slot: unloadVideo()" << endl;
+
+    m_isOpened = false;
+
+    m_timer.stop();
+    m_video.release();
+}
+
 /* Начинает отправку кадров */
 void VideoLoader::playVideo() {
     qDebug() << "slot: playVideo()" << endl;

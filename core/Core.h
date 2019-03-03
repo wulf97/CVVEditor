@@ -14,6 +14,7 @@ public:
 signals:
     /* Сигналы для внутренних модулей */
     void uploadVideo(QString*, bool);
+    void unloadVideo();
     void playVideo();
     void stopVideo();
     void pauseVideo();

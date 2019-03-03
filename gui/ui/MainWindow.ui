@@ -71,11 +71,20 @@
                </property>
                <item>
                 <widget class="QScrollArea" name="scrollArea">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>0</height>
+                  </size>
+                 </property>
                  <property name="frameShape">
                   <enum>QFrame::Box</enum>
                  </property>
                  <property name="widgetResizable">
                   <bool>true</bool>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                  </property>
                  <widget class="QWidget" name="scrollAreaWidgetContents">
                   <property name="geometry">
@@ -83,7 +92,7 @@
                     <x>0</x>
                     <y>0</y>
                     <width>386</width>
-                    <height>512</height>
+                    <height>522</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout">
@@ -103,10 +112,26 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <layout class="QVBoxLayout" name="videoCutterLayout">
+                    <layout class="QVBoxLayout" name="layout">
                      <property name="spacing">
                       <number>0</number>
                      </property>
+                     <item>
+                      <layout class="QVBoxLayout" name="videoCutterLayout"/>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
                     </layout>
                    </item>
                   </layout>
@@ -134,6 +159,9 @@
           </property>
           <property name="widgetResizable">
            <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
           </property>
           <widget class="QWidget" name="scrollAreaWidgetContents_2">
            <property name="geometry">

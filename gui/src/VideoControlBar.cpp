@@ -69,6 +69,7 @@ void VideoControlBar::setStartTime(int time) {
 
     m_startTime = time;
     setSliderMaxValue(m_endTime - m_startTime);
+    emit stopVideo();
 }
 
 void VideoControlBar::setEndTime(int time) {
@@ -77,25 +78,36 @@ void VideoControlBar::setEndTime(int time) {
     m_endTime = time;
     ui->endTime->setText(msecToTime(time - m_startTime));
     setSliderMaxValue(m_endTime - m_startTime);
+    emit pauseVideo();
 }
 
 void VideoControlBar::updateTime(int time) {
-    int endTime = m_endTime - time;
+    int endTime = m_endTime - m_startTime - time;
 
     setSliderPosition(time);
+
     ui->startTime->setText(msecToTime(time));
     ui->endTime->setText(msecToTime(endTime));
 }
 
-void VideoControlBar::setSliderMaxValue(int) {
-    ui->slider->setMaximum(m_endTime);
+void VideoControlBar::unloadVideo() {
+    ui->play->setDisabled(true);
+    ui->pause->setDisabled(true);
+    ui->stop->setDisabled(true);
+    ui->startTime->setText(msecToTime(0));
+    ui->endTime->setText(msecToTime(0));
+    setSliderMaxValue(0);
+}
+
+void VideoControlBar::setSliderMaxValue(int len) {
+    ui->slider->setMaximum(len);
 }
 
 
-void VideoControlBar::slotSetSliderPosition(int time)
-{
+void VideoControlBar::slotSetSliderPosition(int time) {
     setTime(time);
     setSliderPosition(time);
+    updateTime(time);
 }
 
 /* Перевод мсек во время ЧЧ:ММ:СС */
@@ -147,5 +159,6 @@ QString VideoControlBar::msecToTime(int time) {
 void VideoControlBar::sliderMove(int value) {
     emit setTime(value);
     emit sendTime (value);
+    updateTime(value);
 }
 

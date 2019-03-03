@@ -167,6 +167,23 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="deleteBtn">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../res.qrc">
+         <normaloff>:/res/img/delete.png</normaloff>:/res/img/delete.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>
