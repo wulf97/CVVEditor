@@ -171,8 +171,13 @@ void VideoCutterList::deleteVideoCutter(int number)
                 delete p;
                 listOfVideoCutterWidgets.removeOne(p);
                 countOfVideo--;
+
                 emit stopVideo();
-                emit unloadVideo();
+                if (listOfVideoCutterWidgets.isEmpty()) {
+                    emit unloadVideo();
+                } else {
+                    emit uploadVideo(listOfVideoCutterWidgets[0]->getVideoFilePath(), false);
+                }
             }
         }
     }
