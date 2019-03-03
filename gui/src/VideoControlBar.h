@@ -24,6 +24,7 @@ public slots:
     void setStartTime(int);
     void setEndTime(int);
     void updateTime(int);
+    void unloadVideo();
     void setSliderMaxValue(int);
     void slotSetSliderPosition(int);
 signals:

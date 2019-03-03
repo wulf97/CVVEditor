@@ -90,6 +90,15 @@ void VideoControlBar::updateTime(int time) {
     ui->endTime->setText(msecToTime(endTime));
 }
 
+void VideoControlBar::unloadVideo() {
+    ui->play->setDisabled(true);
+    ui->pause->setDisabled(true);
+    ui->stop->setDisabled(true);
+    ui->startTime->setText(msecToTime(0));
+    ui->endTime->setText(msecToTime(0));
+    setSliderMaxValue(0);
+}
+
 void VideoControlBar::setSliderMaxValue(int len) {
     ui->slider->setMaximum(len);
 }
