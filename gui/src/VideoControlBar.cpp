@@ -69,6 +69,7 @@ void VideoControlBar::setStartTime(int time) {
 
     m_startTime = time;
     setSliderMaxValue(m_endTime - m_startTime);
+    emit stopVideo();
 }
 
 void VideoControlBar::setEndTime(int time) {
@@ -77,10 +78,11 @@ void VideoControlBar::setEndTime(int time) {
     m_endTime = time;
     ui->endTime->setText(msecToTime(time - m_startTime));
     setSliderMaxValue(m_endTime - m_startTime);
+    emit pauseVideo();
 }
 
 void VideoControlBar::updateTime(int time) {
-    int endTime = m_endTime - time;
+    int endTime = m_endTime - m_startTime - time;
 
     setSliderPosition(time);
 
@@ -93,8 +95,7 @@ void VideoControlBar::setSliderMaxValue(int len) {
 }
 
 
-void VideoControlBar::slotSetSliderPosition(int time)
-{
+void VideoControlBar::slotSetSliderPosition(int time) {
     setTime(time);
     setSliderPosition(time);
     updateTime(time);
