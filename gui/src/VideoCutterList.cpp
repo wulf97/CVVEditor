@@ -76,13 +76,30 @@ void VideoCutterList::videoLen(int length) {
 }
 
 void VideoCutterList::onCheckBoxStateChanged(int number) {
+    bool checkALLCheckBox = false;
     for(auto i : listOfVideoCutterWidgets) {
         VideoCutter* p = dynamic_cast<VideoCutter*>(i);
         if(number != p->getNumberInListValue()) {
             p->setCheckBoxValue(false);
             emit stopVideo();
         }
+        if(p->getCheckBoxValue() == false) {
+            continue;
+        } else {
+            checkALLCheckBox = true;
+        }
     }
+
+    if(!checkALLCheckBox) {
+        emit clearSeq();
+        for(auto i : listOfVideoCutterWidgets) {
+            VideoCutter* p = dynamic_cast<VideoCutter*>(i);
+            emit addToSeq(*(p->getVideoFilePath()),p->getMinimumValue(),p->getMaximumValue());
+        }
+        emit loadSeq();
+        emit Set
+    }
+
 }
 
 void VideoCutterList::addNewCutter(QString *lengthOfFilm, int time) {
