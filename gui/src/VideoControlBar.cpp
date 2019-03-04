@@ -105,7 +105,7 @@ void VideoControlBar::setSliderMaxValue(int len) {
 
 
 void VideoControlBar::slotSetSliderPosition(int time) {
-    setTime(time);
+    emit setTime(time);
     setSliderPosition(time);
     updateTime(time);
 }

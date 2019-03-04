@@ -105,8 +105,8 @@ void VideoLoader::pauseVideo() {
 void VideoLoader::setTime(int time) {
     qDebug() << "slot: setTime(int)" << endl;
 
-    m_mTime = time;
-    m_video.set(CAP_PROP_POS_MSEC, time);
+    m_mTime = time + m_mStartTime;
+    m_video.set(CAP_PROP_POS_MSEC, m_mTime);
 }
 
 /* Установить начальное время в мсек */
