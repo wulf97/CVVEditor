@@ -92,12 +92,15 @@ void VideoCutterList::onCheckBoxStateChanged(int number) {
 
     if(!checkALLCheckBox) {
         emit clearSeq();
+        int endTime = 0;
         for(auto i : listOfVideoCutterWidgets) {
             VideoCutter* p = dynamic_cast<VideoCutter*>(i);
+            endTime += (p->getMaximumValue() - p->getMinimumValue());
             emit addToSeq(*(p->getVideoFilePath()),p->getMinimumValue(),p->getMaximumValue());
         }
         emit loadSeq();
-        emit Set
+        emit setStartTime(0);
+        emit setEndTime(endTime);
     }
 
 }

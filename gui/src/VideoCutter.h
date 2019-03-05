@@ -16,10 +16,10 @@ public:
     ~VideoCutter();
 
     void setMaximumValue(int);
-    void getMaximumValue();
+    int getMaximumValue();
 
     void setMinimumValue(int);
-    void getMinimumValue();
+    int getMinimumValue();
 
     int getCurrentLeftPosition();
     void setCurrentLeftPosition();
