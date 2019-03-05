@@ -37,9 +37,19 @@ void VideoCutter::setMaximumValue(int max)
     upperValue = max;
 }
 
+int VideoCutter::getMaximumValue()
+{
+    return upperValue;
+}
+
 void VideoCutter::setMinimumValue(int min)
 {
     m_RangeSlider->setMinimum(min);
+}
+
+int VideoCutter::getMinimumValue()
+{
+    return lowerValue;
 }
 
 

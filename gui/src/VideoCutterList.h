@@ -26,9 +26,10 @@ signals:
     void setMaxValueToSlider(int length);
     void sendLengthOfVideo(int);//отправка длины видео для VideoControlBar
     void sendCurrentPositionSlider(int);
+    void addToSeq(QString, int, int);
     void clearSeq();
-    void addToSeq(QString,int,int);
     void loadSeq();
+    void unloadSeq();
 public slots:
     void getVideoFilePath();
     void videoLen(int);

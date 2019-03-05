@@ -12,11 +12,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Core.cpp \
     PluginManager.cpp \
-    VideoLoader.cpp
+    VideoLoader.cpp \
+    VideoSeq.cpp
 
 HEADERS += \
     Core.h \
     PluginManager.h \
-    VideoLoader.h
+    VideoLoader.h \
+    VideoSeq.h
 
 message("Build core")
