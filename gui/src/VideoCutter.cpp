@@ -175,8 +175,8 @@ void VideoCutter::rememberCurrentTimeOfVideo(int time)
 
 
 void VideoCutter::on_checkBox_stateChanged(int arg1) {
-    if(getCheckBoxValue()) {
-        emit checkBoxStateChanged(getNumberInListValue());
+    emit checkBoxStateChanged(getNumberInListValue());
+    if (getCheckBoxValue()) {
         emit uploadVideo(getVideoFilePath(), false);
         emit sendLengthOfVideo(lengthOfFilm);
         emit sendCurrentPositionSlider(currentTimeInControlBar);

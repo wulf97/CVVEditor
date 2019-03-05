@@ -12,6 +12,8 @@ public:
     Core(QObject *parent = nullptr);
 
     void testSignals();
+    VideoLoader *getVideoLoader();
+    VideoSeq *getVideoSeq();
 signals:
     /* Сигналы для внутренних модулей */
     void uploadVideo(QString*, bool);
@@ -25,12 +27,14 @@ signals:
     void addToSeq(QString, int, int);
     void clearSeq();
     void loadSeq();
+    void unloadSeq();
 
     /* Сигналы для внешних модулей */
     void videoLen(int);
     void updateFrame(QImage*);
     void stoped();
     void updateTime(int);
+    void ended();
 private:
     VideoLoader *m_VLoader = nullptr;
     VideoSeq *m_VSeq = nullptr;

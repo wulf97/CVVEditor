@@ -37,6 +37,10 @@ signals:
     void setTime(int);
     void setStartTime(int);
     void setEndTime(int);
+    void addToSeq(QString, int, int);
+    void clearSeq();
+    void loadSeq();
+    void unloadSeq();
 private:
     Viewport *m_viewport;
     VideoControlBar *m_videoControlBar;

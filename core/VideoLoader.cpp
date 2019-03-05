@@ -139,6 +139,9 @@ void VideoLoader::update() {
                 emit updateTime(m_mTime - m_mStartTime);
                 delete m_frame;
             }
+        } else {
+            emit stoped();
+            emit ended();
         }
     } else {
         emit updateTime(0);

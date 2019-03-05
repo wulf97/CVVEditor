@@ -37,7 +37,7 @@ signals:
     /* Метод для отлавливания ошибок */
     void error(int);
 
-    /* Передать длину видео в кадрах */
+    /* Передать длину видео в мсек */
     void videoLen(int);
     /* Передать кадр  */
     void updateFrame(QImage*);
@@ -46,6 +46,8 @@ signals:
     void stoped();
     /* Передает текущее время в мсек */
     void updateTime(int);
+    /* */
+    void ended();
 private slots:
     void update();
 private:

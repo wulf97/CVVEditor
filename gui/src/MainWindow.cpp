@@ -50,6 +50,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(guiManage, SIGNAL(setTime(int)), core, SIGNAL(setTime(int)));
     connect(guiManage, SIGNAL(setStartTime(int)), core, SIGNAL(setStartTime(int)));
     connect(guiManage, SIGNAL(setEndTime(int)), core, SIGNAL(setEndTime(int)));
+    connect(guiManage, SIGNAL(addToSeq(QString,int,int)), core, SIGNAL(addToSeq(QString,int,int)));
+    connect(guiManage, SIGNAL(clearSeq()), core, SIGNAL(clearSeq()));
+    connect(guiManage, SIGNAL(loadSeq()), core, SIGNAL(loadSeq()));
+    connect(guiManage, SIGNAL(unloadSeq()), core, SIGNAL(unloadSeq()));
 
     /* Получение сигналов */
     connect(core, SIGNAL(updateFrame(QImage*)), guiManage, SIGNAL(updateFrame(QImage*)));

@@ -12,17 +12,27 @@ GUIManager::GUIManager(QObject *parent) : QObject(parent) {
     connect(this, SIGNAL(updateTime(int)), m_videoControlBar, SLOT(updateTime(int)));
     connect(this, SIGNAL(videoLen(int)), m_videoCutterList, SLOT(videoLen(int)));
 
+    void addToSeq(QString, int, int);
+    void clearSeq();
+    void loadSeq();
+    void unloadSeq();
     /* Проброс сигналов от модулей GUIManager */
     connect(m_videoControlBar, SIGNAL(playVideo()), SIGNAL(playVideo()));
     connect(m_videoControlBar, SIGNAL(stopVideo()), SIGNAL(stopVideo()));
     connect(m_videoControlBar, SIGNAL(pauseVideo()), SIGNAL(pauseVideo()));
     connect(m_videoControlBar, SIGNAL(setTime(int)), SIGNAL(setTime(int)));
+
     connect(m_videoControlBar, SIGNAL(sendTime(int)), m_videoCutterList, SLOT(sendCurrentTimeToCutter(int)));
 
     connect(m_videoCutterList, SIGNAL(uploadVideo(QString*, bool)), SIGNAL(uploadVideo(QString*, bool)));
     connect(m_videoCutterList, SIGNAL(unloadVideo()), SIGNAL(unloadVideo()));
     connect(m_videoCutterList, SIGNAL(setStartTime(int)), SIGNAL(setStartTime(int)));
     connect(m_videoCutterList, SIGNAL(setEndTime(int)), SIGNAL(setEndTime(int)));
+    connect(m_videoCutterList, SIGNAL(addToSeq(QString,int,int)), SIGNAL(addToSeq(QString,int,int)));
+    connect(m_videoCutterList, SIGNAL(clearSeq()), SIGNAL(clearSeq()));
+    connect(m_videoCutterList, SIGNAL(loadSeq()), SIGNAL(loadSeq()));
+    connect(m_videoCutterList, SIGNAL(unloadSeq()), SIGNAL(unloadSeq()));
+
     connect(m_videoCutterList, SIGNAL(sendLengthOfVideo(int)), m_videoControlBar, SLOT(setEndTime(int)));
     connect(m_videoCutterList, SIGNAL(sendCurrentPositionSlider(int)), m_videoControlBar, SLOT(slotSetSliderPosition(int)));
 
