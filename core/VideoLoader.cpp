@@ -83,6 +83,7 @@ void VideoLoader::stopVideo() {
 
     if (m_isOpened) {
         emit stoped();
+        emit updateTime(0);
 
         m_mTime = m_mStartTime;
         m_video.set(CAP_PROP_POS_MSEC, m_mStartTime);
@@ -99,7 +100,9 @@ void VideoLoader::pauseVideo() {
 
     if (m_isOpened) {
         m_timer.stop();
-        m_video.release();
+        if (m_video.isOpened()) {
+            m_video.release();
+        }
     }
 }
 
@@ -107,23 +110,45 @@ void VideoLoader::pauseVideo() {
 void VideoLoader::setTime(int time) {
     qDebug() << "slot: setTime(int)" << endl;
 
-    m_mTime = time + m_mStartTime;
-    m_video.set(CAP_PROP_POS_MSEC, m_mTime);
+    if (m_isOpened) {
+//        if (!m_video.isOpened()) {
+//            m_video.open(m_path->toStdString());
+//        }
+
+//        if (m_video.isOpened()) {
+            m_mTime = time + m_mStartTime;
+            m_video.set(CAP_PROP_POS_MSEC, m_mTime);
+
+//            update();
+//            m_video.release();
+
+//            emit pauseVideo();
+//        }
+    }
 }
 
 /* Установить начальное время в мсек */
 void VideoLoader::setStartTime(int time) {
     qDebug() << "slot: setStartTime(int)" << endl;
 
-    m_mStartTime = time;
-    m_video.set(CAP_PROP_POS_MSEC, time);
+    if (m_isOpened) {
+        m_mStartTime = time;
+        m_video.open(m_path->toStdString());
+        if (m_video.isOpened()) {
+            m_video.set(CAP_PROP_POS_MSEC, time);
+            update();
+            m_video.release();
+        }
+    }
 }
 
 /* Установить конечное время в мсек */
 void VideoLoader::setEndTime(int time) {
     qDebug() << "slot: setEndTime(int)" << endl;
 
-    m_mEndTime = time;
+    if (m_isOpened) {
+        m_mEndTime = time;
+    }
 }
 
 /*************************************/

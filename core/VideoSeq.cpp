@@ -19,9 +19,9 @@ void VideoSeq::addToSeq(QString path, int startTime, int endTime) {
     item->startTime = startTime;
     item->endTime = endTime;
     item->startPos = m_pos;
-    item->endPos = m_pos + endTime;
+    item->endPos = m_pos + (endTime - startTime);
 
-    m_pos += endTime;
+    m_pos = item->endPos;
 }
 
 void VideoSeq::clearSeq() {
@@ -43,11 +43,6 @@ void VideoSeq::loadSeq() {
     qDebug() << m_seq.size();
 
     VideoLoader *vLoader = m_core->getVideoLoader();
-
-    qDebug() << "*************************";
-//    for (int i = 0; i < m_seq.size(); i++) {
-//        qDebug() << *(m_seq[i]->path) << " " << m_seq[i]->startTime << " " << m_seq[i]->startPos << " " << m_seq[i]->endTime << " " << m_seq[i]->endPos;
-//    }
 
     m_iVideo = 0;
     m_pos = 0;
@@ -197,6 +192,7 @@ void VideoSeq::uploaded() {
 
     emit setStartTime(m_seq[m_iVideo]->startTime);
     emit setEndTime(m_seq[m_iVideo]->endTime);
+    emit setTime(0);
     emit playVideo();
 
     m_pos = m_seq[m_iVideo]->startPos;

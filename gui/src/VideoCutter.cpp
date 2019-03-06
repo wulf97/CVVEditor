@@ -35,6 +35,7 @@ void VideoCutter::setMaximumValue(int max)
 {
     m_RangeSlider->setMaximum(max);
     upperValue = max;
+    setCheckBoxValue(true);
 }
 
 int VideoCutter::getMaximumValue()
@@ -45,6 +46,7 @@ int VideoCutter::getMaximumValue()
 void VideoCutter::setMinimumValue(int min)
 {
     m_RangeSlider->setMinimum(min);
+    setCheckBoxValue(true);
 }
 
 int VideoCutter::getMinimumValue()
@@ -175,13 +177,15 @@ void VideoCutter::rememberCurrentTimeOfVideo(int time)
 
 
 void VideoCutter::on_checkBox_stateChanged(int arg1) {
-    emit checkBoxStateChanged(getNumberInListValue());
     if (getCheckBoxValue()) {
         emit uploadVideo(getVideoFilePath(), false);
         emit sendLengthOfVideo(lengthOfFilm);
         emit sendCurrentPositionSlider(currentTimeInControlBar);
         emit setStartTime(lowerValue);
         emit setEndTime(upperValue);
+        emit checkBoxStateChanged(getNumberInListValue());
+    } else {
+        emit checkBoxStateChanged(0);
     }
 }
 

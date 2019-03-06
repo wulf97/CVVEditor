@@ -46,6 +46,7 @@ private:
     QList<VideoCutter*> listOfVideoCutterWidgets;
     QString videoFilePath = nullptr;
     QString fileName = nullptr;
+    bool m_isSeqLoad = false;
 };
 
 #endif // VIDEOCUTTERLIST_H

@@ -80,10 +80,18 @@ void VideoCutterList::onCheckBoxStateChanged(int number) {
 
     for (auto i : listOfVideoCutterWidgets) {
         VideoCutter *p = dynamic_cast<VideoCutter*>(i);
+        if (number != 0) {
+            if (number != p->getNumberInListValue()) {
+                p->setCheckBoxValue(false);
+                qDebug() << "num: " << "num: " << p->getNumberInListValue();
+                emit stopVideo();
+            }
+
+            checkALLCheckBox = true;
+        }
 
         if (p->getCheckBoxValue() == true) {
             checkALLCheckBox = true;
-            break;
         }
     }
 
@@ -97,11 +105,16 @@ void VideoCutterList::onCheckBoxStateChanged(int number) {
             emit addToSeq(*(p->getVideoFilePath()), p->getMinimumValue(), p->getMaximumValue());
         }
 
+        m_isSeqLoad = true;
+
         emit loadSeq();
         emit setStartTime(0);
         emit setEndTime(endTime);
     } else {
-        emit unloadSeq();
+        if (m_isSeqLoad) {
+            m_isSeqLoad = false;
+            emit unloadSeq();
+        }
     }
 
 }
@@ -112,19 +125,15 @@ void VideoCutterList::addNewCutter(QString *lengthOfFilm, int time) {
         VideoCutter* m_VideoCutter = new VideoCutter(this, countOfVideo, *lengthOfFilm, m_length, videoFilePath);
         m_VideoCutter->setNumberLabel(QString::number(countOfVideo));
         m_VideoCutter->setNumberInListValue(countOfVideo);
-        m_VideoCutter->setCheckBoxValue(true);
         m_VideoCutter->setNameOfFile(fileName);
         m_VideoCutter->setLenghtOfVideo(time);
 
-        m_VideoCutter->setCheckBoxValue(true);
         listOfVideoCutterWidgets.append(m_VideoCutter);
+        m_VideoCutter->setCheckBoxValue(true);
         /* Делаем чекбоксы не активными */
         for (int i = 0; i < listOfVideoCutterWidgets.size() - 1; i++) {
             listOfVideoCutterWidgets[i]->setCheckBoxValue(false);
         }
-
-        layout->addWidget(m_VideoCutter);
-        this->setLayout(layout);
 
         connect(m_VideoCutter, SIGNAL(checkBoxStateChanged(int)), this, SLOT(onCheckBoxStateChanged(int)));
         connect(m_VideoCutter, SIGNAL(uploadVideo(QString*, bool)), this, SIGNAL(uploadVideo(QString*, bool)));
@@ -133,6 +142,9 @@ void VideoCutterList::addNewCutter(QString *lengthOfFilm, int time) {
         connect(m_VideoCutter, SIGNAL(sendLengthOfVideo(int)), this, SIGNAL(sendLengthOfVideo(int)));
         connect(m_VideoCutter, SIGNAL(sendCurrentPositionSlider(int)), this, SIGNAL(sendCurrentPositionSlider(int)));
         connect(m_VideoCutter, SIGNAL(sendNumberToDelete(int)), this, SLOT(deleteVideoCutter(int)));
+
+        layout->addWidget(m_VideoCutter);
+        this->setLayout(layout);
     }
 }
 
@@ -158,7 +170,7 @@ bool VideoCutterList::move(QWidget *widget, QString direction)
     myLayout->removeWidget(widget);
     myLayout->insertWidget(newIndex , widget);
 
-    for(auto i : listOfVideoCutterWidgets) {
+    for (auto i : listOfVideoCutterWidgets) {
         VideoCutter* p = dynamic_cast<VideoCutter*>(i);
         if(p->getNumberInListValue() != myLayout->indexOf(p) + 1) {
             p->setNumberInListValue(myLayout->indexOf(p) + 1);
@@ -211,7 +223,7 @@ void VideoCutterList::deleteVideoCutter(int number)
         }
         for (int i = 0; i < listOfVideoCutterWidgets.size(); i++) {
             if(i != 0){
-                if((listOfVideoCutterWidgets[i]->getNumberInListValue() - listOfVideoCutterWidgets[i-1]->getNumberInListValue()) != 1){
+                if((listOfVideoCutterWidgets[i]->getNumberInListValue() - listOfVideoCutterWidgets[i - 1]->getNumberInListValue()) != 1) {
                     listOfVideoCutterWidgets[i]->setNumberInListValue(listOfVideoCutterWidgets[i]->getNumberInListValue() - 1);
                     listOfVideoCutterWidgets[i]->setNumberLabel(QString::number(listOfVideoCutterWidgets[i]->getNumberInListValue()));
                 }
