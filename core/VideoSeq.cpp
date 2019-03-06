@@ -149,7 +149,12 @@ void VideoSeq::seqStopVideo() {
     qDebug() << "slot: seqStopVideo()" << endl;
 
     if (!m_seq.isEmpty()) {
-        emit playVideo();
+        m_iVideo = 0;
+
+        nextVideo();
+        emit stopVideo();
+        emit updateTime(0);
+        emit stopVideo();
     }
 }
 
