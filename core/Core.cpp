@@ -18,7 +18,7 @@ Core::Core(QObject *parent) : QObject(parent) {
     connect(this, SIGNAL(addToSeq(QString,int,int)), m_VSeq, SLOT(addToSeq(QString,int,int)));
     connect(this, SIGNAL(clearSeq()), m_VSeq, SLOT(clearSeq()));
     connect(this, SIGNAL(loadSeq()), m_VSeq, SLOT(loadSeq()));
-    connect(this, SIGNAL(unloadVideo()), m_VSeq, SLOT(unloadSeq()));
+    connect(this, SIGNAL(unloadSeq()), m_VSeq, SLOT(unloadSeq()));
 
     /* Проброс сигналов от модулей Core */
     connect(m_VLoader, SIGNAL(videoLen(int)), this, SIGNAL(videoLen(int)));

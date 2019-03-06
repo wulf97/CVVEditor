@@ -91,7 +91,6 @@ void VideoCutterList::onCheckBoxStateChanged(int number) {
         int endTime = 0;
 
         emit clearSeq();
-
         for (auto i : listOfVideoCutterWidgets) {
             VideoCutter* p = dynamic_cast<VideoCutter*>(i);
             endTime += (p->getMaximumValue() - p->getMinimumValue());

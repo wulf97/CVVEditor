@@ -27,7 +27,6 @@ void VideoLoader::uploadVideo(QString *path, bool fl) {
     m_path = new QString(*path);
     m_mTime = 0;
     m_mStartTime = 0;
-    m_mEndTime = 0;
     m_isOpened = false;
     m_video.open(m_path->toStdString());
 
@@ -35,15 +34,18 @@ void VideoLoader::uploadVideo(QString *path, bool fl) {
         m_isOpened = true;
         m_fps = m_video.get(CAP_PROP_FPS);
 
-        emit uploaded();
+        m_video.set(CAP_PROP_POS_AVI_RATIO, 1);
+        m_mEndTime = m_video.get(CAP_PROP_POS_MSEC);
+        m_video.set(CAP_PROP_POS_MSEC, m_mStartTime);
+
         if (fl) {
-            m_video.set(CAP_PROP_POS_AVI_RATIO, 1);
-            emit videoLen(m_video.get(CAP_PROP_POS_MSEC));
-            m_video.set(CAP_PROP_POS_MSEC, m_mStartTime);
+            emit videoLen(m_mEndTime);
         }
 
         update();
         m_video.release();
+        /* Сообщаем о том, что видео было загружено */
+        emit uploaded();
     } else {
         qDebug() << "Video can not be load" << endl;
         m_isOpened = false;
@@ -137,7 +139,6 @@ void VideoLoader::update() {
                 m_mTime = m_video.get(CAP_PROP_POS_MSEC);
                 emit updateFrame(m_frame);
                 emit updateTime(m_mTime - m_mStartTime);
-                qDebug() << "zzzzzz " << *m_path;
                 delete m_frame;
             }
         } else {
