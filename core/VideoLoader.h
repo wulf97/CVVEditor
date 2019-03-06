@@ -39,6 +39,8 @@ signals:
 
     /* Передать длину видео в мсек */
     void videoLen(int);
+    /* */
+    void uploaded();
     /* Передать кадр  */
     void updateFrame(QImage*);
     /* Сообщает об остановки видео,

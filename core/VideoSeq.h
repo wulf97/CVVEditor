@@ -20,13 +20,22 @@ public slots:
     void unloadSeq();
 
     void seqUploadVideo(QString*, bool);
+    void seqUnloadVideo();
+    void seqPlayVideo();
+    void seqStopVideo();
+    void seqPauseVideo();
     void seqSetTime(int);
+
     void nextVideo();
+    void uploaded();
 
 signals:
     /* Сигналы идущие к VideoLoader */
     void uploadVideo(QString*, bool);
+    void unloadVideo();
     void playVideo();
+    void stopVideo();
+    void pauseVideo();
     void setTime(int);
     void setStartTime(int);
     void setEndTime(int);
