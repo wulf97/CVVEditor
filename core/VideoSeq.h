@@ -25,6 +25,7 @@ public slots:
     void seqStopVideo();
     void seqPauseVideo();
     void seqSetTime(int);
+    void seqUpdateTime(int);
 
     void nextVideo();
     void uploaded();
@@ -40,6 +41,7 @@ signals:
     void setStartTime(int);
     void setEndTime(int);
 
+    void updateTime(int);
 private:
     Core *m_core = nullptr;
     QList<VideoSeqItem*> m_seq;

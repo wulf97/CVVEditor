@@ -19,9 +19,9 @@ void VideoSeq::addToSeq(QString path, int startTime, int endTime) {
     item->startTime = startTime;
     item->endTime = endTime;
     item->startPos = m_pos;
-    item->endPos = m_pos + startTime;
+    item->endPos = m_pos + endTime;
 
-    m_pos += startTime;
+    m_pos += endTime;
 }
 
 void VideoSeq::clearSeq() {
@@ -42,9 +42,13 @@ void VideoSeq::loadSeq() {
 
     VideoLoader *vLoader = m_core->getVideoLoader();
 
-    m_iVideo = 0;
+    qDebug() << "*************************";
+//    for (int i = 0; i < m_seq.size(); i++) {
+//        qDebug() << *(m_seq[i]->path) << " " << m_seq[i]->startTime << " " << m_seq[i]->startPos << " " << m_seq[i]->endTime << " " << m_seq[i]->endPos;
+//    }
 
-    nextVideo();
+    m_iVideo = 0;
+    m_pos = 0;
 
     /* */
     disconnect(m_core, SIGNAL(uploadVideo(QString*, bool)), vLoader, SLOT(uploadVideo(QString*, bool)));
@@ -75,6 +79,15 @@ void VideoSeq::loadSeq() {
     /* */
     connect(vLoader, SIGNAL(ended()), this, SLOT(nextVideo()));
     connect(vLoader, SIGNAL(uploaded()), this, SLOT(uploaded()));
+
+    /***********/
+    disconnect(vLoader, SIGNAL(updateTime(int)), m_core, SIGNAL(updateTime(int)));
+
+    connect(vLoader, SIGNAL(updateTime(int)), this, SLOT(seqUpdateTime(int)));
+    connect(this, SIGNAL(updateTime(int)), m_core, SIGNAL(updateTime(int)));
+
+    /******************/
+    nextVideo();
 }
 
 void VideoSeq::unloadSeq() {
@@ -125,6 +138,14 @@ void VideoSeq::seqSetTime(int) {
     qDebug() << "slot: seqSetTime(int)" << endl;
 }
 
+void VideoSeq::seqUpdateTime(int time) {
+    qDebug() << "slot: seqUpdateTime(int)" << endl;
+
+    emit updateTime(m_pos + time);
+    qDebug() << m_pos;
+}
+
+
 void VideoSeq::nextVideo() {
     qDebug() << "slot: nextVideo()" << endl;
 
@@ -147,6 +168,8 @@ void VideoSeq::uploaded() {
     emit setStartTime(m_seq[m_iVideo]->startTime);
     emit setEndTime(m_seq[m_iVideo]->endTime);
     emit playVideo();
+
+    m_pos = m_seq[m_iVideo]->startPos;
 
     m_iVideo++;
 }
