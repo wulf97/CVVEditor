@@ -239,3 +239,22 @@ void VideoCutterList::deleteVideoCutter(int number)
 
 
 }
+
+void VideoCutterList::saveFileAs()
+{
+    QString fileName = QFileDialog::getSaveFileName(this,
+            tr("Save video"), "",
+            tr(" avi (*.avi);;mpeg (*.mpeg);;mp4 (*.mp4);;mkv (*.mkv)"));
+    clearSeq();
+    int count = 0;
+    for (auto i : listOfVideoCutterWidgets) {
+        VideoCutter* p = dynamic_cast<VideoCutter*>(i);
+        if(p->getNumberInListValue() == count) {
+            emit addToSeq(*(p->getVideoFilePath()), p->getMinimumValue(), p->getMaximumValue());
+            count++;
+        }
+    }
+   saveSeq(fileName);
+
+
+}

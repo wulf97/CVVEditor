@@ -81,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(m_actionAdd, SIGNAL(triggered(bool)), videoCutterList, SLOT(getVideoFilePath()));
 
+    connect(m_actionExport, SIGNAL(triggered(bool)), videoCutterList,SLOT(saveFileAs()));
     connect(guiManage, SIGNAL(playVideo()), this, SLOT(play()));
     connect(guiManage, SIGNAL(pauseVideo()), this, SLOT(pause()));
     connect(guiManage, SIGNAL(stopVideo()), this, SLOT(stop()));
@@ -134,7 +135,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_actionPlay->setDisabled(true);
     m_actionPause->setDisabled(true);
     m_actionStop->setDisabled(true);
-    m_actionExport->setDisabled(true);
+    m_actionExport->setDisabled(false);
 }
 
 MainWindow::~MainWindow() {
