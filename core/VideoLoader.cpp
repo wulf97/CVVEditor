@@ -83,7 +83,6 @@ void VideoLoader::stopVideo() {
     qDebug() << "slot: stopVideo()" << endl;
 
     if (m_isOpened) {
-        emit stoped();
         emit updateTime(0);
 
         m_mTime = m_mStartTime;
@@ -168,6 +167,7 @@ void VideoLoader::update() {
                 delete m_frame;
             }
         } else {
+            stopVideo();
             emit stoped();
             emit ended();
         }

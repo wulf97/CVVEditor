@@ -7,6 +7,11 @@ namespace Ui {
 class MainWindow;
 }
 
+/**
+ * @brief Класс MainWindow отвечает за компановку виджетов.
+ *
+ * Также MainWindow связывает Core и GUIManager.
+ */
 class MainWindow : public QMainWindow {
     Q_OBJECT
 

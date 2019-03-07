@@ -9,17 +9,40 @@
 #include "VideoCutterList.h"
 #include "PluginList.h"
 
+/**
+ * @brief Класс GUIManager связывает модули графического интерфейса с внешними модулями.
+ *
+ * GUIManager принимает сигнылы от внешних модулей и модулей графического интерфейса, а затем перенаправляет их по цепочке.
+ */
 class GUIManager : public QObject {
     Q_OBJECT
 public:
     GUIManager(QObject *parent = nullptr);
     virtual ~GUIManager();
 
+    /**
+     * @brief testSignals используется для тестирования сигналов.
+     */
     void testSignals();
-
+    /**
+     * @brief getViewport используется для получения доступа к Viewport.
+     * @return Указатель на Viewport.
+     */
     Viewport *getViewport() const;
+    /**
+     * @brief getVideoControlBar используется для получения доступа к VideoControlBar.
+     * @return Указатель на VideoControlBar.
+     */
     VideoControlBar *getVideoControlBar() const;
+    /**
+     * @brief getVideoCutterList используется для получения доступа к VideoCutterList.
+     * @return Указатель на VideoCutterList.
+     */
     VideoCutterList *getVideoCutterList() const;
+    /**
+     * @brief getPluginList используется для получения доступа к PluginList.
+     * @return Указатель на PluginList.
+     */
     PluginList *getPluginList() const;
 signals:
     /* Сигналы для внутренних модулей */

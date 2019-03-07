@@ -81,10 +81,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(m_actionAdd, SIGNAL(triggered(bool)), videoCutterList, SLOT(getVideoFilePath()));
 
-    connect(vControlBar, SIGNAL(playVideo()), this, SLOT(play()));
-    connect(vControlBar, SIGNAL(pauseVideo()), this, SLOT(pause()));
-    connect(vControlBar, SIGNAL(stopVideo()), this, SLOT(stop()));
-    connect(videoCutterList, SIGNAL(unloadVideo()), this, SLOT(unloadVideo()));
+    connect(guiManage, SIGNAL(playVideo()), this, SLOT(play()));
+    connect(guiManage, SIGNAL(pauseVideo()), this, SLOT(pause()));
+    connect(guiManage, SIGNAL(stopVideo()), this, SLOT(stop()));
+    connect(guiManage, SIGNAL(unloadVideo()), this, SLOT(unloadVideo()));
+    connect(guiManage, SIGNAL(stoped()), this, SLOT(stop()));
 
     /* Проверка работы сигналов */
 //    core->testSignals();

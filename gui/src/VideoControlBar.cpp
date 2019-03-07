@@ -62,6 +62,7 @@ void VideoControlBar::stop() {
 
 void VideoControlBar::stoped() {
     qDebug() << "slot: stoped()" << endl;
+    stop();
 }
 
 void VideoControlBar::setStartTime(int time) {
