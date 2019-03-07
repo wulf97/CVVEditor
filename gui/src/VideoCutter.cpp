@@ -158,7 +158,10 @@ void VideoCutter::onLowerValueChanged(int aLowerValue)
     qDebug() << "Min: " << lowerValue;
     lowerValue = aLowerValue;
     ui->startTime->setText(videoLen(aLowerValue));
-    emit setStartTime(aLowerValue);
+    if(getValueOfCheckBox()) {
+        emit setStartTime(aLowerValue);
+    }
+
 
 }
 
@@ -167,7 +170,9 @@ void VideoCutter::onUpperValueChanged(int aUpperValue)
     qDebug() << "Max: " << upperValue;
     upperValue = aUpperValue;
     ui->endTime->setText(videoLen(aUpperValue));
-    emit setEndTime(aUpperValue);
+    if(getValueOfCheckBox()) {
+        emit setEndTime(aUpperValue);
+    }
 }
 
 void VideoCutter::rememberCurrentTimeOfVideo(int time)
