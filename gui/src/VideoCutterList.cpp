@@ -24,6 +24,13 @@ void VideoCutterList::getVideoFilePath() {
     QFile mfile(videoFilePath);
     QString path = mfile.fileName();
     fileName = path.section("/",-1,-1);
+
+    if (m_isSeqLoad) {
+        m_isSeqLoad = false;
+
+        emit unloadSeq();
+    }
+
     emit uploadVideo(&videoFilePath, true);
 }
 
