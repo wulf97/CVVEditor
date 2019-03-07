@@ -30,6 +30,7 @@ signals:
     void clearSeq();
     void loadSeq();
     void unloadSeq();
+    void saveSeq(QString);
 public slots:
     void getVideoFilePath();
     void videoLen(int);
@@ -37,6 +38,7 @@ public slots:
     bool move(QWidget *widget, QString direction);
     void sendCurrentTimeToCutter(int);
     void deleteVideoCutter(int);
+    void saveFileAs();
 private:
     void addNewCutter(QString*,int);
     Ui::VideoCutterList *ui;
