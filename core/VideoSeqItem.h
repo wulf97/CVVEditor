@@ -13,6 +13,7 @@ public:
     int endTime = 0;
     int startPos = 0;
     int endPos = 0;
+    bool isOpened = false;
 };
 
 #endif // VIDEOSEQITEM_H

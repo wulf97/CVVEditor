@@ -28,6 +28,7 @@ void VideoLoader::uploadVideo(QString *path, bool fl) {
     m_mTime = 0;
     m_mStartTime = 0;
     m_isOpened = false;
+
     m_video.open(m_path->toStdString());
 
     if (m_video.isOpened()) {
@@ -115,7 +116,7 @@ void VideoLoader::setTime(int time) {
 //            m_video.open(m_path->toStdString());
 //        }
 
-//        if (m_video.isOpened()) {
+        if (m_video.isOpened()) {
             m_mTime = time + m_mStartTime;
             m_video.set(CAP_PROP_POS_MSEC, m_mTime);
 
@@ -123,7 +124,7 @@ void VideoLoader::setTime(int time) {
 //            m_video.release();
 
 //            emit pauseVideo();
-//        }
+        }
     }
 }
 

@@ -6,6 +6,11 @@
 #include "VideoLoader.h"
 #include "VideoSeq.h"
 
+/**
+ * @brief Класс Core предназначен для связывания модулей ядра с остальными модулями системы.
+ *
+ * Core принимает сигнылы от внешних модулей и модулей ядра, а затем перенаправляет их по цепочке.
+ */
 class Core : public QObject {
     Q_OBJECT
 public:
