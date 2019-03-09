@@ -1,8 +1,12 @@
 #include <QDebug>
+#include <opencv2/opencv.hpp>
+#include <opencv2/videoio.hpp>
 
 #include "VideoSeq.h"
 #include "VideoLoader.h"
 #include "Core.h"
+
+using namespace cv;
 
 VideoSeq::VideoSeq(QObject *parent) : QObject(parent) {
     m_core = dynamic_cast<Core*>(parent);
@@ -128,6 +132,36 @@ void VideoSeq::unloadSeq() {
     disconnect(this, SIGNAL(updateTime(int)), m_core, SIGNAL(updateTime(int)));
 
     /******************/
+}
+
+void VideoSeq::saveSeq(QString fileName) {
+    qDebug() << "slot saveSeq(QString)" << endl;
+
+    Mat frame;
+    VideoWriter out;
+    VideoCapture in;
+    int w = 640;
+    int h = 480;
+
+    out.open(fileName.toStdString(), CV_FOURCC('M','J','P','G'), 24, Size(w, h));
+    if (out.isOpened()) {
+        for (int i = 0; i < m_seq.size(); i++) {
+            qDebug() << *m_seq[i]->path;
+            in.open(m_seq[i]->path->toStdString());
+            if (in.isOpened()) {
+                in.set(CAP_PROP_POS_MSEC, m_seq[i]->startTime);
+                while (in.get(CAP_PROP_POS_MSEC) < m_seq[i]->endTime) {
+                    in >> frame;
+                    resize(frame, frame, Size(w, h));
+                    out.write(frame);
+                }
+                in.release();
+            }
+        }
+
+        out.release();
+    }
+
 }
 
 /************************/

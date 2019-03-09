@@ -54,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(guiManage, SIGNAL(clearSeq()), core, SIGNAL(clearSeq()));
     connect(guiManage, SIGNAL(loadSeq()), core, SIGNAL(loadSeq()));
     connect(guiManage, SIGNAL(unloadSeq()), core, SIGNAL(unloadSeq()));
+    connect(guiManage, SIGNAL(saveSeq(QString)), core, SIGNAL(saveSeq(QString)));
 
     /* Получение сигналов */
     connect(core, SIGNAL(updateFrame(QImage*)), guiManage, SIGNAL(updateFrame(QImage*)));

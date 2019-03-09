@@ -44,6 +44,7 @@ signals:
     void clearSeq();
     void loadSeq();
     void unloadSeq();
+    void saveSeq(QString);
 
     /* Сигналы для внешних модулей */
     void videoLen(int);

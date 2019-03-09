@@ -64,6 +64,7 @@ signals:
     void clearSeq();
     void loadSeq();
     void unloadSeq();
+    void saveSeq(QString);
 private:
     Viewport *m_viewport;
     VideoControlBar *m_videoControlBar;

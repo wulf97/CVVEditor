@@ -83,7 +83,7 @@ void VideoLoader::stopVideo() {
     qDebug() << "slot: stopVideo()" << endl;
 
     if (m_isOpened) {
-        emit updateTime(0);
+//        emit updateTime(0);
 
         m_mTime = m_mStartTime;
         m_video.set(CAP_PROP_POS_MSEC, m_mStartTime);
@@ -111,18 +111,10 @@ void VideoLoader::setTime(int time) {
     qDebug() << "slot: setTime(int)" << endl;
 
     if (m_isOpened) {
-//        if (!m_video.isOpened()) {
-//            m_video.open(m_path->toStdString());
-//        }
+        m_mTime = time + m_mStartTime;
 
         if (m_video.isOpened()) {
-            m_mTime = time + m_mStartTime;
             m_video.set(CAP_PROP_POS_MSEC, m_mTime);
-
-//            update();
-//            m_video.release();
-
-//            emit pauseVideo();
         }
     }
 }
