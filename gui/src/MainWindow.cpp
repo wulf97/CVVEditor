@@ -5,6 +5,7 @@
 
 #include <QDebug>
 #include <QLayout>
+#include <QProgressBar>
 
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
@@ -39,6 +40,11 @@ MainWindow::MainWindow(QWidget *parent) :
     m_actionExport = new QAction("Export", this);
 
     ui->setupUi(this);
+
+
+    QProgressBar *progress = new QProgressBar(this);
+    progress->setValue(50);
+    ui->statusBar->addPermanentWidget(progress);
 
     /* Объединение Core и GUIManager */
     /* Отправка сигналов */
