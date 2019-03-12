@@ -28,7 +28,6 @@ public slots:
     void loadSeq();
     void unloadSeq();
     void saveSeq(QString);
-//    void seqWriteVideo();
 
     void seqUploadVideo(QString*, bool);
     void seqUnloadVideo();

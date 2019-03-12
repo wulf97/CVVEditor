@@ -58,6 +58,7 @@ private:
     VideoCapture m_video;
     VideoWriter *m_outVideo = nullptr;
     QTimer m_timer;
+    QTimer m_timer2;
     /* Флаг для проверки открытия видео */
     bool m_isOpened = false;
     /* Путь к видео */

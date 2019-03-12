@@ -55,22 +55,19 @@ void VideoSeq::clearSeq() {
 
 void VideoSeq::loadSeq() {
     qDebug() << "slot: loadSeq()" << endl;
-    qDebug() << m_seq.size();
-
-    VideoLoader *vLoader = m_parent->getVideoLoader();
 
     m_iVideo = 0;
     m_pos = 0;
 
     /* */
-    disconnect(m_parent, SIGNAL(uploadVideo(QString*, bool)), vLoader, SLOT(uploadVideo(QString*, bool)));
-    disconnect(m_parent, SIGNAL(unloadVideo()), vLoader, SLOT(unloadVideo()));
-    disconnect(m_parent, SIGNAL(playVideo()), vLoader, SLOT(playVideo()));
-    disconnect(m_parent, SIGNAL(stopVideo()), vLoader, SLOT(stopVideo()));
-    disconnect(m_parent, SIGNAL(pauseVideo()), vLoader, SLOT(pauseVideo()));
-    disconnect(m_parent, SIGNAL(setTime(int)), vLoader, SLOT(setTime(int)));
-    disconnect(m_parent, SIGNAL(setStartTime(int)), vLoader, SLOT(setStartTime(int)));
-    disconnect(m_parent, SIGNAL(setEndTime(int)), vLoader, SLOT(setEndTime(int)));
+    disconnect(m_parent, SIGNAL(uploadVideo(QString*, bool)), m_vLoader, SLOT(uploadVideo(QString*, bool)));
+    disconnect(m_parent, SIGNAL(unloadVideo()), m_vLoader, SLOT(unloadVideo()));
+    disconnect(m_parent, SIGNAL(playVideo()), m_vLoader, SLOT(playVideo()));
+    disconnect(m_parent, SIGNAL(stopVideo()), m_vLoader, SLOT(stopVideo()));
+    disconnect(m_parent, SIGNAL(pauseVideo()), m_vLoader, SLOT(pauseVideo()));
+    disconnect(m_parent, SIGNAL(setTime(int)), m_vLoader, SLOT(setTime(int)));
+    disconnect(m_parent, SIGNAL(setStartTime(int)), m_vLoader, SLOT(setStartTime(int)));
+    disconnect(m_parent, SIGNAL(setEndTime(int)), m_vLoader, SLOT(setEndTime(int)));
 
     connect(m_parent, SIGNAL(uploadVideo(QString*, bool)), this, SLOT(seqUploadVideo(QString*, bool)));
     connect(m_parent, SIGNAL(unloadVideo()), this, SLOT(seqUnloadVideo()));
@@ -79,24 +76,24 @@ void VideoSeq::loadSeq() {
     connect(m_parent, SIGNAL(pauseVideo()), this, SLOT(seqPauseVideo()));
     connect(m_parent, SIGNAL(setTime(int)), this, SLOT(seqSetTime(int)));
 
-    connect(this, SIGNAL(uploadVideo(QString*, bool)), vLoader, SLOT(uploadVideo(QString*, bool)));
-    connect(this, SIGNAL(unloadVideo()), vLoader, SLOT(unloadVideo()));
-    connect(this, SIGNAL(playVideo()), vLoader, SLOT(playVideo()));
-    connect(this, SIGNAL(stopVideo()), vLoader, SLOT(stopVideo()));
-    connect(this, SIGNAL(pauseVideo()), vLoader, SLOT(pauseVideo()));
-    connect(this, SIGNAL(setTime(int)), vLoader, SLOT(setTime(int)));
-    connect(this, SIGNAL(setStartTime(int)), vLoader, SLOT(setStartTime(int)));
-    connect(this, SIGNAL(setEndTime(int)), vLoader, SLOT(setEndTime(int)));
+    connect(this, SIGNAL(uploadVideo(QString*, bool)), m_vLoader, SLOT(uploadVideo(QString*, bool)));
+    connect(this, SIGNAL(unloadVideo()), m_vLoader, SLOT(unloadVideo()));
+    connect(this, SIGNAL(playVideo()), m_vLoader, SLOT(playVideo()));
+    connect(this, SIGNAL(stopVideo()), m_vLoader, SLOT(stopVideo()));
+    connect(this, SIGNAL(pauseVideo()), m_vLoader, SLOT(pauseVideo()));
+    connect(this, SIGNAL(setTime(int)), m_vLoader, SLOT(setTime(int)));
+    connect(this, SIGNAL(setStartTime(int)), m_vLoader, SLOT(setStartTime(int)));
+    connect(this, SIGNAL(setEndTime(int)), m_vLoader, SLOT(setEndTime(int)));
 
     /* */
-    connect(vLoader, SIGNAL(ended()), this, SLOT(nextVideoDisplay()));
-    connect(vLoader, SIGNAL(uploaded()), this, SLOT(uploaded()));
+    connect(m_vLoader, SIGNAL(ended()), this, SLOT(nextVideoDisplay()));
+    connect(m_vLoader, SIGNAL(uploaded()), this, SLOT(uploaded()));
 
     /***********/
-    disconnect(vLoader, SIGNAL(updateTime(int)), m_parent, SIGNAL(updateTime(int)));
-    disconnect(vLoader, SIGNAL(stoped()), m_parent, SIGNAL(stoped()));
+    disconnect(m_vLoader, SIGNAL(updateTime(int)), m_parent, SIGNAL(updateTime(int)));
+    disconnect(m_vLoader, SIGNAL(stoped()), m_parent, SIGNAL(stoped()));
 
-    connect(vLoader, SIGNAL(updateTime(int)), this, SLOT(seqUpdateTime(int)));
+    connect(m_vLoader, SIGNAL(updateTime(int)), this, SLOT(seqUpdateTime(int)));
     connect(this, SIGNAL(updateTime(int)), m_parent, SIGNAL(updateTime(int)));
     connect(this, SIGNAL(stoped()), m_parent, SIGNAL(stoped()));
 
@@ -107,16 +104,15 @@ void VideoSeq::loadSeq() {
 void VideoSeq::unloadSeq() {
     qDebug() << "slot: unloadSeq()" << endl;
 
-    VideoLoader *vLoader = m_parent->getVideoLoader();
     /* */
-    connect(m_parent, SIGNAL(uploadVideo(QString*, bool)), vLoader, SLOT(uploadVideo(QString*, bool)));
-    connect(m_parent, SIGNAL(unloadVideo()), vLoader, SLOT(unloadVideo()));
-    connect(m_parent, SIGNAL(playVideo()), vLoader, SLOT(playVideo()));
-    connect(m_parent, SIGNAL(stopVideo()), vLoader, SLOT(stopVideo()));
-    connect(m_parent, SIGNAL(pauseVideo()), vLoader, SLOT(pauseVideo()));
-    connect(m_parent, SIGNAL(setTime(int)), vLoader, SLOT(setTime(int)));
-    connect(m_parent, SIGNAL(setStartTime(int)), vLoader, SLOT(setStartTime(int)));
-    connect(m_parent, SIGNAL(setEndTime(int)), vLoader, SLOT(setEndTime(int)));
+    connect(m_parent, SIGNAL(uploadVideo(QString*, bool)), m_vLoader, SLOT(uploadVideo(QString*, bool)));
+    connect(m_parent, SIGNAL(unloadVideo()), m_vLoader, SLOT(unloadVideo()));
+    connect(m_parent, SIGNAL(playVideo()), m_vLoader, SLOT(playVideo()));
+    connect(m_parent, SIGNAL(stopVideo()), m_vLoader, SLOT(stopVideo()));
+    connect(m_parent, SIGNAL(pauseVideo()), m_vLoader, SLOT(pauseVideo()));
+    connect(m_parent, SIGNAL(setTime(int)), m_vLoader, SLOT(setTime(int)));
+    connect(m_parent, SIGNAL(setStartTime(int)), m_vLoader, SLOT(setStartTime(int)));
+    connect(m_parent, SIGNAL(setEndTime(int)), m_vLoader, SLOT(setEndTime(int)));
 
     disconnect(m_parent, SIGNAL(uploadVideo(QString*, bool)), this, SLOT(seqUploadVideo(QString*, bool)));
     disconnect(m_parent, SIGNAL(unloadVideo()), this, SLOT(seqUnloadVideo()));
@@ -125,24 +121,24 @@ void VideoSeq::unloadSeq() {
     disconnect(m_parent, SIGNAL(pauseVideo()), this, SLOT(seqPauseVideo()));
     disconnect(m_parent, SIGNAL(setTime(int)), this, SLOT(seqSetTime(int)));
 
-    disconnect(this, SIGNAL(uploadVideo(QString*, bool)), vLoader, SLOT(uploadVideo(QString*, bool)));
-    disconnect(this, SIGNAL(unloadVideo()), vLoader, SLOT(unloadVideo()));
-    disconnect(this, SIGNAL(playVideo()), vLoader, SLOT(playVideo()));
-    disconnect(this, SIGNAL(stopVideo()), vLoader, SLOT(stopVideo()));
-    disconnect(this, SIGNAL(pauseVideo()), vLoader, SLOT(pauseVideo()));
-    disconnect(this, SIGNAL(setTime(int)), vLoader, SLOT(setTime(int)));
-    disconnect(this, SIGNAL(setStartTime(int)), vLoader, SLOT(setStartTime(int)));
-    disconnect(this, SIGNAL(setEndTime(int)), vLoader, SLOT(setEndTime(int)));
+    disconnect(this, SIGNAL(uploadVideo(QString*, bool)), m_vLoader, SLOT(uploadVideo(QString*, bool)));
+    disconnect(this, SIGNAL(unloadVideo()), m_vLoader, SLOT(unloadVideo()));
+    disconnect(this, SIGNAL(playVideo()), m_vLoader, SLOT(playVideo()));
+    disconnect(this, SIGNAL(stopVideo()), m_vLoader, SLOT(stopVideo()));
+    disconnect(this, SIGNAL(pauseVideo()), m_vLoader, SLOT(pauseVideo()));
+    disconnect(this, SIGNAL(setTime(int)), m_vLoader, SLOT(setTime(int)));
+    disconnect(this, SIGNAL(setStartTime(int)), m_vLoader, SLOT(setStartTime(int)));
+    disconnect(this, SIGNAL(setEndTime(int)), m_vLoader, SLOT(setEndTime(int)));
 
     /* */
-    disconnect(vLoader, SIGNAL(ended()), this, SLOT(nextVideoDisplay()));
-    disconnect(vLoader, SIGNAL(uploaded()), this, SLOT(uploaded()));
+    disconnect(m_vLoader, SIGNAL(ended()), this, SLOT(nextVideoDisplay()));
+    disconnect(m_vLoader, SIGNAL(uploaded()), this, SLOT(uploaded()));
 
     /***********/
-    connect(vLoader, SIGNAL(updateTime(int)), m_parent, SIGNAL(updateTime(int)));
-    connect(vLoader, SIGNAL(stoped()), m_parent, SIGNAL(stoped()));
+    connect(m_vLoader, SIGNAL(updateTime(int)), m_parent, SIGNAL(updateTime(int)));
+    connect(m_vLoader, SIGNAL(stoped()), m_parent, SIGNAL(stoped()));
 
-    disconnect(vLoader, SIGNAL(updateTime(int)), this, SLOT(seqUpdateTime(int)));
+    disconnect(m_vLoader, SIGNAL(updateTime(int)), this, SLOT(seqUpdateTime(int)));
     disconnect(this, SIGNAL(updateTime(int)), m_parent, SIGNAL(updateTime(int)));
     disconnect(this, SIGNAL(stoped()), m_parent, SIGNAL(stoped()));
 
@@ -152,50 +148,22 @@ void VideoSeq::unloadSeq() {
 void VideoSeq::saveSeq(QString fileName) {
     qDebug() << "slot saveSeq(QString)" << endl;
 
-    VideoLoader *vLoader = m_parent->getVideoLoader();
-
-    connect(this, SIGNAL(uploadVideo(QString*, bool)), vLoader, SLOT(uploadVideo(QString*, bool)));
-    connect(this, SIGNAL(setStartTime(int)), vLoader, SLOT(setStartTime(int)));
-    connect(this, SIGNAL(setEndTime(int)), vLoader, SLOT(setEndTime(int)));
-    connect(vLoader, SIGNAL(ended()), this, SLOT(nextVideoWrite()));
-    connect(vLoader, SIGNAL(uploaded()), this, SLOT(writeUploadedVideo()));
+    connect(this, SIGNAL(uploadVideo(QString*, bool)), m_vLoader, SLOT(uploadVideo(QString*, bool)));
+    connect(this, SIGNAL(setStartTime(int)), m_vLoader, SLOT(setStartTime(int)));
+    connect(this, SIGNAL(setEndTime(int)), m_vLoader, SLOT(setEndTime(int)));
+    connect(m_vLoader, SIGNAL(ended()), this, SLOT(nextVideoWrite()));
+    connect(m_vLoader, SIGNAL(uploaded()), this, SLOT(writeUploadedVideo()));
 
     Mat frame;
-//    VideoWriter out;
     VideoCapture in;
-    int w = 640;
-    int h = 480;
-
     m_iVideo = 0;
+
     m_outVideo->open(fileName.toStdString(), CV_FOURCC('M','J','P','G'), 24, Size(500, 400));
-//    m_outVideo->open(fileName.toStdString(), CV_FOURCC('M','J','P','G'), 24, Size(w, h));
     if (m_outVideo->isOpened()) {
         nextVideoWrite();
-//        for (int i = 0; i < m_seq.size(); i++) {
-//            in.open(m_seq[i]->path->toStdString());
-//            if (in.isOpened()) {
-//                in.set(CAP_PROP_POS_MSEC, m_seq[i]->startTime);
-//                while (in.get(CAP_PROP_POS_MSEC) < m_seq[i]->endTime) {
-//                    in >> frame;
-//                    resize(frame, frame, Size(w, h));
-//                    m_outVideo->write(frame);
-//                }
-//                in.release();
-//            }
-//        }
-
-//        m_outVideo->release();
     }
-
 }
 
-//void VideoSeq::seqWriteVideo() {
-
-//    emit writeVideo(m_outVideo);
-
-//    nextVideoWrite();
-//    m_iVideo++;
-//}
 
 /************************/
 void VideoSeq::seqUploadVideo(QString*, bool) {
@@ -258,30 +226,27 @@ void VideoSeq::seqUpdateTime(int time) {
 void VideoSeq::nextVideoDisplay() {
     qDebug() << "slot: nextVideoDisplay()" << endl;
 
-    VideoLoader *vLoader = m_parent->getVideoLoader();
-
     if (m_iVideo < m_seq.size()) {
         seqUpdateTime(m_seq[m_iVideo]->startPos);
         emit uploadVideo(m_seq[m_iVideo]->path, false);
     } else {
         emit seqStopVideo();
-        disconnect(vLoader, SIGNAL(ended()), this, SLOT(nextVideoDisplay()));
-        disconnect(vLoader, SIGNAL(uploaded()), this, SLOT(uploaded()));
+        disconnect(m_vLoader, SIGNAL(ended()), this, SLOT(nextVideoDisplay()));
+        disconnect(m_vLoader, SIGNAL(uploaded()), this, SLOT(uploaded()));
     }
 }
 
 void VideoSeq::nextVideoWrite() {
     qDebug() << "slot nextVideoWrite()" << endl;
 
-    VideoLoader *vLoader = m_parent->getVideoLoader();
-
-    qDebug() << "m_iVideo = " << m_iVideo;
-    qDebug() << m_seq.size();
     if (m_iVideo < m_seq.size()) {
         emit uploadVideo(m_seq[m_iVideo]->path, false);
     } else {
-        disconnect(vLoader, SIGNAL(ended()), this, SLOT(nextVideoWrite()));
-        disconnect(vLoader, SIGNAL(uploaded()), this, SLOT(writeUploadedVideo()));
+        disconnect(this, SIGNAL(uploadVideo(QString*, bool)), m_vLoader, SLOT(uploadVideo(QString*, bool)));
+        disconnect(this, SIGNAL(setStartTime(int)), m_vLoader, SLOT(setStartTime(int)));
+        disconnect(this, SIGNAL(setEndTime(int)), m_vLoader, SLOT(setEndTime(int)));
+        disconnect(m_vLoader, SIGNAL(ended()), this, SLOT(nextVideoWrite()));
+        disconnect(m_vLoader, SIGNAL(uploaded()), this, SLOT(writeUploadedVideo()));
 
         m_outVideo->release();
         m_iVideo = 0;
@@ -290,8 +255,6 @@ void VideoSeq::nextVideoWrite() {
 
 void VideoSeq::uploaded() {
     qDebug() << "slot: uploaded()" << endl;
-
-    VideoLoader *vLoader = m_parent->getVideoLoader();
 
     emit setStartTime(m_seq[m_iVideo]->startTime);
     emit setEndTime(m_seq[m_iVideo]->endTime);
@@ -306,7 +269,6 @@ void VideoSeq::uploaded() {
 void VideoSeq::writeUploadedVideo() {
     qDebug() << "slot: writeUploadedVideo()" << endl;
 
-    qDebug() << m_iVideo;
     emit setStartTime(m_seq[m_iVideo]->startTime);
     emit setEndTime(m_seq[m_iVideo]->endTime);
     emit writeVideo(m_outVideo);
