@@ -39,6 +39,9 @@ public slots:
     void sendCurrentTimeToCutter(int);
     void deleteVideoCutter(int);
     void saveFileAs();
+    void writeToJson();
+    void writeToJsonAs();
+    void readFromJson();
 private:
     void addNewCutter(QString*,int);
     Ui::VideoCutterList *ui;

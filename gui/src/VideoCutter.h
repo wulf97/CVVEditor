@@ -40,6 +40,8 @@ public:
     int getLengthOfVideo();
 
     void setNameOfFile(QString);
+    QString getNameOfFile();
+
     void setLenghtOfVideo(int);
 
     bool getValueOfCheckBox();
@@ -74,6 +76,7 @@ private:
     int upperValue = 0;
     int lowerValue = 0;
     int currentTimeInControlBar = 0;
+    QString filename;
 };
 
 #endif // VIDEOCUTTER_H

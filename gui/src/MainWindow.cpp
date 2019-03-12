@@ -83,6 +83,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_actionAdd, SIGNAL(triggered(bool)), videoCutterList, SLOT(getVideoFilePath()));
 
     connect(m_actionExport, SIGNAL(triggered(bool)), videoCutterList,SLOT(saveFileAs()));
+    connect(m_actionSave, SIGNAL(triggered(bool)), videoCutterList, SLOT(writeToJson()));
+    connect(m_actionSaveAs, SIGNAL(triggered(bool)), videoCutterList, SLOT(writeToJsonAs()));
+    connect(m_actionOpenProject, SIGNAL(triggered(bool)), videoCutterList, SLOT(readFromJson()));
+
     connect(guiManage, SIGNAL(playVideo()), this, SLOT(play()));
     connect(guiManage, SIGNAL(pauseVideo()), this, SLOT(pause()));
     connect(guiManage, SIGNAL(stopVideo()), this, SLOT(stop()));
@@ -114,10 +118,10 @@ MainWindow::MainWindow(QWidget *parent) :
     m_actionSaveAs->setShortcut(QKeySequence("Ctrl+Shift+s"));
 
     m_actionNewProject->setDisabled(true);
-    m_actionOpenProject->setDisabled(true);
+    m_actionOpenProject->setDisabled(false);
     m_actionOpenRecent->setDisabled(true);
-    m_actionSave->setDisabled(true);
-    m_actionSaveAs->setDisabled(true);
+    m_actionSave->setDisabled(false);
+    m_actionSaveAs->setDisabled(false);
 
     ui->menuBar->addMenu(menuVideo);
     menuVideo->addAction(m_actionPlay);

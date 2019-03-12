@@ -92,9 +92,15 @@ int VideoCutter::getLengthOfVideo()
     return lengthOfFilm;
 }
 
-void VideoCutter::setNameOfFile(QString filename) {
+void VideoCutter::setNameOfFile(QString mfilename) {
 
+    filename = mfilename;
     ui->nameOfFileLabel->setText(filename);
+}
+
+QString VideoCutter::getNameOfFile()
+{
+    return filename;
 }
 
 void VideoCutter::setLenghtOfVideo(int length)

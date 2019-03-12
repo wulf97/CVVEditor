@@ -27,6 +27,7 @@ public slots:
     void unloadVideo();
     void setSliderMaxValue(int);
     void slotSetSliderPosition(int);
+
 signals:
     /* Сигналы для для внешних модулей */
     void playVideo();

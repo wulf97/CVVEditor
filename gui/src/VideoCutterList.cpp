@@ -3,6 +3,9 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 #include "VideoCutterList.h"
 #include "ui_VideoCutterList.h"
@@ -253,4 +256,73 @@ void VideoCutterList::saveFileAs()
     }
 
     emit saveSeq(fileName);
+}
+
+void VideoCutterList::writeToJson()
+{
+    QJsonArray json;
+
+    for (auto i : listOfVideoCutterWidgets) {
+        VideoCutter* p = dynamic_cast<VideoCutter*>(i);
+        auto data1 = QJsonObject({
+                        qMakePair(QString("pathToVideo"),   QJsonValue(*p->getVideoFilePath())),
+                        qMakePair(QString("nameOfFile"),    QJsonValue(p->getNameOfFile())),
+                        qMakePair(QString("numberLabel"),   QJsonValue(p->getNumberInListValue())),
+                        qMakePair(QString("checkBoxValue"), QJsonValue(p->getCheckBoxValue())),
+                        qMakePair(QString("length"),        QJsonValue(p->getLengthOfVideo())),
+                        qMakePair(QString("minValue"),      QJsonValue(p->getMinimumValue())),
+                        qMakePair(QString("maxValue"),      QJsonValue(p->getMaximumValue())),
+        });
+        json.push_back(data1);
+
+    }
+    QJsonDocument doc(json);
+    QDir appDir(qApp->applicationDirPath());
+    QFile jsonfile(appDir.path() +"/file.json");
+    jsonfile.open(QFile::WriteOnly);
+    jsonfile.write(doc.toJson());
+}
+
+void VideoCutterList::writeToJsonAs()
+{
+    QString filePath = QFileDialog::getExistingDirectory(0, ("Select Output Folder"), QDir::currentPath());
+    QJsonArray json;
+
+    for (auto i : listOfVideoCutterWidgets) {
+        VideoCutter* p = dynamic_cast<VideoCutter*>(i);
+        auto data1 = QJsonObject({
+                        qMakePair(QString("pathToVideo"),   QJsonValue(*p->getVideoFilePath())),
+                        qMakePair(QString("nameOfFile"),    QJsonValue(p->getNameOfFile())),
+                        qMakePair(QString("numberLabel"),   QJsonValue(p->getNumberInListValue())),
+                        qMakePair(QString("checkBoxValue"), QJsonValue(p->getCheckBoxValue())),
+                        qMakePair(QString("length"),        QJsonValue(p->getLengthOfVideo())),
+                        qMakePair(QString("minValue"),      QJsonValue(p->getMinimumValue())),
+                        qMakePair(QString("maxValue"),      QJsonValue(p->getMaximumValue())),
+        });
+        json.push_back(data1);
+
+    }
+    QJsonDocument doc (json);
+    QFile jsonfile(filePath +"/mJson.json");
+    jsonfile.open(QFile::WriteOnly);
+    jsonfile.write(doc.toJson());
+}
+
+void VideoCutterList::readFromJson()
+{
+    emit unloadSeq();
+    emit clearSeq();
+    emit stopVideo();
+    for (auto i : listOfVideoCutterWidgets) {
+        VideoCutter* p = dynamic_cast<VideoCutter*>(i);
+        delete p;
+        listOfVideoCutterWidgets.removeOne(p);
+        countOfVideo--;
+    }
+
+    QString jsonFilePath = QFileDialog::getOpenFileName(this, tr("Open Project"), "/",
+                                                          tr("Project (*.json)"));
+    QFile jsonFile(jsonFilePath);
+    jsonFile.open(QIODevice::ReadOnly | QIODevice::Text);
+
 }
