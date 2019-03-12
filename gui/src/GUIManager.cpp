@@ -36,6 +36,9 @@ GUIManager::GUIManager(QObject *parent) : QObject(parent) {
 
 
 
+
+
+
 }
 
 void GUIManager::testSignals() {

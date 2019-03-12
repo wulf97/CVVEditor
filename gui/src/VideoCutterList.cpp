@@ -133,6 +133,7 @@ void VideoCutterList::addNewCutter(QString *lengthOfFilm, int time) {
         m_VideoCutter->setNumberInListValue(countOfVideo);
         m_VideoCutter->setNameOfFile(fileName);
         m_VideoCutter->setLenghtOfVideo(time);
+        emit setStartTime(0);
 
         listOfVideoCutterWidgets.append(m_VideoCutter);
         m_VideoCutter->setCheckBoxValue(true);
