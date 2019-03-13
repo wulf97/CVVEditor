@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QProgressBar>
+
+class Core;
 
 namespace Ui {
 class MainWindow;
@@ -23,8 +26,11 @@ private slots:
     void pause();
     void stop();
     void unloadVideo();
+    void progress(int);
 private:
     Ui::MainWindow *ui;
+    Core *m_core = nullptr;
+    QProgressBar *m_progress = nullptr;
     /* Меню */
     /* Меню File */
     QAction *m_actionNewProject;

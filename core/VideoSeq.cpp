@@ -151,8 +151,11 @@ void VideoSeq::saveSeq(QString fileName) {
     connect(this, SIGNAL(uploadVideo(QString*, bool)), m_vLoader, SLOT(uploadVideo(QString*, bool)));
     connect(this, SIGNAL(setStartTime(int)), m_vLoader, SLOT(setStartTime(int)));
     connect(this, SIGNAL(setEndTime(int)), m_vLoader, SLOT(setEndTime(int)));
+//    connect(this, SIGNAL(progress(int)), m_parent, SIGNAL(progress(int)));
     connect(m_vLoader, SIGNAL(ended()), this, SLOT(nextVideoWrite()));
     connect(m_vLoader, SIGNAL(uploaded()), this, SLOT(writeUploadedVideo()));
+    connect(m_vLoader, SIGNAL(updateTime(int)), this, SLOT(seqProgress(int)));
+
 
     Mat frame;
     VideoCapture in;
@@ -223,6 +226,16 @@ void VideoSeq::seqUpdateTime(int time) {
     qDebug() << m_pos;
 }
 
+void VideoSeq::seqProgress(int time) {
+    qDebug() << "slot: seqProgress(int)" << endl;
+
+    if (m_iVideo > 0) {
+        int progressNum = (100./m_seq[m_seq.size() - 1]->endPos)*(m_seq[m_iVideo - 1]->startPos + time);
+
+        emit progress(progressNum);
+    }
+}
+
 void VideoSeq::nextVideoDisplay() {
     qDebug() << "slot: nextVideoDisplay()" << endl;
 
@@ -245,8 +258,10 @@ void VideoSeq::nextVideoWrite() {
         disconnect(this, SIGNAL(uploadVideo(QString*, bool)), m_vLoader, SLOT(uploadVideo(QString*, bool)));
         disconnect(this, SIGNAL(setStartTime(int)), m_vLoader, SLOT(setStartTime(int)));
         disconnect(this, SIGNAL(setEndTime(int)), m_vLoader, SLOT(setEndTime(int)));
+//        disconnect(this, SIGNAL(progress(int)), m_parent, SIGNAL(progress(int)));
         disconnect(m_vLoader, SIGNAL(ended()), this, SLOT(nextVideoWrite()));
         disconnect(m_vLoader, SIGNAL(uploaded()), this, SLOT(writeUploadedVideo()));
+        disconnect(m_vLoader, SIGNAL(updateTime(int)), this, SLOT(seqProgress(int)));
 
         m_outVideo->release();
         m_iVideo = 0;
@@ -269,9 +284,12 @@ void VideoSeq::uploaded() {
 void VideoSeq::writeUploadedVideo() {
     qDebug() << "slot: writeUploadedVideo()" << endl;
 
+    disconnect(this, SIGNAL(progress(int)), m_parent, SIGNAL(progress(int)));
     emit setStartTime(m_seq[m_iVideo]->startTime);
     emit setEndTime(m_seq[m_iVideo]->endTime);
     emit writeVideo(m_outVideo);
+    connect(this, SIGNAL(progress(int)), m_parent, SIGNAL(progress(int)));
+
 
     m_iVideo++;
 }

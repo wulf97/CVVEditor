@@ -36,6 +36,7 @@ public slots:
     void seqPauseVideo();
     void seqSetTime(int);
     void seqUpdateTime(int);
+    void seqProgress(int);
 
     void nextVideoDisplay();
     void nextVideoWrite();
@@ -56,6 +57,7 @@ signals:
 
     void updateTime(int);
     void stoped();
+    void progress(int);
 private:
     Core *m_parent = nullptr;
     VideoLoader *m_vLoader = nullptr;

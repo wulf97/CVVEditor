@@ -199,7 +199,6 @@ void VideoLoader::updateWritedFrame() {
                 update();
             }
         } else {
-//            m_isOpened = false;
             m_timer2.stop();
             emit ended();
         }

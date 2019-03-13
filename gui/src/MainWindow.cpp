@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
                        QMainWindow(parent),
                        ui(new Ui::MainWindow) {
     GUIManager *guiManage = new GUIManager();
-    Core *core = new Core();
+    m_core = new Core();
     /* Получение модулей gui от GUIManager */
     Viewport *viewport = guiManage->getViewport();
     VideoControlBar *vControlBar = guiManage->getVideoControlBar();
@@ -42,31 +42,39 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
 
-    QProgressBar *progress = new QProgressBar(this);
-    progress->setValue(50);
-    ui->statusBar->addPermanentWidget(progress);
+//    QProgressBar *progress = new QProgressBar(this);
+//    progress->setValue(0);
+//    ui->statusBar->addPermanentWidget(progress);
+//    connect(m_core, SIGNAL(progress(int)), progress, SLOT(setValue(int)));
 
-    /* Объединение Core и GUIManager */
+    m_progress = new QProgressBar(this);
+    m_progress->setValue(0);
+    ui->statusBar->addPermanentWidget(m_progress);
+    m_progress->hide();
+    connect(m_core, SIGNAL(progress(int)), this, SLOT(progress(int)));
+
+    /* Объединение m_core и GUIManager */
     /* Отправка сигналов */
-    connect(guiManage, SIGNAL(uploadVideo(QString*, bool)), core, SIGNAL(uploadVideo(QString*, bool)));
-    connect(guiManage, SIGNAL(unloadVideo()), core, SIGNAL(unloadVideo()));
-    connect(guiManage, SIGNAL(playVideo()), core, SIGNAL(playVideo()));
-    connect(guiManage, SIGNAL(stopVideo()), core, SIGNAL(stopVideo()));
-    connect(guiManage, SIGNAL(pauseVideo()), core, SIGNAL(pauseVideo()));
-    connect(guiManage, SIGNAL(setTime(int)), core, SIGNAL(setTime(int)));
-    connect(guiManage, SIGNAL(setStartTime(int)), core, SIGNAL(setStartTime(int)));
-    connect(guiManage, SIGNAL(setEndTime(int)), core, SIGNAL(setEndTime(int)));
-    connect(guiManage, SIGNAL(addToSeq(QString,int,int)), core, SIGNAL(addToSeq(QString,int,int)));
-    connect(guiManage, SIGNAL(clearSeq()), core, SIGNAL(clearSeq()));
-    connect(guiManage, SIGNAL(loadSeq()), core, SIGNAL(loadSeq()));
-    connect(guiManage, SIGNAL(unloadSeq()), core, SIGNAL(unloadSeq()));
-    connect(guiManage, SIGNAL(saveSeq(QString)), core, SIGNAL(saveSeq(QString)));
+    connect(guiManage, SIGNAL(uploadVideo(QString*, bool)), m_core, SIGNAL(uploadVideo(QString*, bool)));
+    connect(guiManage, SIGNAL(unloadVideo()), m_core, SIGNAL(unloadVideo()));
+    connect(guiManage, SIGNAL(playVideo()), m_core, SIGNAL(playVideo()));
+    connect(guiManage, SIGNAL(stopVideo()), m_core, SIGNAL(stopVideo()));
+    connect(guiManage, SIGNAL(pauseVideo()), m_core, SIGNAL(pauseVideo()));
+    connect(guiManage, SIGNAL(setTime(int)), m_core, SIGNAL(setTime(int)));
+    connect(guiManage, SIGNAL(setStartTime(int)), m_core, SIGNAL(setStartTime(int)));
+    connect(guiManage, SIGNAL(setEndTime(int)), m_core, SIGNAL(setEndTime(int)));
+    connect(guiManage, SIGNAL(addToSeq(QString,int,int)), m_core, SIGNAL(addToSeq(QString,int,int)));
+    connect(guiManage, SIGNAL(clearSeq()), m_core, SIGNAL(clearSeq()));
+    connect(guiManage, SIGNAL(loadSeq()), m_core, SIGNAL(loadSeq()));
+    connect(guiManage, SIGNAL(unloadSeq()), m_core, SIGNAL(unloadSeq()));
+    connect(guiManage, SIGNAL(saveSeq(QString)), m_core, SIGNAL(saveSeq(QString)));
 
     /* Получение сигналов */
-    connect(core, SIGNAL(updateFrame(QImage*)), guiManage, SIGNAL(updateFrame(QImage*)));
-    connect(core, SIGNAL(stoped()), guiManage, SIGNAL(stoped()));
-    connect(core, SIGNAL(updateTime(int)), guiManage, SIGNAL(updateTime(int)));
-    connect(core, SIGNAL(videoLen(int)), guiManage, SIGNAL(videoLen(int)));
+    connect(m_core, SIGNAL(updateFrame(QImage*)), guiManage, SIGNAL(updateFrame(QImage*)));
+    connect(m_core, SIGNAL(stoped()), guiManage, SIGNAL(stoped()));
+    connect(m_core, SIGNAL(updateTime(int)), guiManage, SIGNAL(updateTime(int)));
+    connect(m_core, SIGNAL(videoLen(int)), guiManage, SIGNAL(videoLen(int)));
+    connect(m_core, SIGNAL(progress(int)), guiManage, SIGNAL(progress(int)));
 
     /* Объединение внутренних модулей gui */
     connect(vControlBar, SIGNAL(getVideoFilePath()), videoCutterList, SLOT(getVideoFilePath()));
@@ -96,7 +104,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(guiManage, SIGNAL(stoped()), this, SLOT(stop()));
 
     /* Проверка работы сигналов */
-//    core->testSignals();
+//    m_core->testSignals();
 //    guiManage->testSignals();
 
     /* Компановка виджетов */
@@ -171,4 +179,16 @@ void MainWindow::unloadVideo() {
     m_actionPlay->setDisabled(true);
     m_actionPause->setDisabled(true);
     m_actionStop->setDisabled(true);
+}
+
+void MainWindow::progress(int val) {
+    if (m_progress->isHidden()) {
+        m_progress->show();
+        connect(m_core, SIGNAL(progress(int)), m_progress, SLOT(setValue(int)));
+    }
+
+    if (val == 100) {
+        m_progress->hide();
+        disconnect(m_core, SIGNAL(progress(int)), m_progress, SLOT(setValue(int)));
+    }
 }
