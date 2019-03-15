@@ -50,6 +50,7 @@ signals:
     void updateFrame(QImage*);
     void stoped();
     void updateTime(int);
+    void progress(int);
 
     /* Сигналы для внешних модулей */
     void uploadVideo(QString*, bool);

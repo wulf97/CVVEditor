@@ -21,6 +21,7 @@ public slots:
     void uploadVideo(QString*, bool);
     /* Выгрузка видео */
     void unloadVideo();
+    void writeVideo(VideoWriter*);
     /* Начать отправку кадров */
     void playVideo();
     /* Останавливить отправку кадров и сбрасить счетчик кадров */
@@ -52,9 +53,12 @@ signals:
     void ended();
 private slots:
     void update();
+    void updateWritedFrame();
 private:
     VideoCapture m_video;
+    VideoWriter *m_outVideo = nullptr;
     QTimer m_timer;
+    QTimer m_timer2;
     /* Флаг для проверки открытия видео */
     bool m_isOpened = false;
     /* Путь к видео */
@@ -64,11 +68,11 @@ private:
     /* Количество кадров в секунду */
     int m_fps = 0;
     /* Текущее время в миллисекундах */
-    int m_mTime = 0;
+    int m_time = 0;
     /* Начальное время фрагмента видео */
-    int m_mStartTime = 0;
+    int m_startTime = 0;
     /* Конечное время фрагмента видео */
-    int m_mEndTime = 0;
+    int m_endTime = 0;
 };
 
 #endif // VIDEOLOADER_H

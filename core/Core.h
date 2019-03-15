@@ -52,6 +52,7 @@ signals:
     void stoped();
     void updateTime(int);
     void ended();
+    void progress(int);
 private:
     VideoLoader *m_VLoader = nullptr;
     VideoSeq *m_VSeq = nullptr;
