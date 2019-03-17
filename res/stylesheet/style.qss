@@ -1891,4 +1891,44 @@ QAbstractView:selected {
     color: #32414B;
 }
 
+/* */
+QPushButton#deleteBtn {
+    border: 0;
+    margin: 2px;
+    padding: 0;
+    background-color: #19232D;
+    image: url(:/qss_icons/res/style/close.png);
+}
+
+QPushButton#deleteBtn:hover {
+    image: url(:/qss_icons/res/style/close-hover.png);
+}
+
+QPushButton#deleteBtn:pressed {
+    image: url(:/qss_icons/res/style/close-pressed.png);
+}
+
+QPushButton#upBtn {
+    border: 0;
+    margin: 2px;
+    padding: 0;
+    background-color: #19232D;
+    image: url(:/qss_icons/res/style/up_arrow_disabled.png);
+}
+
+QPushButton#upBtn:hover {
+    image: url(:/qss_icons/res/style/up_arrow.png);
+}
+
+QPushButton#downBtn {
+    border: 0;
+    margin: 2px;
+    padding: 0;
+    background-color: #19232D;
+    image: url(:/qss_icons/res/style/down_arrow_disabled.png);
+}
+
+QPushButton#downBtn:hover {
+    image: url(:/qss_icons/res/style/down_arrow.png);
+}
 
