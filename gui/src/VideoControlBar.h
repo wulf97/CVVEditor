@@ -20,7 +20,7 @@ public slots:
     void play();
     void pause();
     void stop();
-    void stoped();
+    void isStoped();
     void setStartTime(int);
     void setEndTime(int);
     void updateTime(int);

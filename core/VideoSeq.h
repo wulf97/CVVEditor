@@ -2,8 +2,10 @@
 #define VIDEOSEQ_H
 
 #include <QObject>
+#include <QImage>
 #include <QString>
 #include <QList>
+#include <QTimer>
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/videoio.hpp>
@@ -20,52 +22,51 @@ class VideoSeq : public QObject {
 public:
     VideoSeq(QObject *parent = nullptr);
 
-    void setConnect();
-    void setDisconnect();
+    void setConnection();
 public slots:
-    void addToSeq(QString, int, int);
     void clearSeq();
+    void addToSeq(QString, int, int);
     void loadSeq();
     void unloadSeq();
     void saveSeq(QString);
 
-    void seqUploadVideo(QString*, bool);
-    void seqUnloadVideo();
+    void seqUploadVideo(int);
+    void seqWriteVideo();
     void seqPlayVideo();
-    void seqStopVideo();
     void seqPauseVideo();
+    void seqStopVideo();
     void seqSetTime(int);
-    void seqUpdateTime(int);
-    void seqProgress(int);
-
-    void nextVideoDisplay();
-    void nextVideoWrite();
-    void uploaded();
-    void writeUploadedVideo();
-
 signals:
-    /* Сигналы идущие к VideoLoader */
-    void uploadVideo(QString*, bool);
-    void unloadVideo();
-    void writeVideo(VideoWriter*);
-    void playVideo();
-    void stopVideo();
-    void pauseVideo();
-    void setTime(int);
-    void setStartTime(int);
-    void setEndTime(int);
-
+    void updateFrame(QImage*);
     void updateTime(int);
-    void stoped();
-    void progress(int);
+    void updateProgress(int);
+    void isUploaded();
+    void isPlayed();
+    void isPaused();
+    void isStoped();
+private slots:
+    void updateDisplayedFrame();
+    void updateWritedFrame();
 private:
-    Core *m_parent = nullptr;
-    VideoLoader *m_vLoader = nullptr;
+    enum STATE {
+        IS_PLAYED,
+        IS_PAUSED,
+        IS_STOPED
+    };
+private:
+    Core *m_parent;
+    VideoLoader *m_vLoader;
+    QTimer m_displayTimer;
+    QTimer m_saveTimer;
     QList<VideoSeqItem*> m_seq;
-    VideoWriter *m_outVideo = nullptr;
+    VideoCapture m_inVideo;
+    VideoWriter m_outVideo;
+    QImage *m_frame = nullptr;
+    int m_state = STATE::IS_STOPED;
+    int m_it = 0;
+    int m_fps = 0;
     int m_pos = 0;
     int m_time = 0;
-    int m_iVideo = 0;
 };
 
 #endif // VIDEOSEQ_H

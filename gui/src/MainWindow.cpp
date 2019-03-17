@@ -39,19 +39,9 @@ MainWindow::MainWindow(QWidget *parent) :
     m_actionAdd = new QAction("Add new", this);
     m_actionExport = new QAction("Export", this);
 
-    ui->setupUi(this);
-
-
-//    QProgressBar *progress = new QProgressBar(this);
-//    progress->setValue(0);
-//    ui->statusBar->addPermanentWidget(progress);
-//    connect(m_core, SIGNAL(progress(int)), progress, SLOT(setValue(int)));
-
     m_progress = new QProgressBar(this);
-    m_progress->setValue(0);
-    ui->statusBar->addPermanentWidget(m_progress);
-    m_progress->hide();
-    connect(m_core, SIGNAL(progress(int)), this, SLOT(progress(int)));
+
+    ui->setupUi(this);
 
     /* Объединение m_core и GUIManager */
     /* Отправка сигналов */
@@ -71,10 +61,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* Получение сигналов */
     connect(m_core, SIGNAL(updateFrame(QImage*)), guiManage, SIGNAL(updateFrame(QImage*)));
-    connect(m_core, SIGNAL(stoped()), guiManage, SIGNAL(stoped()));
+    connect(m_core, SIGNAL(isStoped()), guiManage, SIGNAL(isStoped()));
     connect(m_core, SIGNAL(updateTime(int)), guiManage, SIGNAL(updateTime(int)));
     connect(m_core, SIGNAL(videoLen(int)), guiManage, SIGNAL(videoLen(int)));
-    connect(m_core, SIGNAL(progress(int)), guiManage, SIGNAL(progress(int)));
+    connect(m_core, SIGNAL(updateProgress(int)), guiManage, SIGNAL(updateProgress(int)));
 
     /* Объединение внутренних модулей gui */
     connect(vControlBar, SIGNAL(getVideoFilePath()), videoCutterList, SLOT(getVideoFilePath()));
@@ -83,6 +73,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(videoCutterList, SIGNAL(setEndTime(int)), vControlBar, SLOT(setEndTime(int)));
     connect(videoCutterList, SIGNAL(setMaxValueToSlider(int)), vControlBar,SLOT(setSliderMaxValue(int)));
     connect(videoCutterList, SIGNAL(unloadVideo()), vControlBar, SLOT(unloadVideo()));
+
+    connect(m_core, SIGNAL(updateProgress(int)), this, SLOT(updateProgress(int)));
 
     /* Сигналы меню */
     connect(m_actionPlay, SIGNAL(triggered(bool)), vControlBar, SIGNAL(playVideo()));
@@ -105,17 +97,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(guiManage, SIGNAL(pauseVideo()), this, SLOT(pause()));
     connect(guiManage, SIGNAL(stopVideo()), this, SLOT(stop()));
     connect(guiManage, SIGNAL(unloadVideo()), this, SLOT(unloadVideo()));
-    connect(guiManage, SIGNAL(stoped()), this, SLOT(stop()));
+    connect(guiManage, SIGNAL(isStoped()), this, SLOT(stop()));
 
-    /* Проверка работы сигналов */
-//    m_core->testSignals();
-//    guiManage->testSignals();
-
+    m_progress->setValue(0);
+    m_progress->hide();
     /* Компановка виджетов */
     ui->topAria->addWidget(viewport);
     ui->topAria->addWidget(vControlBar);
     ui->videoCutterLayout->addWidget(videoCutterList);
     ui->PluginListLayout->addWidget(pluginList);
+    ui->statusBar->addPermanentWidget(m_progress, 1);
 
     /* Компановка меню */
     ui->menuBar->addMenu(menuFile);
@@ -185,14 +176,14 @@ void MainWindow::unloadVideo() {
     m_actionStop->setDisabled(true);
 }
 
-void MainWindow::progress(int val) {
+void MainWindow::updateProgress(int val) {
     if (m_progress->isHidden()) {
         m_progress->show();
-        connect(m_core, SIGNAL(progress(int)), m_progress, SLOT(setValue(int)));
+        connect(m_core, SIGNAL(updateProgress(int)), m_progress, SLOT(setValue(int)));
     }
 
     if (val == 100) {
         m_progress->hide();
-        disconnect(m_core, SIGNAL(progress(int)), m_progress, SLOT(setValue(int)));
+        disconnect(m_core, SIGNAL(updateProgress(int)), m_progress, SLOT(setValue(int)));
     }
 }

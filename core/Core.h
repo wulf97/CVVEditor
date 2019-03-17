@@ -49,10 +49,10 @@ signals:
     /* Сигналы для внешних модулей */
     void videoLen(int);
     void updateFrame(QImage*);
-    void stoped();
+    void isStoped();
     void updateTime(int);
     void ended();
-    void progress(int);
+    void updateProgress(int);
 private:
     VideoLoader *m_VLoader = nullptr;
     VideoSeq *m_VSeq = nullptr;

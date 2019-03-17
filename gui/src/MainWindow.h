@@ -26,7 +26,7 @@ private slots:
     void pause();
     void stop();
     void unloadVideo();
-    void progress(int);
+    void updateProgress(int);
 private:
     Ui::MainWindow *ui;
     Core *m_core = nullptr;

@@ -48,9 +48,9 @@ signals:
     /* Сигналы для внутренних модулей */
     void videoLen(int);
     void updateFrame(QImage*);
-    void stoped();
+    void isStoped();
     void updateTime(int);
-    void progress(int);
+    void updateProgress(int);
 
     /* Сигналы для внешних модулей */
     void uploadVideo(QString*, bool);

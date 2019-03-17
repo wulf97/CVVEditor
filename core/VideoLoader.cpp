@@ -2,22 +2,33 @@
 #include <QImage>
 
 #include "VideoLoader.h"
-
+#include "Core.h"
 
 VideoLoader::VideoLoader(QObject *parent) : QObject(parent) {
+    m_parent = dynamic_cast<Core*>(parent);
+
+    setConnection();
     connect(&m_timer, SIGNAL(timeout()), this, SLOT(update()));
     connect(&m_timer2, SIGNAL(timeout()), this, SLOT(updateWritedFrame()));
 }
 
-void VideoLoader::testSignals() {
-    qDebug() << "Response on VideoLoader signals:" << endl;
-    qDebug() << "***" << endl;
+void VideoLoader::setConnection() {
+    /* Подключение к ядру */
+    /* Сигналы идущие к VideoLoader */
+    connect(m_parent, SIGNAL(uploadVideo(QString*, bool)), this, SLOT(uploadVideo(QString*, bool)));
+    connect(m_parent, SIGNAL(unloadVideo()), this, SLOT(unloadVideo()));
+    connect(m_parent, SIGNAL(playVideo()), this, SLOT(playVideo()));
+    connect(m_parent, SIGNAL(pauseVideo()), this, SLOT(pauseVideo()));
+    connect(m_parent, SIGNAL(stopVideo()), this, SLOT(stopVideo()));
+    connect(m_parent, SIGNAL(setTime(int)), this, SLOT(setTime(int)));
+    connect(m_parent, SIGNAL(setStartTime(int)), this, SLOT(setStartTime(int)));
+    connect(m_parent, SIGNAL(setEndTime(int)), this, SLOT(setEndTime(int)));
 
-    emit videoLen(100);
-    emit updateFrame(new QImage());
-    emit stoped();
-
-    qDebug() << "***" << endl;
+    /* Сигналы идущие от VideoLoader */
+    connect(this, SIGNAL(videoLen(int)), m_parent, SIGNAL(videoLen(int)));
+    connect(this, SIGNAL(updateFrame(QImage*)), m_parent, SIGNAL(updateFrame(QImage*)));
+    connect(this, SIGNAL(isStoped()), m_parent, SIGNAL(isStoped()));
+    connect(this, SIGNAL(updateTime(int)), m_parent, SIGNAL(updateTime(int)));
 }
 
 /******** Описание слотов ********/
@@ -92,6 +103,18 @@ void VideoLoader::playVideo() {
     }
 }
 
+/* Приостанавливает отправку кадров */
+void VideoLoader::pauseVideo() {
+    qDebug() << "slot: pauseVideo()" << endl;
+
+    if (m_isOpened) {
+        m_timer.stop();
+        if (m_video.isOpened()) {
+            m_video.release();
+        }
+    }
+}
+
 /* Останавливает отправку кадров и сбрасывет счетчик кадров */
 void VideoLoader::stopVideo() {
     qDebug() << "slot: stopVideo()" << endl;
@@ -105,18 +128,6 @@ void VideoLoader::stopVideo() {
 
         m_timer.stop();
         m_video.release();
-    }
-}
-
-/* Приостанавливает отправку кадров */
-void VideoLoader::pauseVideo() {
-    qDebug() << "slot: pauseVideo()" << endl;
-
-    if (m_isOpened) {
-        m_timer.stop();
-        if (m_video.isOpened()) {
-            m_video.release();
-        }
     }
 }
 
@@ -174,12 +185,12 @@ void VideoLoader::update() {
             }
         } else {
             stopVideo();
-            emit stoped();
+            emit isStoped();
             emit ended();
         }
     } else {
         emit updateTime(0);
-        emit stoped();
+        emit isStoped();
         m_timer.stop();
     }
 }

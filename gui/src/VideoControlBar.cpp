@@ -60,8 +60,8 @@ void VideoControlBar::stop() {
     ui->stop->setDisabled(true);
 }
 
-void VideoControlBar::stoped() {
-    qDebug() << "slot: stoped()" << endl;
+void VideoControlBar::isStoped() {
+    qDebug() << "slot: isStoped()" << endl;
     stop();
 }
 

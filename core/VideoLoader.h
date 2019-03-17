@@ -10,51 +10,38 @@
 
 using namespace cv;
 
+class Core;
+
 class VideoLoader : public QObject {
     Q_OBJECT
 public:
     VideoLoader(QObject *parent = nullptr);
 
-    void testSignals();
+    void setConnection();
 public slots:
-    /* Загрузить видео */
     void uploadVideo(QString*, bool);
-    /* Выгрузка видео */
     void unloadVideo();
     void writeVideo(VideoWriter*);
-    /* Начать отправку кадров */
     void playVideo();
-    /* Останавливить отправку кадров и сбрасить счетчик кадров */
-    void stopVideo();
-    /* Приостанавить отправку кадров */
     void pauseVideo();
-    /* Установить текущее время */
+    void stopVideo();
     void setTime(int);
-    /* Установить начальное время в мсек */
     void setStartTime(int);
-    /* Установить конечный время в мсек */
     void setEndTime(int);
 signals:
-    /* Метод для отлавливания ошибок */
     void error(int);
 
-    /* Передать длину видео в мсек */
     void videoLen(int);
-    /* */
     void uploaded();
-    /* Передать кадр  */
     void updateFrame(QImage*);
-    /* Сообщает об остановки видео,
-     * если счетчик кадров равен длине видео */
-    void stoped();
-    /* Передает текущее время в мсек */
+    void isStoped();
     void updateTime(int);
-    /* */
     void ended();
 private slots:
     void update();
     void updateWritedFrame();
 private:
+    Core *m_parent;
     VideoCapture m_video;
     VideoWriter *m_outVideo = nullptr;
     QTimer m_timer;
