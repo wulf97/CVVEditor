@@ -8,8 +8,7 @@ VideoLoader::VideoLoader(QObject *parent) : QObject(parent) {
     m_parent = dynamic_cast<Core*>(parent);
 
     setConnection();
-    connect(&m_timer, SIGNAL(timeout()), this, SLOT(update()));
-    connect(&m_timer2, SIGNAL(timeout()), this, SLOT(updateWritedFrame()));
+    connect(&m_timer, SIGNAL(timeout()), this, SLOT(updateDisplayedFrame()));
 }
 
 void VideoLoader::setConnection() {
@@ -55,14 +54,11 @@ void VideoLoader::uploadVideo(QString *path, bool fl) {
             emit videoLen(m_endTime);
         }
 
-        update();
+        updateDisplayedFrame();
         m_video.release();
-        /* Сообщаем о том, что видео было загружено */
-        emit uploaded();
     } else {
         qDebug() << "Video can not be load" << endl;
         m_isOpened = false;
-        emit error(0);
     }
 }
 
@@ -74,20 +70,6 @@ void VideoLoader::unloadVideo() {
 
     m_timer.stop();
     m_video.release();
-}
-
-void VideoLoader::writeVideo(VideoWriter *out) {
-    qDebug() << "slot: writeVideo()" << endl;
-    if (m_isOpened) {
-        m_outVideo = out;
-        m_time = m_startTime;
-        m_video.open(m_path->toStdString());
-
-        if (m_video.isOpened()) {
-            m_video.set(CAP_PROP_POS_MSEC, m_startTime);
-            m_timer2.start();
-        }
-    }
 }
 
 /* Начинает отправку кадров */
@@ -123,7 +105,7 @@ void VideoLoader::stopVideo() {
         if (m_endTime - m_startTime != 0) {
             m_time = m_startTime;
             m_video.set(CAP_PROP_POS_MSEC, m_startTime);
-            update();
+            updateDisplayedFrame();
         }
 
         m_timer.stop();
@@ -153,7 +135,7 @@ void VideoLoader::setStartTime(int time) {
         m_video.open(m_path->toStdString());
         if (m_video.isOpened()) {
             m_video.set(CAP_PROP_POS_MSEC, time);
-            update();
+            updateDisplayedFrame();
             m_video.release();
         }
     }
@@ -169,7 +151,7 @@ void VideoLoader::setEndTime(int time) {
 }
 
 /*************************************/
-void VideoLoader::update() {
+void VideoLoader::updateDisplayedFrame() {
     Mat frame;
 
     if (m_video.isOpened()) {
@@ -186,34 +168,10 @@ void VideoLoader::update() {
         } else {
             stopVideo();
             emit isStoped();
-            emit ended();
         }
     } else {
         emit updateTime(0);
         emit isStoped();
         m_timer.stop();
-    }
-}
-
-void VideoLoader::updateWritedFrame() {
-   // qDebug() << "slot: updateWritedFrame()" << endl;
-
-    Mat frame;
-
-    if (m_video.isOpened()) {
-        if (m_time < m_endTime) {
-            m_video >> frame;
-            if (!frame.empty()) {
-                resize(frame, frame, Size(500, 400));
-                m_outVideo->write(frame);
-                m_time = m_video.get(CAP_PROP_POS_MSEC);
-                update();
-            }
-        } else {
-            m_timer2.stop();
-            emit ended();
-        }
-    } else {
-        m_timer2.stop();
     }
 }

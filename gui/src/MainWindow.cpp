@@ -6,9 +6,10 @@
 #include <QDebug>
 #include <QLayout>
 #include <QProgressBar>
+#include <QTabWidget>
 
-#include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include "MainWindow.h"
 #include "GUIManager.h"
 #include "Core.h"
 
@@ -102,8 +103,13 @@ MainWindow::MainWindow(QWidget *parent) :
     m_progress->setValue(0);
     m_progress->hide();
     /* Компановка виджетов */
+    //QTabWidget *bottomBar = new QTabWidget(this);
+
+    //bottomBar->addTab(videoCutterList, tr("Videos"));
+
     ui->topAria->addWidget(viewport);
     ui->topAria->addWidget(vControlBar);
+    //ui->videoCutterLayout->addWidget(bottomBar);
     ui->videoCutterLayout->addWidget(videoCutterList);
     ui->PluginListLayout->addWidget(pluginList);
     ui->statusBar->addPermanentWidget(m_progress, 1);
