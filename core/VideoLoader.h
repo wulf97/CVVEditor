@@ -21,7 +21,6 @@ public:
 public slots:
     void uploadVideo(QString*, bool);
     void unloadVideo();
-    void writeVideo(VideoWriter*);
     void playVideo();
     void pauseVideo();
     void stopVideo();
@@ -29,36 +28,25 @@ public slots:
     void setStartTime(int);
     void setEndTime(int);
 signals:
-    void error(int);
-
     void videoLen(int);
-    void uploaded();
     void updateFrame(QImage*);
-    void isStoped();
     void updateTime(int);
-    void ended();
+    void isPlayed();
+    void isPaused();
+    void isStoped();
 private slots:
-    void update();
-    void updateWritedFrame();
+    void updateDisplayedFrame();
 private:
     Core *m_parent;
     VideoCapture m_video;
     VideoWriter *m_outVideo = nullptr;
     QTimer m_timer;
-    QTimer m_timer2;
-    /* Флаг для проверки открытия видео */
     bool m_isOpened = false;
-    /* Путь к видео */
     QString *m_path = nullptr;
-    /* Текущий кадр видео */
     QImage *m_frame = nullptr;
-    /* Количество кадров в секунду */
     int m_fps = 0;
-    /* Текущее время в миллисекундах */
     int m_time = 0;
-    /* Начальное время фрагмента видео */
     int m_startTime = 0;
-    /* Конечное время фрагмента видео */
     int m_endTime = 0;
 };
 
