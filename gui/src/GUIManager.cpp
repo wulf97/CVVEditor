@@ -1,10 +1,12 @@
 #include "GUIManager.h"
 
-GUIManager::GUIManager(QObject *parent) : QObject(parent) {
-    m_viewport = new Viewport();
-    m_videoControlBar = new VideoControlBar();
-    m_videoCutterList = new VideoCutterList();
-    m_pluginList = new PluginList();
+GUIManager::GUIManager(QWidget *parent) :
+                       QWidget(parent) {
+    m_viewport = new Viewport(this);
+    m_videoControlBar = new VideoControlBar(this);
+    m_videoCutterList = new VideoCutterList(this);
+    m_effectRangeList = new EffectRangeList(this);
+    m_pluginList = new PluginList(this);
 
     /* Проброс сигналов к модулям GUIManager */
     connect(this, SIGNAL(updateFrame(QImage*)), m_viewport, SLOT(updateFrame(QImage*)));
@@ -32,13 +34,6 @@ GUIManager::GUIManager(QObject *parent) : QObject(parent) {
 
     connect(m_videoCutterList, SIGNAL(sendLengthOfVideo(int)), m_videoControlBar, SLOT(setEndTime(int)));
     connect(m_videoCutterList, SIGNAL(sendCurrentPositionSlider(int)), m_videoControlBar, SLOT(slotSetSliderPosition(int)));
-
-
-
-
-
-
-
 }
 
 void GUIManager::testSignals() {
@@ -50,6 +45,7 @@ GUIManager::~GUIManager() {
     delete m_viewport;
     delete m_videoControlBar;
     delete m_videoCutterList;
+    delete m_effectRangeList;
     delete m_pluginList;
 }
 
@@ -63,6 +59,10 @@ VideoControlBar *GUIManager::getVideoControlBar() const {
 
 VideoCutterList *GUIManager::getVideoCutterList() const {
     return m_videoCutterList;
+}
+
+EffectRangeList *GUIManager::getEffectRangeList() const {
+    return m_effectRangeList;
 }
 
 PluginList *GUIManager::getPluginList() const {

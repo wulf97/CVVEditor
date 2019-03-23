@@ -1,23 +1,25 @@
 #ifndef GUIMANAGER_H
 #define GUIMANAGER_H
 
-#include <QObject>
+#include <QWidget>
 #include <QDebug>
 
 #include "Viewport.h"
 #include "VideoControlBar.h"
 #include "VideoCutterList.h"
 #include "PluginList.h"
+#include "EffectRangeList.h"
+
 
 /**
  * @brief Класс GUIManager связывает модули графического интерфейса с внешними модулями.
  *
  * GUIManager принимает сигнылы от внешних модулей и модулей графического интерфейса, а затем перенаправляет их по цепочке.
  */
-class GUIManager : public QObject {
+class GUIManager : public QWidget {
     Q_OBJECT
 public:
-    GUIManager(QObject *parent = nullptr);
+    GUIManager(QWidget *parent = nullptr);
     virtual ~GUIManager();
 
     /**
@@ -39,6 +41,7 @@ public:
      * @return Указатель на VideoCutterList.
      */
     VideoCutterList *getVideoCutterList() const;
+    EffectRangeList *getEffectRangeList() const;
     /**
      * @brief getPluginList используется для получения доступа к PluginList.
      * @return Указатель на PluginList.
@@ -70,6 +73,7 @@ private:
     Viewport *m_viewport;
     VideoControlBar *m_videoControlBar;
     VideoCutterList *m_videoCutterList;
+    EffectRangeList *m_effectRangeList;
     PluginList *m_pluginList;
 };
 

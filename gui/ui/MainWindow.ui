@@ -75,7 +75,7 @@
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
                  <property name="currentIndex">
-                  <number>0</number>
+                  <number>1</number>
                  </property>
                  <widget class="QWidget" name="videoTab">
                   <property name="cursor">
@@ -102,6 +102,9 @@
                    </property>
                    <item>
                     <layout class="QVBoxLayout" name="verticalLayout_3">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
                      <item>
                       <widget class="QWidget" name="widget_2" native="true">
                        <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -115,6 +118,9 @@
                          <number>0</number>
                         </property>
                         <property name="rightMargin">
+                         <number>0</number>
+                        </property>
+                        <property name="bottomMargin">
                          <number>0</number>
                         </property>
                         <item>
@@ -139,8 +145,8 @@
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>430</width>
-                             <height>479</height>
+                             <width>576</width>
+                             <height>487</height>
                             </rect>
                            </property>
                            <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -214,7 +220,7 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <layout class="QVBoxLayout" name="verticalLayout_7"/>
+                    <layout class="QVBoxLayout" name="effectCutterLayout"/>
                    </item>
                   </layout>
                  </widget>
@@ -250,7 +256,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>427</width>
+             <width>281</width>
              <height>532</height>
             </rect>
            </property>

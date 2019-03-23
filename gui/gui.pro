@@ -42,7 +42,10 @@ SOURCES += \
     src/VideoCutterList.cpp \
     src/VideoCutter.cpp \
     src/GUIManager.cpp \
-    src/RangeSlider.cpp
+    src/RangeSlider.cpp \
+    src/EffectRangeList.cpp \
+    src/EffectRange.cpp \
+    src/Effect.cpp
 
 HEADERS += \
     src/MainWindow.h \
@@ -52,7 +55,10 @@ HEADERS += \
     src/VideoCutterList.h \
     src/VideoCutter.h \
     src/GUIManager.h \
-    src/RangeSlider.h
+    src/RangeSlider.h \
+    src/EffectRangeList.h \
+    src/EffectRange.h \
+    src/Effect.h
 
 FORMS += \
     ui/MainWindow.ui \
@@ -60,7 +66,9 @@ FORMS += \
     ui/Viewport.ui \
     ui/VideoControlBar.ui \
     ui/VideoCutterList.ui \
-    ui/VideoCutter.ui
+    ui/VideoCutter.ui \
+    ui/EffectRange.ui \
+    ui/Effect.ui
 
 RESOURCES += \
     ../res.qrc

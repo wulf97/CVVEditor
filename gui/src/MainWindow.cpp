@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     Viewport *viewport = guiManage->getViewport();
     VideoControlBar *vControlBar = guiManage->getVideoControlBar();
     VideoCutterList *videoCutterList = guiManage->getVideoCutterList();
+    EffectRangeList *effectRangeList = guiManage->getEffectRangeList();
     PluginList *pluginList = guiManage->getPluginList();
 
     /* Меню */
@@ -103,14 +104,10 @@ MainWindow::MainWindow(QWidget *parent) :
     m_progress->setValue(0);
     m_progress->hide();
     /* Компановка виджетов */
-    //QTabWidget *bottomBar = new QTabWidget(this);
-
-    //bottomBar->addTab(videoCutterList, tr("Videos"));
-
     ui->topAria->addWidget(viewport);
     ui->topAria->addWidget(vControlBar);
-    //ui->videoCutterLayout->addWidget(bottomBar);
     ui->videoCutterLayout->addWidget(videoCutterList);
+    ui->effectCutterLayout->addWidget(effectRangeList);
     ui->PluginListLayout->addWidget(pluginList);
     ui->statusBar->addPermanentWidget(m_progress, 1);
 

@@ -9,8 +9,8 @@
 #include "RangeSlider.h"
 
 VideoCutter::VideoCutter(QWidget *parent, int NumberInList, QString endTimeString, int endTimeNumber, QString VideoFilePath) :
-    QWidget(parent),
-    ui(new Ui::VideoCutter) {
+                         QWidget(parent),
+                         ui(new Ui::VideoCutter) {
     ui->setupUi(this);
     m_RangeSlider = new RangeSlider();
     ui->horizontalLayout_5->addWidget(m_RangeSlider);

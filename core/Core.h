@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+#include "PluginManager.h"
 #include "VideoLoader.h"
 #include "VideoSeq.h"
 
@@ -16,10 +17,6 @@ class Core : public QObject {
 public:
     Core(QObject *parent = nullptr);
 
-    /**
-     * @brief testSignals используется для тестирования сигналов.
-     */
-    void testSignals();
     /**
      * @brief getVideoLoader используется для доступа к загрузчику видео.
      * @return Указатель на VideoLoader.

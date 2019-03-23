@@ -21,6 +21,10 @@ HEADERS += \
     PluginManager.h \
     VideoLoader.h \
     VideoSeq.h \
-    VideoSeqItem.h
+    VideoSeqItem.h \
+    IFilter.h
 
 message("Build core")
+
+DISTFILES += \
+    ../plugins/plugin_config.pri

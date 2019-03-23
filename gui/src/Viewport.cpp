@@ -4,8 +4,8 @@
 #include "ui_Viewport.h"
 
 Viewport::Viewport(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Viewport) {
+                   QWidget(parent),
+                   ui(new Ui::Viewport) {
     ui->setupUi(this);
 }
 

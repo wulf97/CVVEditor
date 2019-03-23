@@ -2,4 +2,6 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     core \
-    gui
+    gui \
+    plugins/Canny \
+    plugins/Median
