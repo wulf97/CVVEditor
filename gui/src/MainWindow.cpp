@@ -60,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(guiManage, SIGNAL(loadSeq()), m_core, SIGNAL(loadSeq()));
     connect(guiManage, SIGNAL(unloadSeq()), m_core, SIGNAL(unloadSeq()));
     connect(guiManage, SIGNAL(saveSeq(QString)), m_core, SIGNAL(saveSeq(QString)));
+    connect(guiManage, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)),
+            m_core, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)));
 
     /* Получение сигналов */
     connect(m_core, SIGNAL(updateFrame(QImage*)), guiManage, SIGNAL(updateFrame(QImage*)));
@@ -67,6 +69,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_core, SIGNAL(updateTime(int)), guiManage, SIGNAL(updateTime(int)));
     connect(m_core, SIGNAL(videoLen(int)), guiManage, SIGNAL(videoLen(int)));
     connect(m_core, SIGNAL(updateProgress(int)), guiManage, SIGNAL(updateProgress(int)));
+    connect(m_core, SIGNAL(effectsList(QStringList)), guiManage, SIGNAL(effectsList(QStringList)));
 
     /* Объединение внутренних модулей gui */
     connect(vControlBar, SIGNAL(getVideoFilePath()), videoCutterList, SLOT(getVideoFilePath()));
@@ -149,6 +152,19 @@ MainWindow::MainWindow(QWidget *parent) :
     m_actionPause->setDisabled(true);
     m_actionStop->setDisabled(true);
     m_actionExport->setDisabled(false);
+
+
+
+    /************/
+    connect(this, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)),
+            guiManage, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)));
+
+    QWidget *win = new QWidget();
+    QHBoxLayout *l = new QHBoxLayout();
+    emit displayEffectsSettings("Canny", l);
+
+    win->setLayout(l);
+    win->show();
 }
 
 MainWindow::~MainWindow() {

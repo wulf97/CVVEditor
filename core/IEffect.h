@@ -1,5 +1,5 @@
-#ifndef IPLUGIN_H
-#define IPLUGIN_H
+#ifndef IEFFECT_H
+#define IEFFECT_H
 
 #include <QtPlugin>
 
@@ -9,9 +9,10 @@ namespace cv {
 class Mat;
 }
 
-class IFilter {
+class IEffect {
 public:
-    ~IFilter() {}
+    ~IEffect() {}
+
     virtual int getID() const = 0;
     virtual QString getName() const = 0;
     virtual void display(QBoxLayout*) = 0;
@@ -20,6 +21,6 @@ public:
 
 #define Interface_iid "Interface_iid"
 
-Q_DECLARE_INTERFACE(IFilter, Interface_iid)
+Q_DECLARE_INTERFACE(IEffect, Interface_iid)
 
-#endif // IPLUGIN_H
+#endif // IEFFECT_H

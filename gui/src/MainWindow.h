@@ -5,6 +5,7 @@
 #include <QProgressBar>
 
 class Core;
+class QBoxLayout;
 
 namespace Ui {
 class MainWindow;
@@ -27,6 +28,8 @@ private slots:
     void stop();
     void unloadVideo();
     void updateProgress(int);
+signals:
+        void displayEffectsSettings(QString, QBoxLayout*);
 private:
     Ui::MainWindow *ui;
     Core *m_core = nullptr;

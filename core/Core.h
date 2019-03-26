@@ -7,6 +7,9 @@
 #include "VideoLoader.h"
 #include "VideoSeq.h"
 
+
+class QBoxLayout;
+
 /**
  * @brief Класс Core связывает модули ядра с остальными модулями системы.
  *
@@ -27,6 +30,8 @@ public:
      * @return Указатель на VideoSeq.
      */
     VideoSeq *getVideoSeq();
+public slots:
+    void displaySettings(QString, QBoxLayout*);
 signals:
     /* Сигналы для внутренних модулей */
     void uploadVideo(QString*, bool);
@@ -42,6 +47,7 @@ signals:
     void loadSeq();
     void unloadSeq();
     void saveSeq(QString);
+    void displayEffectsSettings(QString, QBoxLayout*);
 
     /* Сигналы для внешних модулей */
     void videoLen(int);
@@ -50,9 +56,11 @@ signals:
     void updateTime(int);
     void ended();
     void updateProgress(int);
+    void effectsList(QStringList);
 private:
-    VideoLoader *m_VLoader = nullptr;
-    VideoSeq *m_VSeq = nullptr;
+    PluginManager *m_pManager;
+    VideoLoader *m_VLoader;
+    VideoSeq *m_VSeq;
 };
 
 #endif // CORE_H
