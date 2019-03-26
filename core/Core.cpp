@@ -15,6 +15,7 @@ Core::Core(QObject *parent) : QObject(parent) {
         effects.push_back(dynamic_cast<IEffect*>(m_pManager->get(i))->getName());
     }
 
+
     emit effectsList(effects);
 
     connect(this, SIGNAL(displayEffectsSettings(QString, QBoxLayout*)),

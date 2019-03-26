@@ -156,6 +156,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     /************/
+    connect(guiManage, SIGNAL(effectsList(QStringList)), this, SLOT(bla(QStringList)));
+
     connect(this, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)),
             guiManage, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)));
 
@@ -205,4 +207,8 @@ void MainWindow::updateProgress(int val) {
         m_progress->hide();
         disconnect(m_core, SIGNAL(updateProgress(int)), m_progress, SLOT(setValue(int)));
     }
+}
+
+void MainWindow::bla(QStringList) {
+   qDebug() << "GGGGGGGGGGGGGGGG";
 }
