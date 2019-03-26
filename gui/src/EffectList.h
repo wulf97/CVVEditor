@@ -1,5 +1,5 @@
-#ifndef EFFECT_H
-#define EFFECT_H
+#ifndef EFFECT_LIST_H
+#define EFFECT_LIST_H
 #include <QWidget>
 
 class GUIManager;
@@ -8,6 +8,7 @@ namespace Ui {
 class EffectList;
 }
 
+class Effect;
 
 class EffectList : public QWidget {
     Q_OBJECT
@@ -18,10 +19,12 @@ public:
 
     void setConnection();
     void setEffectList(QString item);
-    void addNewEffect(QString);
+public slots:
+    void addNewEffect();
 private:
     Ui::EffectList *ui;
     GUIManager *m_parent = nullptr;
+    QList<Effect*> listOfEffectsWidget;
 };
 
 #endif // EFFECT_H

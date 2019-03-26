@@ -12,7 +12,7 @@ class Effect : public QWidget
     Q_OBJECT
 
 public:
-    explicit Effect(QWidget *parent = nullptr);
+    explicit Effect(QWidget *parent = nullptr, QString text = "");
     ~Effect();
 
 private:

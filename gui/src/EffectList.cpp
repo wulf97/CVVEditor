@@ -7,7 +7,7 @@ EffectList::EffectList(QWidget *parent) :
                ui(new Ui::EffectList) {
     m_parent = dynamic_cast<GUIManager*>(parent);
     ui->setupUi(this);
-    connect(ui->addBtn, SIGNAL(released()), this, SLOT(addNewEffect(QString)));
+    connect(ui->addBtn, SIGNAL(released()), this, SLOT(addNewEffect()));
 }
 
 EffectList::~EffectList() {
@@ -23,7 +23,10 @@ void EffectList::setEffectList(QString item)
     ui->comboBox->addItem(item);
 }
 
-void EffectList::addNewEffect(QString)
+void EffectList::addNewEffect()
 {
-    Effect *effect = new Effect(this);
+    Effect *effect = new Effect(this,ui->comboBox->currentText());
+    listOfEffectsWidget.append(effect);
+    ui->effectListLayout->addWidget(effect);
+
 }
