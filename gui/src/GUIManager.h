@@ -55,6 +55,7 @@ signals:
     void updateTime(int);
     void updateProgress(int);
     void effectsList(QStringList);
+    void getEffectsList();
 
     /* Сигналы для внешних модулей */
     void uploadVideo(QString*, bool);

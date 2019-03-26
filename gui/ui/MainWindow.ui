@@ -145,8 +145,8 @@
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>576</width>
-                             <height>487</height>
+                             <width>542</width>
+                             <height>494</height>
                             </rect>
                            </property>
                            <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -220,7 +220,24 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <layout class="QVBoxLayout" name="effectCutterLayout"/>
+                    <layout class="QVBoxLayout" name="blavbla">
+                     <item>
+                      <layout class="QVBoxLayout" name="effectCutterLayout"/>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
                    </item>
                   </layout>
                  </widget>
@@ -256,8 +273,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>281</width>
-             <height>532</height>
+             <width>313</width>
+             <height>535</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -299,7 +316,7 @@
      <x>0</x>
      <y>0</y>
      <width>900</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

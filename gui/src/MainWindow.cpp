@@ -62,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(guiManage, SIGNAL(saveSeq(QString)), m_core, SIGNAL(saveSeq(QString)));
     connect(guiManage, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)),
             m_core, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)));
+    connect(guiManage, SIGNAL(getEffectsList()), m_core, SLOT(getEffectsList()));
 
     /* Получение сигналов */
     connect(m_core, SIGNAL(updateFrame(QImage*)), guiManage, SIGNAL(updateFrame(QImage*)));
@@ -161,12 +162,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)),
             guiManage, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)));
 
-    QWidget *win = new QWidget();
-    QHBoxLayout *l = new QHBoxLayout();
-    emit displayEffectsSettings("Canny", l);
+//    QWidget *win = new QWidget();
+//    QHBoxLayout *l = new QHBoxLayout();
+//    emit displayEffectsSettings("Canny", l);
 
-    win->setLayout(l);
-    win->show();
+//    win->setLayout(l);
+//    win->show();
 }
 
 MainWindow::~MainWindow() {

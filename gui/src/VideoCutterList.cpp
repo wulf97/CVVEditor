@@ -6,6 +6,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include "GUIManager.h"
 
 #include "VideoCutterList.h"
 #include "ui_VideoCutterList.h"
@@ -15,10 +16,22 @@ VideoCutterList::VideoCutterList(QWidget *parent) :
                                  ui(new Ui::VideoCutterList) {
     ui->setupUi(this);
     countOfVideo = 0;
+    m_parent = dynamic_cast<GUIManager*>(parent);
+    connect(this,SIGNAL(updateEffectRangeTime(int)),m_parent->getEffectRangeList(),SLOT(updateEndTime(int)));
 }
 
 VideoCutterList::~VideoCutterList() {
     delete ui;
+}
+
+int VideoCutterList::getLengthFullVideo()
+{
+    int endTime = 0;
+    for (auto i : listOfVideoCutterWidgets) {
+        VideoCutter* p = dynamic_cast<VideoCutter*>(i);
+        endTime += (p->getMaximumValue() - p->getMinimumValue());
+    }
+    return endTime;
 }
 
 void VideoCutterList::getVideoFilePath() {
@@ -81,6 +94,7 @@ void VideoCutterList::videoLen(int length) {
     emit stopVideo();
     emit setEndTime(length);
     emit setMaxValueToSlider(length);
+    emit updateEffectRangeTime(getLengthFullVideo());
 
 }
 

@@ -15,8 +15,7 @@ Core::Core(QObject *parent) : QObject(parent) {
         effects.push_back(dynamic_cast<IEffect*>(m_pManager->get(i))->getName());
     }
 
-
-    emit effectsList(effects);
+    //emit effectsList(effects);
 
     connect(this, SIGNAL(displayEffectsSettings(QString, QBoxLayout*)),
             this, SLOT(displaySettings(QString, QBoxLayout*)));
@@ -38,4 +37,15 @@ void Core::displaySettings(QString effectName, QBoxLayout *layout) {
             effect->display(layout);
         }
     }
+}
+
+void Core::getEffectsList()
+{
+    QStringList effects;
+    for (int i = 0; i < m_pManager->size(); i++) {
+        qDebug() << "Filter: " << dynamic_cast<IEffect*>(m_pManager->get(i))->getName();
+        effects.push_back(dynamic_cast<IEffect*>(m_pManager->get(i))->getName());
+    }
+
+    emit effectsList(effects);
 }
