@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QVector>
 
+class Core;
+
 class PluginManager : public QObject {
     Q_OBJECT
 public:
@@ -17,6 +19,7 @@ public:
     QObject *get(int);
 
 private:
+    Core *m_parent;
     QVector<QObject*> *m_plugins;
 };
 

@@ -3,8 +3,11 @@
 #include <QDebug>
 
 #include "PluginManager.h"
+#include "Core.h"
+#include "IEffect.h"
 
 PluginManager::PluginManager(QObject *parent) : QObject(parent) {
+    m_parent = dynamic_cast<Core*>(parent);
     m_plugins = new QVector<QObject*>;
 }
 
@@ -22,6 +25,7 @@ void PluginManager::load() {
         QPluginLoader loader(filesList[i].absoluteFilePath());
         QObject *plugin = loader.instance();
         if (loader.isLoaded()) {
+            IEffect *iPlugin = dynamic_cast<IEffect*>(plugin);
             m_plugins->push_back(plugin);
             qDebug() << "Loading: " << loader.fileName() << endl;
         }

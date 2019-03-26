@@ -3,16 +3,16 @@
 
 #include <QWidget>
 
-#include "IFilter.h"
+#include "IEffect.h"
 
 namespace Ui {
 class Median;
 }
 
-class Median: public QWidget, public IFilter {
+class Median: public QWidget, public IEffect {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "Interface_id")
-    Q_INTERFACES(IFilter)
+    Q_INTERFACES(IEffect)
 public:
     explicit Median(QWidget *parent = nullptr);
     ~Median();
