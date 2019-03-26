@@ -6,19 +6,19 @@
 class GUIManager;
 
 namespace Ui {
-class Effect;
+class EffectList;
 }
 
-class Effect : public QWidget {
+class EffectList : public QWidget {
     Q_OBJECT
 
 public:
-    explicit Effect(QWidget *parent = nullptr);
-    ~Effect();
+    explicit EffectList(QWidget *parent = nullptr);
+    ~EffectList();
 
     void setConnection();
 private:
-    Ui::Effect *ui;
+    Ui::EffectList *ui;
     GUIManager *m_parent = nullptr;
 };
 

@@ -1,18 +1,18 @@
-#include "ui_Effect.h"
-#include "Effect.h"
+#include "ui_EffectList.h"
+#include "EffectList.h"
 #include "GUIManager.h"
 
-Effect::Effect(QWidget *parent) :
+EffectList::EffectList(QWidget *parent) :
                QWidget(parent),
-               ui(new Ui::Effect) {
+               ui(new Ui::EffectList) {
     m_parent = dynamic_cast<GUIManager*>(parent);
     ui->setupUi(this);
 }
 
-Effect::~Effect() {
+EffectList::~EffectList() {
     delete ui;
 }
 
-void Effect::setConnection() {
+void EffectList::setConnection() {
     /* Подключение сигналов */
 }

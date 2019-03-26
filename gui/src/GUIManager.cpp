@@ -4,8 +4,8 @@ GUIManager::GUIManager(QWidget *parent) :
                        QWidget(parent) {
     m_viewport = new Viewport(this);
     m_videoControlBar = new VideoControlBar(this);
-    m_videoCutterList = new VideoCutterList(this);
     m_effectRangeList = new EffectRangeList(this);
+    m_videoCutterList = new VideoCutterList(this);
     m_pluginList = new PluginList(this);
 
     /* Проброс сигналов к модулям GUIManager */

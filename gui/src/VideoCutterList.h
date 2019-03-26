@@ -6,6 +6,7 @@
 
 #include "VideoCutter.h"
 
+class GUIManager;
 namespace Ui {
 class VideoCutterList;
 }
@@ -17,6 +18,7 @@ public:
     explicit VideoCutterList(QWidget *parent = nullptr);
     ~VideoCutterList();
 
+    int getLengthFullVideo();
 signals:
     void uploadVideo(QString*, bool);
     void unloadVideo();
@@ -31,6 +33,7 @@ signals:
     void loadSeq();
     void unloadSeq();
     void saveSeq(QString);
+    void updateEffectRangeTime(int);
 public slots:
     void getVideoFilePath();
     void videoLen(int);
@@ -43,6 +46,7 @@ public slots:
     void writeToJsonAs();
     void readFromJson();
 private:
+    GUIManager *m_parent;
     void addNewCutter(QString*,int);
     Ui::VideoCutterList *ui;
     int countOfVideo;

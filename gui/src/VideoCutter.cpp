@@ -46,6 +46,7 @@ int VideoCutter::getMaximumValue()
 void VideoCutter::setMinimumValue(int min)
 {
     m_RangeSlider->setMinimum(min);
+    lowerValue = min;
     setCheckBoxValue(true);
 }
 
