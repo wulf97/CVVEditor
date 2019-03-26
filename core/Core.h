@@ -32,6 +32,7 @@ public:
     VideoSeq *getVideoSeq();
 public slots:
     void displaySettings(QString, QBoxLayout*);
+    void getEffectsList();
 signals:
     /* Сигналы для внутренних модулей */
     void uploadVideo(QString*, bool);

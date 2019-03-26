@@ -8,11 +8,13 @@ GUIManager::GUIManager(QWidget *parent) :
     m_videoCutterList = new VideoCutterList(this);
     m_pluginList = new PluginList(this);
 
+
     /* Проброс сигналов к модулям GUIManager */
     connect(this, SIGNAL(updateFrame(QImage*)), m_viewport, SLOT(updateFrame(QImage*)));
     connect(this, SIGNAL(isStoped()), m_videoControlBar, SLOT(isStoped()));
     connect(this, SIGNAL(updateTime(int)), m_videoControlBar, SLOT(updateTime(int)));
     connect(this, SIGNAL(videoLen(int)), m_videoCutterList, SLOT(videoLen(int)));
+    connect(this, SIGNAL(effectsList(QStringList)), m_pluginList, SLOT(setEffectsToEffectList(QStringList)));
 
     /* Проброс сигналов от модулей GUIManager */
     connect(m_videoControlBar, SIGNAL(playVideo()), SIGNAL(playVideo()));

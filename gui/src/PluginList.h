@@ -18,6 +18,7 @@ public:
     ~PluginList();
 public slots:
     void addEffectList();
+    void setEffectsToEffectList(QStringList);
 private:
     Ui::PluginList *ui;
     GUIManager *m_parent;
