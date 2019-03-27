@@ -210,6 +210,6 @@ void MainWindow::updateProgress(int val) {
     }
 }
 
-void MainWindow::bla(QStringList) {
-   qDebug() << "GGGGGGGGGGGGGGGG";
-}
+//void MainWindow::bla(QStringList) {
+//   qDebug() << "GGGGGGGGGGGGGGGG";
+//}

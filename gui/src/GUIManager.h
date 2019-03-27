@@ -9,6 +9,7 @@
 #include "VideoCutterList.h"
 #include "PluginList.h"
 #include "EffectRangeList.h"
+#include "EffectSettings.h"
 
 
 /**
@@ -22,31 +23,13 @@ public:
     GUIManager(QWidget *parent = nullptr);
     virtual ~GUIManager();
 
-    /**
-     * @brief testSignals используется для тестирования сигналов.
-     */
     void testSignals();
-    /**
-     * @brief getViewport используется для получения доступа к Viewport.
-     * @return Указатель на Viewport.
-     */
     Viewport *getViewport() const;
-    /**
-     * @brief getVideoControlBar используется для получения доступа к VideoControlBar.
-     * @return Указатель на VideoControlBar.
-     */
     VideoControlBar *getVideoControlBar() const;
-    /**
-     * @brief getVideoCutterList используется для получения доступа к VideoCutterList.
-     * @return Указатель на VideoCutterList.
-     */
     VideoCutterList *getVideoCutterList() const;
     EffectRangeList *getEffectRangeList() const;
-    /**
-     * @brief getPluginList используется для получения доступа к PluginList.
-     * @return Указатель на PluginList.
-     */
     PluginList *getPluginList() const;
+    EffectSettings *getEffectSettings() const;
 signals:
     /* Сигналы для внутренних модулей */
     void videoLen(int);
@@ -78,6 +61,7 @@ private:
     VideoCutterList *m_videoCutterList;
     EffectRangeList *m_effectRangeList;
     PluginList *m_pluginList;
+    EffectSettings *m_effectSettings;
 };
 
 #endif // GUIMANAGER_H

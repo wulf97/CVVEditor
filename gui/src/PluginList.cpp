@@ -22,6 +22,10 @@ PluginList::~PluginList() {
     delete ui;
 }
 
+GUIManager *PluginList::getParent() {
+    return m_parent;
+}
+
 void PluginList::addEffectList()
 {
     EffectList* effectList = new EffectList(this);

@@ -29,7 +29,7 @@ private slots:
     void unloadVideo();
     void updateProgress(int);
 signals:
-        void displayEffectsSettings(QString, QBoxLayout*);
+    void displayEffectsSettings(QString, QBoxLayout*);
 private:
     Ui::MainWindow *ui;
     Core *m_core = nullptr;

@@ -16,6 +16,8 @@ class PluginList : public QWidget {
 public:
     explicit PluginList(QWidget *parent = nullptr);
     ~PluginList();
+
+    GUIManager *getParent();
 public slots:
     void addEffectList();
     void setEffectsToEffectList(QStringList);

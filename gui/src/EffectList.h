@@ -8,6 +8,7 @@ namespace Ui {
 class EffectList;
 }
 
+class PluginList;
 class Effect;
 
 class EffectList : public QWidget {
@@ -17,14 +18,15 @@ public:
     explicit EffectList(QWidget *parent = nullptr);
     ~EffectList();
 
+    PluginList *getParent();
     void setConnection();
     void setEffectList(QString item);
 public slots:
     void addNewEffect();
 private:
     Ui::EffectList *ui;
-    GUIManager *m_parent = nullptr;
+    PluginList *m_parent = nullptr;
     QList<Effect*> listOfEffectsWidget;
 };
 
-#endif // EFFECT_H
+#endif // EFFECT_LIST_H
