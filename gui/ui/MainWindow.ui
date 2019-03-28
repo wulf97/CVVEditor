@@ -75,7 +75,7 @@
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
                  <property name="currentIndex">
-                  <number>0</number>
+                  <number>1</number>
                  </property>
                  <widget class="QWidget" name="videoTab">
                   <property name="cursor">
@@ -85,9 +85,6 @@
                    <string>Videos</string>
                   </attribute>
                   <layout class="QVBoxLayout" name="verticalLayout_4">
-                   <property name="spacing">
-                    <number>0</number>
-                   </property>
                    <property name="leftMargin">
                     <number>0</number>
                    </property>
@@ -145,7 +142,7 @@
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>280</width>
+                             <width>240</width>
                              <height>487</height>
                             </rect>
                            </property>
@@ -206,7 +203,7 @@
                   <attribute name="title">
                    <string>Effects</string>
                   </attribute>
-                  <layout class="QVBoxLayout" name="verticalLayout_8">
+                  <layout class="QVBoxLayout" name="verticalLayout_7">
                    <property name="leftMargin">
                     <number>0</number>
                    </property>
@@ -220,22 +217,69 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <layout class="QVBoxLayout" name="blavbla">
+                    <layout class="QVBoxLayout" name="verticalLayout">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
                      <item>
-                      <layout class="QVBoxLayout" name="effectCutterLayout"/>
+                      <widget class="QScrollArea" name="scrollArea">
+                       <property name="widgetResizable">
+                        <bool>true</bool>
+                       </property>
+                       <widget class="QWidget" name="scrollAreaWidgetContents">
+                        <property name="geometry">
+                         <rect>
+                          <x>0</x>
+                          <y>0</y>
+                          <width>242</width>
+                          <height>487</height>
+                         </rect>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_12">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>0</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>0</number>
+                         </property>
+                         <item>
+                          <layout class="QVBoxLayout" name="l">
+                           <property name="spacing">
+                            <number>0</number>
+                           </property>
+                           <item>
+                            <layout class="QVBoxLayout" name="effectCutterLayout"/>
+                           </item>
+                           <item>
+                            <spacer name="verticalSpacer">
+                             <property name="orientation">
+                              <enum>Qt::Vertical</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>20</width>
+                               <height>40</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                      </widget>
                      </item>
                      <item>
-                      <spacer name="verticalSpacer">
-                       <property name="orientation">
-                        <enum>Qt::Vertical</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>20</width>
-                         <height>40</height>
-                        </size>
-                       </property>
-                      </spacer>
+                      <layout class="QVBoxLayout" name="verticalLayout_8"/>
                      </item>
                     </layout>
                    </item>
@@ -279,7 +323,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>577</width>
+             <width>617</width>
              <height>532</height>
             </rect>
            </property>
