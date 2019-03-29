@@ -14,7 +14,8 @@ SOURCES += \
     PluginManager.cpp \
     VideoLoader.cpp \
     VideoSeq.cpp \
-    VideoSeqItem.cpp
+    VideoSeqItem.cpp \
+    VideoSeqEffects.cpp
 
 HEADERS += \
     Core.h \
@@ -22,7 +23,8 @@ HEADERS += \
     VideoLoader.h \
     VideoSeq.h \
     VideoSeqItem.h \
-    IFilter.h
+    IEffect.h \
+    VideoSeqEffects.h
 
 message("Build core")
 

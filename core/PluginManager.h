@@ -5,22 +5,24 @@
 #include <QVector>
 
 class Core;
+//class IEffect;
+#include "IEffect.h"
 
 class PluginManager : public QObject {
     Q_OBJECT
 public:
     PluginManager(QObject *parent = nullptr);
 
-    QObject *operator [](int);
+    IEffect *operator [](int);
 
     void load(void);
-    bool isLoad(void);
+    bool isLoaded(void);
     int size(void);
-    QObject *get(int);
-
+    IEffect *get(int);
+    IEffect *getByName(QString);
 private:
     Core *m_parent;
-    QVector<QObject*> *m_plugins;
+    QVector<IEffect*> m_plugins;
 };
 
 #endif // PLUGINMANAGER_H

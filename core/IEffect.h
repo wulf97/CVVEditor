@@ -16,7 +16,7 @@ public:
     virtual int getID() const = 0;
     virtual QString getName() const = 0;
     virtual void display(QBoxLayout*) = 0;
-    virtual void handle(cv::Mat*) = 0;
+    virtual void handle(cv::Mat&) = 0;
 };
 
 #define Interface_iid "Interface_iid"

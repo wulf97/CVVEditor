@@ -4,4 +4,5 @@ SUBDIRS += \
     core \
     gui \
     plugins/Canny \
-    plugins/Median
+    plugins/Median \
+    plugins/Grayscale

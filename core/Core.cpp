@@ -5,20 +5,20 @@
 
 Core::Core(QObject *parent) : QObject(parent) {
     QStringList effects;
+    m_pManager = new PluginManager(this);
     m_VLoader = new VideoLoader(this);
     m_VSeq = new VideoSeq(this);
-    m_pManager = new PluginManager(this);
 
     m_pManager->load();
-    for (int i = 0; i < m_pManager->size(); i++) {
-        qDebug() << "Filter: " << dynamic_cast<IEffect*>(m_pManager->get(i))->getName();
-        effects.push_back(dynamic_cast<IEffect*>(m_pManager->get(i))->getName());
-    }
 
-    //emit effectsList(effects);
+
 
     connect(this, SIGNAL(displayEffectsSettings(QString, QBoxLayout*)),
             this, SLOT(displaySettings(QString, QBoxLayout*)));
+}
+
+PluginManager *Core::getPluginManager() {
+    return m_pManager;
 }
 
 VideoLoader *Core::getVideoLoader() {
@@ -32,15 +32,13 @@ VideoSeq *Core::getVideoSeq() {
 void Core::displaySettings(QString effectName, QBoxLayout *layout) {
     qDebug() << "slot displaySettings(QString, QBoxLayout*)" << endl;
     for (int i = 0; i < m_pManager->size(); i++) {
-        IEffect *effect = dynamic_cast<IEffect*>(m_pManager->get(i));
-        if (effectName == effect->getName()) {
-            effect->display(layout);
+        if (effectName == m_pManager->get(i)->getName()) {
+            m_pManager->get(i)->display(layout);
         }
     }
 }
 
-void Core::getEffectsList()
-{
+void Core::getEffectsList() {
     QStringList effects;
     for (int i = 0; i < m_pManager->size(); i++) {
         qDebug() << "Filter: " << dynamic_cast<IEffect*>(m_pManager->get(i))->getName();

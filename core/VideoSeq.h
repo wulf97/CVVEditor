@@ -9,8 +9,10 @@
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/videoio.hpp>
+#include <opencv2/imgproc.hpp>
 
 #include "VideoSeqItem.h"
+#include "VideoSeqEffects.h"
 
 using namespace cv;
 
@@ -22,6 +24,7 @@ class VideoSeq : public QObject {
 public:
     VideoSeq(QObject *parent = nullptr);
 
+    Core *getParent();
     void setConnection();
 public slots:
     void clearSeq();
@@ -36,6 +39,7 @@ public slots:
     void seqPauseVideo();
     void seqStopVideo();
     void seqSetTime(int);
+    void addEffect(int, int, QString);
 signals:
     void updateFrame(QImage*);
     void updateTime(int);
@@ -54,14 +58,14 @@ private:
         IS_STOPED
     };
 private:
-    Core *m_parent;
-    VideoLoader *m_vLoader;
+    Core *m_core;
     QTimer m_displayTimer;
     QTimer m_saveTimer;
     QList<VideoSeqItem*> m_seq;
+    QList<VideoSeqEffects*> m_effects;
     VideoCapture m_inVideo;
     VideoWriter m_outVideo;
-    QImage *m_frame = nullptr;
+    QImage *m_frame;
     int m_state = STATE::IS_STOPED;
     int m_it = 0;
     int m_fps = 0;

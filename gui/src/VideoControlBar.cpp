@@ -61,12 +61,12 @@ void VideoControlBar::stop() {
 }
 
 void VideoControlBar::isStoped() {
-    qDebug() << "slot: isStoped()" << endl;
+//    qDebug() << "slot: isStoped()" << endl;
     stop();
 }
 
 void VideoControlBar::setStartTime(int time) {
-    qDebug() << "slot: setStartTime(int)" << endl;
+//    qDebug() << "slot: setStartTime(int)" << endl;
 
     m_startTime = time;
     setSliderMaxValue(m_endTime - m_startTime);
@@ -74,7 +74,7 @@ void VideoControlBar::setStartTime(int time) {
 }
 
 void VideoControlBar::setEndTime(int time) {
-    qDebug() << "slot: setEndTime(int)" << endl;
+//    qDebug() << "slot: setEndTime(int)" << endl;
 
     m_endTime = time;
     ui->endTime->setText(msecToTime(time - m_startTime));

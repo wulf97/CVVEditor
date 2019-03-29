@@ -20,7 +20,7 @@ public:
     int getID() const;
     QString getName() const;
     void display(QBoxLayout*);
-    void handle(cv::Mat*);
+    void handle(cv::Mat&);
 private:
     Ui::Median *ui;
 };

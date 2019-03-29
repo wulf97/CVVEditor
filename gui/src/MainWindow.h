@@ -5,23 +5,26 @@
 #include <QProgressBar>
 
 class Core;
+class GUIManager;
+class Viewport;
+class VideoControlBar;
+class VideoCutterList;
+class EffectRangeList;
+class PluginList;
 class QBoxLayout;
 
 namespace Ui {
 class MainWindow;
 }
 
-/**
- * @brief Класс MainWindow отвечает за компановку виджетов.
- *
- * Также MainWindow связывает Core и GUIManager.
- */
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void setConnection();
 private slots:
     void play();
     void pause();
@@ -30,10 +33,22 @@ private slots:
     void updateProgress(int);
 signals:
     void displayEffectsSettings(QString, QBoxLayout*);
+    void addEffect(int, int, QString);
+private:
+    void addMenu();
+    void addFileMenu();
+    void addVideoMenu();
 private:
     Ui::MainWindow *ui;
-    Core *m_core = nullptr;
-    QProgressBar *m_progress = nullptr;
+    Core *m_core;
+    GUIManager *m_gui;
+    Viewport *m_viewport;
+    VideoControlBar *m_vControlBar;
+    VideoCutterList *m_videoCutterList;
+    EffectRangeList *m_effectRangeList;
+    PluginList *m_pluginList;
+
+    QProgressBar *m_progress;
     /* Меню */
     /* Меню File */
     QAction *m_actionNewProject;

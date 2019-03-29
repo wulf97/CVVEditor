@@ -2,38 +2,48 @@
 
 #include "VideoSeq.h"
 #include "Core.h"
+#include "VideoSeqEffects.h"
 
 using namespace cv;
 
 VideoSeq::VideoSeq(QObject *parent) : QObject(parent) {
-    m_parent = dynamic_cast<Core*>(parent);
-    m_vLoader = m_parent->getVideoLoader();
+    m_core = dynamic_cast<Core*>(parent);
+    m_state = STATE::IS_STOPED;
+    m_it = 0;
+    m_fps = 0;
+    m_pos = 0;
+    m_time = 0;
 
-    connect(m_parent, SIGNAL(clearSeq()), this, SLOT(clearSeq()));
-    connect(m_parent, SIGNAL(addToSeq(QString,int,int)), this, SLOT(addToSeq(QString,int,int)));
-    connect(m_parent, SIGNAL(loadSeq()), this, SLOT(loadSeq()));
-    connect(m_parent, SIGNAL(unloadSeq()), this, SLOT(unloadSeq()));
-    connect(m_parent, SIGNAL(saveSeq(QString)), this, SLOT(saveSeq(QString)));
+    connect(m_core, SIGNAL(clearSeq()), this, SLOT(clearSeq()));
+    connect(m_core, SIGNAL(addToSeq(QString,int,int)), this, SLOT(addToSeq(QString,int,int)));
+    connect(m_core, SIGNAL(loadSeq()), this, SLOT(loadSeq()));
+    connect(m_core, SIGNAL(unloadSeq()), this, SLOT(unloadSeq()));
+    connect(m_core, SIGNAL(saveSeq(QString)), this, SLOT(saveSeq(QString)));
+    connect(m_core, SIGNAL(addEffect(int,int,QString)), this, SLOT(addEffect(int,int,QString)));
 
     connect(&m_displayTimer, SIGNAL(timeout()), this, SLOT(updateDisplayedFrame()));
     connect(&m_saveTimer, SIGNAL(timeout()), this, SLOT(updateWritedFrame()));
 }
 
+Core *VideoSeq::getParent() {
+    return m_core;
+}
+
 void VideoSeq::setConnection() {
     /* Подключение к ядру */
     /* Сигналы идущие к VideoSeq */
-    connect(m_parent, SIGNAL(playVideo()), this, SLOT(seqPlayVideo()));
-    connect(m_parent, SIGNAL(pauseVideo()), this, SLOT(seqPauseVideo()));
-    connect(m_parent, SIGNAL(stopVideo()), this, SLOT(seqStopVideo()));
-    connect(m_parent, SIGNAL(setTime(int)), this, SLOT(seqSetTime(int)));
+    connect(m_core, SIGNAL(playVideo()), this, SLOT(seqPlayVideo()));
+    connect(m_core, SIGNAL(pauseVideo()), this, SLOT(seqPauseVideo()));
+    connect(m_core, SIGNAL(stopVideo()), this, SLOT(seqStopVideo()));
+    connect(m_core, SIGNAL(setTime(int)), this, SLOT(seqSetTime(int)));
 
     /* Сигналы идущие от VideoSeq */
-    connect(this, SIGNAL(updateFrame(QImage*)), m_parent, SIGNAL(updateFrame(QImage*)));
-    connect(this, SIGNAL(updateTime(int)), m_parent, SIGNAL(updateTime(int)));
-    connect(this, SIGNAL(isUploaded()), m_parent, SIGNAL(isUploaded()));
-    connect(this, SIGNAL(isPlayed()), m_parent, SIGNAL(isPlayed()));
-    connect(this, SIGNAL(isPaused()), m_parent, SIGNAL(isPaused()));
-    connect(this, SIGNAL(isStoped()), m_parent, SIGNAL(isStoped()));
+    connect(this, SIGNAL(updateFrame(QImage*)), m_core, SIGNAL(updateFrame(QImage*)));
+    connect(this, SIGNAL(updateTime(int)), m_core, SIGNAL(updateTime(int)));
+    connect(this, SIGNAL(isUploaded()), m_core, SIGNAL(isUploaded()));
+    connect(this, SIGNAL(isPlayed()), m_core, SIGNAL(isPlayed()));
+    connect(this, SIGNAL(isPaused()), m_core, SIGNAL(isPaused()));
+    connect(this, SIGNAL(isStoped()), m_core, SIGNAL(isStoped()));
 }
 
 /**/
@@ -74,23 +84,23 @@ void VideoSeq::loadSeq() {
     m_it = 0;
     m_state = STATE::IS_STOPED;
 
-    m_parent->disconnect(m_parent->getVideoLoader());
-    m_parent->getVideoLoader()->disconnect();
+    m_core->disconnect(m_core->getVideoLoader());
+    m_core->getVideoLoader()->disconnect();
     setConnection();
 
     seqUploadVideo(0);
 }
 
 void VideoSeq::unloadSeq() {
-    m_parent->getVideoLoader()->setConnection();
-    m_parent->disconnect(this);
+    m_core->getVideoLoader()->setConnection();
+    m_core->disconnect(this);
     disconnect();
 
-    connect(m_parent, SIGNAL(clearSeq()), this, SLOT(clearSeq()));
-    connect(m_parent, SIGNAL(addToSeq(QString,int,int)), this, SLOT(addToSeq(QString,int,int)));
-    connect(m_parent, SIGNAL(loadSeq()), this, SLOT(loadSeq()));
-    connect(m_parent, SIGNAL(unloadSeq()), this, SLOT(unloadSeq()));
-    connect(m_parent, SIGNAL(saveSeq(QString)), this, SLOT(saveSeq(QString)));
+    connect(m_core, SIGNAL(clearSeq()), this, SLOT(clearSeq()));
+    connect(m_core, SIGNAL(addToSeq(QString,int,int)), this, SLOT(addToSeq(QString,int,int)));
+    connect(m_core, SIGNAL(loadSeq()), this, SLOT(loadSeq()));
+    connect(m_core, SIGNAL(unloadSeq()), this, SLOT(unloadSeq()));
+    connect(m_core, SIGNAL(saveSeq(QString)), this, SLOT(saveSeq(QString)));
 }
 
 void VideoSeq::saveSeq(QString fileName) {
@@ -104,7 +114,7 @@ void VideoSeq::saveSeq(QString fileName) {
 
     m_saveTimer.start();
 
-    connect(this, SIGNAL(updateProgress(int)), m_parent, SIGNAL(updateProgress(int)));
+    connect(this, SIGNAL(updateProgress(int)), m_core, SIGNAL(updateProgress(int)));
 }
 
 /************************/
@@ -190,6 +200,14 @@ void VideoSeq::seqSetTime(int time) {
     }
 }
 
+void VideoSeq::addEffect(int startTime, int endTime, QString effectName) {
+    VideoSeqEffects *effect = new VideoSeqEffects(this);
+    effect->setStartTime(startTime);
+    effect->setEndTime(endTime);
+    effect->addEffect(m_core->getPluginManager()->getByName(effectName));
+    m_effects.push_back(effect);
+}
+
 /***************/
 void VideoSeq::updateDisplayedFrame() {
     Mat frame;
@@ -198,8 +216,21 @@ void VideoSeq::updateDisplayedFrame() {
         if (m_time < m_seq[m_it]->endPos) {
             m_inVideo >> frame;
             if (!frame.empty()) {
-                cvtColor(frame, frame, CV_BGR2RGB);
-                m_frame = new QImage(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
+                /**/
+                for (int i = 0; i < m_effects.size(); i++) {
+                    if (m_effects[i]->getStartTime() <= m_time &&
+                        m_time < m_effects[i]->getEndTime()) {
+                        m_effects[i]->handle(frame);
+                    }
+                }
+                /**/
+                if (frame.channels() == 3) {
+                    cvtColor(frame, frame, CV_BGR2RGB);
+                    m_frame = new QImage(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
+                } else if (frame.channels() == 1) {
+                    m_frame = new QImage(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_Grayscale8);
+                }
+
                 m_time = m_seq[m_it]->startPos - m_seq[m_it]->startTime + m_inVideo.get(CAP_PROP_POS_MSEC);
 
                 emit updateFrame(m_frame);
@@ -240,7 +271,7 @@ void VideoSeq::updateWritedFrame() {
                 m_it = 0;
                 m_saveTimer.stop();
                 m_outVideo.release();
-                disconnect(this, SIGNAL(updateProgress(int)), m_parent, SIGNAL(updateProgress(int)));
+                disconnect(this, SIGNAL(updateProgress(int)), m_core, SIGNAL(updateProgress(int)));
             }
         }
     }

@@ -28,6 +28,6 @@ void Median::display(QBoxLayout *layout) {
     layout->addWidget(this);
 }
 
-void Median::handle(Mat *img) {
+void Median::handle(Mat &img) {
 
 }

@@ -1,5 +1,4 @@
 #include <QBoxLayout>
-#include <opencv2/core.hpp>
 
 #include "ui_Canny.h"
 #include "Canny.h"
@@ -28,6 +27,6 @@ void Canny::display(QBoxLayout *layout) {
     layout->addWidget(this);
 }
 
-void Canny::handle(Mat *img) {
+void Canny::handle(Mat &frame) {
 
 }

@@ -10,25 +10,13 @@
 
 class QBoxLayout;
 
-/**
- * @brief Класс Core связывает модули ядра с остальными модулями системы.
- *
- * Core принимает сигнылы от внешних модулей и модулей ядра, а затем перенаправляет их по цепочке.
- */
 class Core : public QObject {
     Q_OBJECT
 public:
     Core(QObject *parent = nullptr);
 
-    /**
-     * @brief getVideoLoader используется для доступа к загрузчику видео.
-     * @return Указатель на VideoLoader.
-     */
+    PluginManager *getPluginManager();
     VideoLoader *getVideoLoader();
-    /**
-     * @brief getVideoSeq используется для доступа к загрузчику видеопоследовательностей.
-     * @return Указатель на VideoSeq.
-     */
     VideoSeq *getVideoSeq();
 public slots:
     void displaySettings(QString, QBoxLayout*);
@@ -49,6 +37,7 @@ signals:
     void unloadSeq();
     void saveSeq(QString);
     void displayEffectsSettings(QString, QBoxLayout*);
+    void addEffect(int, int, QString);
 
     /* Сигналы для внешних модулей */
     void videoLen(int);
