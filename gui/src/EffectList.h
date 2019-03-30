@@ -23,6 +23,7 @@ public:
     void setEffectList(QString item);
 public slots:
     void addNewEffect();
+    void deleteEffect(int num);
 private:
     Ui::EffectList *ui;
     PluginList *m_parent = nullptr;

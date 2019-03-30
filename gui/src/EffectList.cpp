@@ -31,7 +31,20 @@ void EffectList::setEffectList(QString item)
 void EffectList::addNewEffect()
 {
     Effect *effect = new Effect(this, ui->comboBox->currentText());
+    effect->setNumInList(listOfEffectsWidget.size());
     listOfEffectsWidget.append(effect);
     ui->effectListLayout->addWidget(effect);
+
+}
+
+void EffectList::deleteEffect(int num)
+{
+    for (auto i : listOfEffectsWidget) {
+        Effect* p = dynamic_cast<Effect*>(i);
+        if (p->getNumInList() == num) {
+            delete p;
+            listOfEffectsWidget.removeOne(p);
+        }
+    }
 
 }

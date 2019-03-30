@@ -271,7 +271,7 @@
               <number>0</number>
              </property>
              <item>
-              <widget class="QPushButton" name="deleteBtn_6">
+              <widget class="QPushButton" name="deleteBtn">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>

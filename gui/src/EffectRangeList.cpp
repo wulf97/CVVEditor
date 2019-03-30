@@ -24,7 +24,6 @@ void EffectRangeList::addNewEffectRange()
     listOfEffectRangeWidget.append(effectRange);
     layout->addWidget(effectRange);
     this->setLayout(layout);
-
 }
 
 void EffectRangeList::updateEndTime(int time)
@@ -35,3 +34,5 @@ void EffectRangeList::updateEndTime(int time)
     }
 
 }
+
+
