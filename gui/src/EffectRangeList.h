@@ -16,8 +16,9 @@ public:
 
     void setConnection();
 public slots:
-    void addNewEffectRange();
+    void addNewEffectRange(int);
     void updateEndTime(int time);
+    void deleteEffectRange(int);
 
 private:
     GUIManager *m_parent = nullptr;

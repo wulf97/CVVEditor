@@ -21,12 +21,20 @@ public:
     PluginList *getParent();
     void setConnection();
     void setEffectList(QString item);
+    void setNumInList(int);
+    int getNumInList();
 public slots:
     void addNewEffect();
+    void deleteEffect(int num);
+    bool move(QWidget *widget, QString direction);
+    void deleteMeSlot();
+signals:
+    void deleteMe(int);
 private:
     Ui::EffectList *ui;
     PluginList *m_parent = nullptr;
     QList<Effect*> listOfEffectsWidget;
+    int numInList;
 };
 
 #endif // EFFECT_LIST_H

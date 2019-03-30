@@ -17,6 +17,7 @@ EffectRange::~EffectRange() {
     delete ui;
 }
 
+
 void EffectRange::setMaximumValue(int max)
 {
     m_RangeSlider->setMaximum(max);
@@ -39,9 +40,18 @@ int EffectRange::getMinimumValue()
     return lowerValue;
 }
 
+void EffectRange::setNumInList(int num)
+{
+    numInList = num;
+}
+
+int EffectRange::getNumInList()
+{
+    return numInList;
+}
+
 
 void EffectRange::setConnection() {
-    /* Подключение сигналов */
 }
 
 void EffectRange::updateEndTime(int time)
