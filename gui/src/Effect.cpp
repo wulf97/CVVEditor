@@ -19,7 +19,12 @@ Effect::Effect(QWidget *parent, QString text) :
 
     connect(ui->settingsBtn, SIGNAL(released()), this, SLOT(showSettings()));
     connect(ui->deleteBtn, SIGNAL(released()), this, SLOT(deleteMe()));
+    connect(ui->upBtn, SIGNAL(released()), this, SLOT(upBtnSlot()));
+    connect(ui->downBtn, SIGNAL(released()), this, SLOT(downBtnSlot()));
+
     connect(this, SIGNAL(deleteMe(int)), m_effectList, SLOT(deleteEffect(int)));
+    connect(this, SIGNAL(upBtn(QWidget*,QString)), m_effectList, SLOT(move(QWidget*,QString)));
+    connect(this, SIGNAL(downBtn(QWidget*,QString)), m_effectList, SLOT(move(QWidget*,QString)));
 }
 
 Effect::~Effect() {
@@ -44,4 +49,14 @@ void Effect::showSettings() {
 void Effect::deleteMe()
 {
     emit deleteMe(getNumInList());
+}
+
+void Effect::upBtnSlot()
+{
+    emit upBtn(this, "MoveUp");
+}
+
+void Effect::downBtnSlot()
+{
+    emit downBtn(this, "MoveDown");
 }

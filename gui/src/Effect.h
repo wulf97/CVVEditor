@@ -23,8 +23,12 @@ public:
 public slots:
     void showSettings();
     void deleteMe();
+    void upBtnSlot();
+    void downBtnSlot();
 signals:
     void deleteMe(int);
+    void upBtn(QWidget*,QString);
+    void downBtn(QWidget*,QString);
 private:
     Ui::Effect *ui;
     GUIManager *m_gui;

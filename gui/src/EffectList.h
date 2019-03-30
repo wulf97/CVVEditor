@@ -24,6 +24,7 @@ public:
 public slots:
     void addNewEffect();
     void deleteEffect(int num);
+    bool move(QWidget *widget, QString direction);
 private:
     Ui::EffectList *ui;
     PluginList *m_parent = nullptr;

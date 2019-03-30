@@ -48,3 +48,37 @@ void EffectList::deleteEffect(int num)
     }
 
 }
+
+bool EffectList::move(QWidget *widget, QString direction)
+{
+    if(listOfEffectsWidget.size() > 1) {
+        QVBoxLayout* myLayout = qobject_cast<QVBoxLayout*>(widget->parentWidget()->layout());
+        int index = myLayout->indexOf(widget);
+        if (direction == "MoveUp" && index == 0) {
+            return false;
+        }
+
+        if (direction == "MoveDown" && index == myLayout->count()-1 ) {
+            return false;
+        }
+
+        int newIndex;
+        if(direction == "MoveUp") {
+             newIndex = index - 1;
+        } else {
+            newIndex = index + 1;
+        }
+
+        myLayout->removeWidget(widget);
+        myLayout->insertWidget(newIndex , widget);
+
+        for (auto i : listOfEffectsWidget) {
+            Effect* p = dynamic_cast<Effect*>(i);
+            if(p->getNumInList() != myLayout->indexOf(p) + 1) {
+                p->setNumInList(myLayout->indexOf(p) + 1);
+            }
+        }
+    }
+
+    return true;
+}
