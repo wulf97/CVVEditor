@@ -40,11 +40,9 @@ void PluginList::addEffectList()
 
 void PluginList::setEffectsToEffectList(QStringList list)
 {
-    for (int i = 0; i < listOfEffectList.size(); i++) {
         for (int k = 0; k < list.size(); k ++) {
-            listOfEffectList[i]->setEffectList(list[k]);
+            listOfEffectList[listOfEffectList.size() - 1]->setEffectList(list[k]);
         }
-    }
 }
 
 void PluginList::deleteEffectList(int num)
