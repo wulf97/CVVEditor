@@ -23,7 +23,9 @@ public:
     void setMinimumValue(int);
     int getMinimumValue();
 
-    void setNumberLabel(QString);
+    void setNumInList(int);
+    int getNumInList();
+
     int getLengthOfVideo();
     void setLenghtOfVideo(int);
 
@@ -36,6 +38,7 @@ private:
     RangeSlider* m_RangeSlider = nullptr;
     int upperValue = 0;
     int lowerValue = 0;
+    int numInList;
 };
 
 #endif // EFFECTRANGE_H

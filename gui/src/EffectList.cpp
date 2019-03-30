@@ -9,6 +9,9 @@ EffectList::EffectList(QWidget *parent) :
     m_parent = dynamic_cast<PluginList*>(parent);
     ui->setupUi(this);
     connect(ui->addBtn, SIGNAL(released()), this, SLOT(addNewEffect()));
+    connect(ui->delBtn, SIGNAL(released()), this, SLOT(deleteMeSlot()));
+
+    connect(this, SIGNAL(deleteMe(int)), m_parent->getParent()->getPluginList(), SLOT(deleteEffectList(int)));
 }
 
 EffectList::~EffectList() {
@@ -26,6 +29,16 @@ void EffectList::setConnection() {
 void EffectList::setEffectList(QString item)
 {
     ui->comboBox->addItem(item);
+}
+
+void EffectList::setNumInList(int num)
+{
+    numInList = num;
+}
+
+int EffectList::getNumInList()
+{
+    return numInList;
 }
 
 void EffectList::addNewEffect()
@@ -81,4 +94,9 @@ bool EffectList::move(QWidget *widget, QString direction)
     }
 
     return true;
+}
+
+void EffectList::deleteMeSlot()
+{
+    deleteMe(getNumInList());
 }

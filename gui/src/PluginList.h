@@ -21,6 +21,11 @@ public:
 public slots:
     void addEffectList();
     void setEffectsToEffectList(QStringList);
+    void deleteEffectList(int);
+signals:
+    void addNewEffectRange(int);
+    void deleteEffectRange(int);
+
 private:
     Ui::PluginList *ui;
     GUIManager *m_parent;

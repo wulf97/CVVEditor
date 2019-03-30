@@ -17,10 +17,11 @@ void EffectRangeList::setConnection() {
     /* Подключение сигналов */
 }
 
-void EffectRangeList::addNewEffectRange()
+void EffectRangeList::addNewEffectRange(int num)
 {
     endTimeOfVideo = m_parent->getVideoCutterList()->getLengthFullVideo();
     EffectRange* effectRange = new EffectRange(this, endTimeOfVideo);
+    effectRange->setNumInList(num);
     listOfEffectRangeWidget.append(effectRange);
     layout->addWidget(effectRange);
     this->setLayout(layout);
@@ -33,6 +34,17 @@ void EffectRangeList::updateEndTime(int time)
         listOfEffectRangeWidget[i]->updateEndTime(endTimeOfVideo);
     }
 
+}
+
+void EffectRangeList::deleteEffectRange(int num)
+{
+    for (auto i : listOfEffectRangeWidget) {
+        EffectRange* p = dynamic_cast<EffectRange*>(i);
+        if (p->getNumInList() == num) {
+            delete p;
+            listOfEffectRangeWidget.removeOne(p);
+        }
+    }
 }
 
 

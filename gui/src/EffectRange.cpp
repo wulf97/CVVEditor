@@ -40,6 +40,16 @@ int EffectRange::getMinimumValue()
     return lowerValue;
 }
 
+void EffectRange::setNumInList(int num)
+{
+    numInList = num;
+}
+
+int EffectRange::getNumInList()
+{
+    return numInList;
+}
+
 
 void EffectRange::setConnection() {
 }
