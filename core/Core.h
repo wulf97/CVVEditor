@@ -19,7 +19,6 @@ public:
     VideoLoader *getVideoLoader();
     VideoSeq *getVideoSeq();
 public slots:
-    void displaySettings(QString, QBoxLayout*);
     void getEffectsList();
 signals:
     /* Сигналы для внутренних модулей */
@@ -36,8 +35,7 @@ signals:
     void loadSeq();
     void unloadSeq();
     void saveSeq(QString);
-    void displayEffectsSettings(QString, QBoxLayout*);
-    void addEffect(int, int, QString);
+    void addEffectWrap(QObject*, int, int);
 
     /* Сигналы для внешних модулей */
     void videoLen(int);

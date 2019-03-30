@@ -2,7 +2,10 @@
 #define PLUGINMANAGER_H
 
 #include <QObject>
-#include <QVector>
+#include <QList>
+#include <QHash>
+
+class QPluginLoader;
 
 class Core;
 //class IEffect;
@@ -13,16 +16,19 @@ class PluginManager : public QObject {
 public:
     PluginManager(QObject *parent = nullptr);
 
-    IEffect *operator [](int);
+    QString operator [](int);
 
     void load(void);
     bool isLoaded(void);
     int size(void);
-    IEffect *get(int);
-    IEffect *getByName(QString);
+    QString get(int);
+    IEffect *createByName(QString);
 private:
     Core *m_parent;
-    QVector<IEffect*> m_plugins;
+    QHash<QString, QPluginLoader*> m_pluginLoaders;
+    QStringList m_pluginNames;
+    //QList<IEffect*> m_plugins;
+    QList<IEffect*> m_instances;
 };
 
 #endif // PLUGINMANAGER_H

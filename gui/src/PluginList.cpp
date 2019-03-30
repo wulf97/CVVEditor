@@ -16,6 +16,7 @@ PluginList::PluginList(QWidget *parent) :
     connect(ui->addBtn, SIGNAL(released()), m_parent->getEffectRangeList(), SLOT(addNewEffectRange()));
     connect(ui->addBtn, SIGNAL(released()), this, SLOT(addEffectList()));
     connect(ui->addBtn, SIGNAL(released()), m_parent, SIGNAL(getEffectsList()));
+    connect(this, SIGNAL(addEffectWrap(QObject*,int,int)), m_parent, SIGNAL(addEffectWrap(QObject*,int,int)));
 }
 
 PluginList::~PluginList() {
@@ -31,6 +32,7 @@ void PluginList::addEffectList()
     EffectList* effectList = new EffectList(this);
     listOfEffectList.append(effectList);
     ui->pluginListLayout->addWidget(effectList);
+    emit addEffectWrap(effectList, 1000, 5000);
 }
 
 void PluginList::setEffectsToEffectList(QStringList list)
@@ -41,4 +43,5 @@ void PluginList::setEffectsToEffectList(QStringList list)
             listOfEffectList[i]->setEffectList(list[k]);
         }
     }
+
 }

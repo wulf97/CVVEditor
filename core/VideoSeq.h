@@ -12,7 +12,7 @@
 #include <opencv2/imgproc.hpp>
 
 #include "VideoSeqItem.h"
-#include "VideoSeqEffects.h"
+#include "VideoSeqEffectsWrap.h"
 
 using namespace cv;
 
@@ -39,7 +39,7 @@ public slots:
     void seqPauseVideo();
     void seqStopVideo();
     void seqSetTime(int);
-    void addEffect(int, int, QString);
+    void addEffectWrap(QObject*, int, int);
 signals:
     void updateFrame(QImage*);
     void updateTime(int);
@@ -48,6 +48,7 @@ signals:
     void isPlayed();
     void isPaused();
     void isStoped();
+    void addEffect(QObject*, QString);
 private slots:
     void updateDisplayedFrame();
     void updateWritedFrame();
@@ -62,7 +63,7 @@ private:
     QTimer m_displayTimer;
     QTimer m_saveTimer;
     QList<VideoSeqItem*> m_seq;
-    QList<VideoSeqEffects*> m_effects;
+    QList<VideoSeqEffectsWrap*> m_effectWraps;
     VideoCapture m_inVideo;
     VideoWriter m_outVideo;
     QImage *m_frame;

@@ -11,8 +11,8 @@ PluginManager::PluginManager(QObject *parent) : QObject(parent) {
     //m_plugins = QVector<IEffect*>(0);
 }
 
-IEffect *PluginManager::operator [](int i) {
-    return m_plugins[i];
+QString PluginManager::operator [](int i) {
+    return m_pluginNames[i];
 }
 
 void PluginManager::load() {
@@ -22,39 +22,41 @@ void PluginManager::load() {
     pluginDir.cd("./plugins");
     filesList = pluginDir.entryInfoList();
     for (int i = 0; i < filesList.size(); i++) {
-        QPluginLoader loader(filesList[i].absoluteFilePath());
-        QObject *obj = loader.instance();
-        if (loader.isLoaded()) {
+        QPluginLoader *loader = new QPluginLoader(filesList[i].absoluteFilePath());
+        if (loader->isLoaded()) {
+            QObject *obj = loader->instance();
             IEffect *plugin = dynamic_cast<IEffect*>(obj);
-            m_plugins.push_back(plugin);
-            qDebug() << "Loading: " << loader.fileName() << endl;
+            m_pluginLoaders[plugin->getName()] = loader;
+            m_pluginNames.push_back(plugin->getName());
+
+            qDebug() << "Loading: " << loader->fileName() << endl;
             qDebug() << plugin->getName();
+            delete obj;
         }
     }
 }
 
 bool PluginManager::isLoaded() {
-    if (m_plugins.isEmpty())
+    if (m_pluginLoaders.isEmpty())
         return false;
     else
         return true;
 }
 
 int PluginManager::size(void) {
-    return m_plugins.size();
+    return m_pluginNames.size();
 }
 
-IEffect *PluginManager::get(int i) {
-    return m_plugins[i];
+QString PluginManager::get(int i) {
+    return m_pluginNames[i];
 }
 
-IEffect *PluginManager::getByName(QString effectName) {
-   qDebug() <<  m_plugins.size();
-    for (int i = 0; i < m_plugins.size(); i++) {
-        if (effectName == m_plugins[i]->getName()) {
-            return m_plugins[i];
-        }
+IEffect *PluginManager::createByName(QString effectName) {
+    if (!m_pluginLoaders[effectName]) {
+        QObject *obj = m_pluginLoaders[effectName]->instance();
+        IEffect *effect = dynamic_cast<IEffect*>(obj);
+        m_instances.push_back(effect);
+    } else {
+        return nullptr;
     }
-
-    return nullptr;
 }

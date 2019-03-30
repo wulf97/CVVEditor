@@ -15,7 +15,8 @@ SOURCES += \
     VideoLoader.cpp \
     VideoSeq.cpp \
     VideoSeqItem.cpp \
-    VideoSeqEffects.cpp
+    VideoSeqEffectsWrap.cpp \
+    VideoSeqEffect.cpp
 
 HEADERS += \
     Core.h \
@@ -24,7 +25,8 @@ HEADERS += \
     VideoSeq.h \
     VideoSeqItem.h \
     IEffect.h \
-    VideoSeqEffects.h
+    VideoSeqEffectsWrap.h \
+    VideoSeqEffect.h
 
 message("Build core")
 

@@ -38,7 +38,6 @@ signals:
     void updateTime(int);
     void updateProgress(int);
     void effectsList(QStringList);
-    void getEffectsList();
 
     /* Сигналы для внешних модулей */
     void uploadVideo(QString*, bool);
@@ -54,7 +53,9 @@ signals:
     void loadSeq();
     void unloadSeq();
     void saveSeq(QString);
-    void displayEffectsSettings(QString, QBoxLayout*);
+    void getEffectsList();
+    void addEffectWrap(QObject*, int, int);
+
 private:
     Viewport *m_viewport;
     VideoControlBar *m_videoControlBar;

@@ -33,7 +33,7 @@ private slots:
     void updateProgress(int);
 signals:
     void displayEffectsSettings(QString, QBoxLayout*);
-    void addEffect(int, int, QString);
+    void addEffectWrap(QObject*, int, int);
 private:
     void addMenu();
     void addFileMenu();

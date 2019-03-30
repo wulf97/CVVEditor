@@ -2,7 +2,6 @@
 
 #include "VideoSeq.h"
 #include "Core.h"
-#include "VideoSeqEffects.h"
 
 using namespace cv;
 
@@ -19,7 +18,7 @@ VideoSeq::VideoSeq(QObject *parent) : QObject(parent) {
     connect(m_core, SIGNAL(loadSeq()), this, SLOT(loadSeq()));
     connect(m_core, SIGNAL(unloadSeq()), this, SLOT(unloadSeq()));
     connect(m_core, SIGNAL(saveSeq(QString)), this, SLOT(saveSeq(QString)));
-    connect(m_core, SIGNAL(addEffect(int,int,QString)), this, SLOT(addEffect(int,int,QString)));
+    connect(m_core, SIGNAL(addEffectWrap(QObject*,int,int)), this, SLOT(addEffectWrap(QObject*,int,int)));
 
     connect(&m_displayTimer, SIGNAL(timeout()), this, SLOT(updateDisplayedFrame()));
     connect(&m_saveTimer, SIGNAL(timeout()), this, SLOT(updateWritedFrame()));
@@ -200,12 +199,14 @@ void VideoSeq::seqSetTime(int time) {
     }
 }
 
-void VideoSeq::addEffect(int startTime, int endTime, QString effectName) {
-    VideoSeqEffects *effect = new VideoSeqEffects(this);
-    effect->setStartTime(startTime);
-    effect->setEndTime(endTime);
-    effect->addEffect(m_core->getPluginManager()->getByName(effectName));
-    m_effects.push_back(effect);
+void VideoSeq::addEffectWrap(QObject *obj, int startTime, int endTime) {
+    qDebug() << "slot: addEffectWrap(QObject*, int, int)" << endl;
+    VideoSeqEffectsWrap *effectWrap = new VideoSeqEffectsWrap(this);
+    effectWrap->setStartTime(startTime);
+    effectWrap->setEndTime(endTime);
+    m_effectWraps.push_back(effectWrap);
+
+    connect(obj, SIGNAL(addEffect(QObject*,QString)), effectWrap, SLOT(addEffect(QObject*,QString)));
 }
 
 /***************/
@@ -217,10 +218,10 @@ void VideoSeq::updateDisplayedFrame() {
             m_inVideo >> frame;
             if (!frame.empty()) {
                 /**/
-                for (int i = 0; i < m_effects.size(); i++) {
-                    if (m_effects[i]->getStartTime() <= m_time &&
-                        m_time < m_effects[i]->getEndTime()) {
-                        m_effects[i]->handle(frame);
+                for (int i = 0; i < m_effectWraps.size(); i++) {
+                    if (m_effectWraps[i]->getStartTime() <= m_time &&
+                        m_time < m_effectWraps[i]->getEndTime()) {
+                        m_effectWraps[i]->handle(frame);
                     }
                 }
                 /**/

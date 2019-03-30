@@ -64,9 +64,8 @@ void MainWindow::setConnection() {
     connect(m_gui, SIGNAL(loadSeq()), m_core, SIGNAL(loadSeq()));
     connect(m_gui, SIGNAL(unloadSeq()), m_core, SIGNAL(unloadSeq()));
     connect(m_gui, SIGNAL(saveSeq(QString)), m_core, SIGNAL(saveSeq(QString)));
-    connect(m_gui, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)),
-            m_core, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)));
     connect(m_gui, SIGNAL(getEffectsList()), m_core, SLOT(getEffectsList()));
+    connect(m_gui, SIGNAL(addEffectWrap(QObject*,int,int)), m_core, SIGNAL(addEffectWrap(QObject*,int,int)));
 
     /* Получение сигналов */
     connect(m_core, SIGNAL(updateFrame(QImage*)), m_gui, SIGNAL(updateFrame(QImage*)));
@@ -81,7 +80,7 @@ void MainWindow::setConnection() {
     connect(m_videoCutterList, SIGNAL(stopVideo()), m_vControlBar, SIGNAL(stopVideo()));
     connect(m_videoCutterList, SIGNAL(setStartTime(int)), m_vControlBar, SLOT(setStartTime(int)));
     connect(m_videoCutterList, SIGNAL(setEndTime(int)), m_vControlBar, SLOT(setEndTime(int)));
-    connect(m_videoCutterList, SIGNAL(setMaxValueToSlider(int)), m_vControlBar,SLOT(setSliderMaxValue(int)));
+    connect(m_videoCutterList, SIGNAL(setMaxValueToSlider(int)), m_vControlBar, SLOT(setSliderMaxValue(int)));
     connect(m_videoCutterList, SIGNAL(unloadVideo()), m_vControlBar, SLOT(unloadVideo()));
 
     connect(m_core, SIGNAL(updateProgress(int)), this, SLOT(updateProgress(int)));
@@ -109,18 +108,15 @@ void MainWindow::setConnection() {
     connect(m_gui, SIGNAL(unloadVideo()), this, SLOT(unloadVideo()));
     connect(m_gui, SIGNAL(isStoped()), this, SLOT(stop()));
 
-    connect(this, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)),
-            m_gui, SIGNAL(displayEffectsSettings(QString,QBoxLayout*)));
-
     /* */
-    connect(this, SIGNAL(addEffect(int,int,QString)), m_core, SIGNAL(addEffect(int,int,QString)));
+//    connect(this, SIGNAL(addEffectWrap(QObject*,int,int)), m_core, SIGNAL(addEffectWrap(QObject*,int,int)));
 }
 
 void MainWindow::play() {
     m_actionPlay->setDisabled(true);
     m_actionPause->setEnabled(true);
     m_actionStop->setEnabled(true);
-    emit addEffect(1000, 5000, "Grayscale");
+//    emit addEffectWrap(this, 1000, 5000);
 }
 
 void MainWindow::pause() {
