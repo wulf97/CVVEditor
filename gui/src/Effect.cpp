@@ -43,7 +43,8 @@ int Effect::getNumInList()
 
 void Effect::showSettings() {
     qDebug() << "llllllllll";
-    m_gui->getEffectSettings()->display("Canny");
+    m_gui->getEffectSettings()->show();//->display("Canny");
+    emit displayEffectSettings(m_gui->getEffectSettings()->getDisplayLayout());
 }
 
 void Effect::deleteMe()

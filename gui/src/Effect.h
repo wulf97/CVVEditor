@@ -2,6 +2,7 @@
 #define EFFECT_H
 
 #include <QWidget>
+#include <QBoxLayout>
 
 class GUIManager;
 class EffectList;
@@ -29,6 +30,7 @@ signals:
     void deleteMe(int);
     void upBtn(QWidget*,QString);
     void downBtn(QWidget*,QString);
+    void displayEffectSettings(QBoxLayout*);
 private:
     Ui::Effect *ui;
     GUIManager *m_gui;

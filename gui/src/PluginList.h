@@ -26,7 +26,7 @@ signals:
     void addNewEffectRange(int);
     void deleteEffectRange(int);
 
-    void addEffectWrap(QObject*, int, int);
+    void addEffectList(QObject*, int, int);
 private:
     Ui::PluginList *ui;
     GUIManager *m_parent;

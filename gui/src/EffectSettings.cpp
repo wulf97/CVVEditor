@@ -14,7 +14,11 @@ EffectSettings::~EffectSettings() {
     delete ui;
 }
 
-void EffectSettings::display(QString effectName) {
-    emit displayEffectsSettings(effectName, ui->settingsLayout);
-    show();
+//void EffectSettings::display(QString effectName) {
+//    emit displayEffectsSettings(effectName, ui->settingsLayout);
+//    show();
+//}
+
+QBoxLayout *EffectSettings::getDisplayLayout() {
+    return ui->settingsLayout;
 }

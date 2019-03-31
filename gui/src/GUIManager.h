@@ -54,7 +54,7 @@ signals:
     void unloadSeq();
     void saveSeq(QString);
     void getEffectsList();
-    void addEffectWrap(QObject*, int, int);
+    void addEffectList(QObject*, int, int);
 
 private:
     Viewport *m_viewport;

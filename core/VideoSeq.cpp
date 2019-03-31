@@ -18,7 +18,7 @@ VideoSeq::VideoSeq(QObject *parent) : QObject(parent) {
     connect(m_core, SIGNAL(loadSeq()), this, SLOT(loadSeq()));
     connect(m_core, SIGNAL(unloadSeq()), this, SLOT(unloadSeq()));
     connect(m_core, SIGNAL(saveSeq(QString)), this, SLOT(saveSeq(QString)));
-    connect(m_core, SIGNAL(addEffectWrap(QObject*,int,int)), this, SLOT(addEffectWrap(QObject*,int,int)));
+    connect(m_core, SIGNAL(addEffectList(QObject*,int,int)), this, SLOT(addEffectList(QObject*,int,int)));
 
     connect(&m_displayTimer, SIGNAL(timeout()), this, SLOT(updateDisplayedFrame()));
     connect(&m_saveTimer, SIGNAL(timeout()), this, SLOT(updateWritedFrame()));
@@ -199,14 +199,14 @@ void VideoSeq::seqSetTime(int time) {
     }
 }
 
-void VideoSeq::addEffectWrap(QObject *obj, int startTime, int endTime) {
-    qDebug() << "slot: addEffectWrap(QObject*, int, int)" << endl;
-    VideoSeqEffectsWrap *effectWrap = new VideoSeqEffectsWrap(this);
-    effectWrap->setStartTime(startTime);
-    effectWrap->setEndTime(endTime);
-    m_effectWraps.push_back(effectWrap);
+void VideoSeq::addEffectList(QObject *obj, int startTime, int endTime) {
+    qDebug() << "slot: addEffectList(QObject*, int, int)" << endl;
+    VideoEffectList *effectLis = new VideoEffectList(this);
+    effectLis->setStartTime(startTime);
+    effectLis->setEndTime(endTime);
+    m_effectWraps.push_back(effectLis);
 
-    connect(obj, SIGNAL(addEffect(QObject*,QString)), effectWrap, SLOT(addEffect(QObject*,QString)));
+    connect(obj, SIGNAL(addEffect(QObject*,QString)), effectLis, SLOT(addEffect(QObject*,QString)));
 }
 
 /***************/

@@ -1,11 +1,11 @@
-#ifndef VIDEO_SEQ_EFFECTS_WRAP_H
-#define VIDEO_SEQ_EFFECTS_WRAP_H
+#ifndef VIDEO_EFFECT_LIST_H
+#define VIDEO_EFFECT_LIST_H
 
 #include <QObject>
 #include <QList>
 
 #include "IEffect.h"
-#include "VideoSeqEffect.h"
+#include "VideoEffect.h"
 
 class Core;
 class VideoSeq;
@@ -13,10 +13,10 @@ namespace cv {
 class Mat;
 }
 
-class VideoSeqEffectsWrap : public QObject {
+class VideoEffectList : public QObject {
     Q_OBJECT
 public:
-    VideoSeqEffectsWrap(QObject *parent = nullptr);
+    VideoEffectList(QObject *parent = nullptr);
 
     VideoSeq *getParent();
     int getStartTime();
@@ -29,9 +29,9 @@ public slots:
 private:
     Core *m_core;
     VideoSeq *m_videoSeq;
-    QList<VideoSeqEffect*> m_effects;
+    QList<VideoEffect*> m_effects;
     int m_startTime;
     int m_endTime;
 };
 
-#endif // VIDEO_SEQ_EFFECTS_WRAP_H
+#endif // VIDEO_EFFECT_LIST_H

@@ -24,6 +24,9 @@ QString Canny::getName() const {
 }
 
 void Canny::display(QBoxLayout *layout) {
+    if (this->isHidden()) {
+        this->show();
+    }
     layout->addWidget(this);
 }
 

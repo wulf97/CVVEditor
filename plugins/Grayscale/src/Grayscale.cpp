@@ -24,6 +24,9 @@ QString Grayscale::getName() const {
 }
 
 void Grayscale::display(QBoxLayout *layout) {
+    if (this->isHidden()) {
+        this->show();
+    }
     layout->addWidget(this);
 }
 

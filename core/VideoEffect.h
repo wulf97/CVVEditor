@@ -1,29 +1,29 @@
-#ifndef VIDEO_SEQ_EFFECT_H
-#define VIDEO_SEQ_EFFECT_H
+#ifndef VIDEO_EFFECT_H
+#define VIDEO_EFFECT_H
 
 #include <QObject>
 
 //#include "VideoSeqEffectsWrap.h"
 #include "IEffect.h"
 
-class VideoSeqEffectsWrap;
+class VideoEffectList;
 class Core;
 namespace cv {
 class Mat;
 }
 
-class VideoSeqEffect : public QObject {
+class VideoEffect : public QObject {
     Q_OBJECT
 public:
-    VideoSeqEffect(QObject *parent, QString);
+    VideoEffect(QObject *parent, QString);
 
     void handle(cv::Mat&);
 public slots:
     void displayEffectSettings(QBoxLayout*);
 private:
     Core *m_core;
-    VideoSeqEffectsWrap *m_videoSeqEffectsWrap;
+    VideoEffectList *m_videoEffectList;
     IEffect *m_effect;
 };
 
-#endif // VIDEO_SEQ_EFFECT_H
+#endif // VIDEO_EFFECT_H

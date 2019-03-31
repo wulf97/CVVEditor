@@ -36,7 +36,6 @@ VideoSeq *Core::getVideoSeq() {
 void Core::getEffectsList() {
     QStringList effects;
     for (int i = 0; i < m_pManager->size(); i++) {
-        qDebug() << "Filter: " << m_pManager->get(i);
         effects.push_back(m_pManager->get(i));
     }
 

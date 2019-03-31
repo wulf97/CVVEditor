@@ -65,7 +65,7 @@ void MainWindow::setConnection() {
     connect(m_gui, SIGNAL(unloadSeq()), m_core, SIGNAL(unloadSeq()));
     connect(m_gui, SIGNAL(saveSeq(QString)), m_core, SIGNAL(saveSeq(QString)));
     connect(m_gui, SIGNAL(getEffectsList()), m_core, SLOT(getEffectsList()));
-    connect(m_gui, SIGNAL(addEffectWrap(QObject*,int,int)), m_core, SIGNAL(addEffectWrap(QObject*,int,int)));
+    connect(m_gui, SIGNAL(addEffectList(QObject*,int,int)), m_core, SIGNAL(addEffectList(QObject*,int,int)));
 
     /* Получение сигналов */
     connect(m_core, SIGNAL(updateFrame(QImage*)), m_gui, SIGNAL(updateFrame(QImage*)));

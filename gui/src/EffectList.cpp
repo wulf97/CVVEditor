@@ -48,6 +48,7 @@ void EffectList::addNewEffect()
     listOfEffectsWidget.append(effect);
     ui->effectListLayout->addWidget(effect);
 
+    emit addEffect(effect, ui->comboBox->currentText());
 }
 
 void EffectList::deleteEffect(int num)

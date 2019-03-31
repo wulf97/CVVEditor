@@ -30,6 +30,7 @@ public slots:
     void deleteMeSlot();
 signals:
     void deleteMe(int);
+    void addEffect(QObject*, QString);
 private:
     Ui::EffectList *ui;
     PluginList *m_parent = nullptr;

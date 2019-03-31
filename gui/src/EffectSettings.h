@@ -2,6 +2,7 @@
 #define EFFECTSETTINGS_H
 
 #include <QWidget>
+#include <QHBoxLayout>
 
 class GUIManager;
 class QBoxLayout;
@@ -17,7 +18,7 @@ public:
     explicit EffectSettings(QWidget *parent = nullptr);
     ~EffectSettings();
 
-    void display(QString);
+    QBoxLayout *getDisplayLayout();
 signals:
     void displayEffectsSettings(QString, QBoxLayout*);
 private:

@@ -23,10 +23,12 @@ void PluginManager::load() {
     filesList = pluginDir.entryInfoList();
     for (int i = 0; i < filesList.size(); i++) {
         QPluginLoader *loader = new QPluginLoader(filesList[i].absoluteFilePath());
+        loader->load();
         if (loader->isLoaded()) {
             QObject *obj = loader->instance();
             IEffect *plugin = dynamic_cast<IEffect*>(obj);
-            m_pluginLoaders[plugin->getName()] = loader;
+            m_pluginLoaders.insert(plugin->getName(), loader);
+            //m_pluginLoaders[plugin->getName()] = loader;
             m_pluginNames.push_back(plugin->getName());
 
             qDebug() << "Loading: " << loader->fileName() << endl;
@@ -52,10 +54,14 @@ QString PluginManager::get(int i) {
 }
 
 IEffect *PluginManager::createByName(QString effectName) {
-    if (!m_pluginLoaders[effectName]) {
+    qDebug() << "jjjjjjj " << effectName;
+    if (m_pluginLoaders[effectName]) {
         QObject *obj = m_pluginLoaders[effectName]->instance();
-        IEffect *effect = dynamic_cast<IEffect*>(obj);
-        m_instances.push_back(effect);
+        if (m_pluginLoaders[effectName]->isLoaded()) {
+            IEffect *effect = dynamic_cast<IEffect*>(obj);
+            m_instances.push_back(effect);
+            return effect;
+        } else return nullptr;
     } else {
         return nullptr;
     }

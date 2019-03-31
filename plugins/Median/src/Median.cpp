@@ -25,6 +25,9 @@ QString Median::getName() const {
 }
 
 void Median::display(QBoxLayout *layout) {
+    if (this->isHidden()) {
+        this->show();
+    }
     layout->addWidget(this);
 }
 

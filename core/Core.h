@@ -35,7 +35,7 @@ signals:
     void loadSeq();
     void unloadSeq();
     void saveSeq(QString);
-    void addEffectWrap(QObject*, int, int);
+    void addEffectList(QObject*, int, int);
 
     /* Сигналы для внешних модулей */
     void videoLen(int);
