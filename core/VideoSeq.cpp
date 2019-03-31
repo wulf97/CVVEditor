@@ -201,12 +201,14 @@ void VideoSeq::seqSetTime(int time) {
 
 void VideoSeq::addEffectList(QObject *obj, int startTime, int endTime) {
     qDebug() << "slot: addEffectList(QObject*, int, int)" << endl;
-    VideoEffectList *effectLis = new VideoEffectList(this);
-    effectLis->setStartTime(startTime);
-    effectLis->setEndTime(endTime);
-    m_effectWraps.push_back(effectLis);
+    VideoEffectList *effectList = new VideoEffectList(this);
+    effectList->setStartTime(startTime);
+    effectList->setEndTime(endTime);
+    m_effectWraps.push_back(effectList);
 
-    connect(obj, SIGNAL(addEffect(QObject*,QString)), effectLis, SLOT(addEffect(QObject*,QString)));
+    connect(obj, SIGNAL(addEffect(QObject*,QString)), effectList, SLOT(addEffect(QObject*,QString)));
+    connect(obj, SIGNAL(setEffectStartTime(int)), effectList, SLOT(setEffectStartTime(int)));
+    connect(obj, SIGNAL(setEffectEndTime(int)), effectList, SLOT(setEffectEndTime(int)));
 }
 
 /***************/
