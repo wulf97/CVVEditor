@@ -1,7 +1,7 @@
 include(../ocv_config.pri)
 include(../general_config.pri)
 
-QT += gui
+QT += gui widgets
 
 TARGET = core
 TEMPLATE = lib
@@ -15,8 +15,8 @@ SOURCES += \
     VideoLoader.cpp \
     VideoSeq.cpp \
     VideoSeqItem.cpp \
-    VideoSeqEffectsWrap.cpp \
-    VideoSeqEffect.cpp
+    VideoEffectList.cpp \
+    VideoEffect.cpp
 
 HEADERS += \
     Core.h \
@@ -25,8 +25,8 @@ HEADERS += \
     VideoSeq.h \
     VideoSeqItem.h \
     IEffect.h \
-    VideoSeqEffectsWrap.h \
-    VideoSeqEffect.h
+    VideoEffectList.h \
+    VideoEffect.h
 
 message("Build core")
 
