@@ -32,6 +32,12 @@ public:
     void setConnection();
     void updateEndTime(int time);
     QString intTimeToStringTime(int time);
+public slots:
+    void onLowerValueChanged(int aLowerValue);
+    void onUpperValueChanged(int aUpperValue);
+signals:
+    void setStartTime(int);
+    void setEndTime(int);
 private:
     Ui::EffectRange *ui;
     GUIManager *m_parent = nullptr;

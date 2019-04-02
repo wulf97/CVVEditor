@@ -6,6 +6,7 @@
 #include "PluginList.h"
 #include <GUIManager.h>
 #include <EffectList.h>
+#include <EffectRange.h>
 
 
 PluginList::PluginList(QWidget *parent) :
@@ -34,7 +35,9 @@ void PluginList::addEffectList()
 {
     EffectList* effectList = new EffectList(this);
     effectList->setNumInList(listOfEffectList.size());
-    emit addNewEffectRange(listOfEffectList.size());
+    EffectRange* effectRange = m_parent->getEffectRangeList()->addNewEffectRange(listOfEffectList.size());
+    connect(effectRange, SIGNAL(setStartTime(int)),effectList, SLOT(setStartTimeRange(int)));
+    connect(effectRange, SIGNAL(setEndTime(int)), effectList, SLOT(setStartEndRange(int)));
     listOfEffectList.append(effectList);
     ui->pluginListLayout->addWidget(effectList);
     emit addEffectList(effectList, 1000, 5000);

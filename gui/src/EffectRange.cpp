@@ -11,6 +11,12 @@ EffectRange::EffectRange(QWidget *parent, int endTime) :
     m_RangeSlider = new RangeSlider();
     ui->horizontalLayout_5->addWidget(m_RangeSlider);
     ui->endTime->setText(intTimeToStringTime(endTime));
+
+    connect(m_RangeSlider,SIGNAL(lowerValueChanged(int)), this, SLOT(onLowerValueChanged(int)));
+    connect(m_RangeSlider,SIGNAL(upperValueChanged(int)), this, SLOT(onUpperValueChanged(int)));
+
+    setMaximumValue(endTime);
+
 }
 
 EffectRange::~EffectRange() {
@@ -56,7 +62,10 @@ void EffectRange::setConnection() {
 
 void EffectRange::updateEndTime(int time)
 {
+    setMaximumValue(time);
+    setMinimumValue(0);
     ui->endTime->setText(intTimeToStringTime(time));
+
 }
 
 QString EffectRange::intTimeToStringTime(int length)
@@ -100,4 +109,18 @@ QString EffectRange::intTimeToStringTime(int length)
         lengthOfFilm = hour +':' + minute + ':' + second;
     }
     return lengthOfFilm;
+}
+
+void EffectRange::onLowerValueChanged(int aLowerValue)
+{
+    qDebug()<<aLowerValue;
+    lowerValue = aLowerValue;
+    emit setStartTime(lowerValue);
+}
+
+void EffectRange::onUpperValueChanged(int aUpperValue)
+{
+    qDebug()<<aUpperValue;
+    upperValue = aUpperValue;
+    emit setEndTime(upperValue);
 }

@@ -8,6 +8,7 @@ GUIManager::GUIManager(QWidget *parent) :
     m_videoCutterList = new VideoCutterList(this);
     m_pluginList = new PluginList(this);
     m_effectSettings = new EffectSettings(this);
+    //m_effectList = new EffectList(this);
 
 
     /* Проброс сигналов к модулям GUIManager */
@@ -50,6 +51,7 @@ GUIManager::~GUIManager() {
     delete m_videoCutterList;
     delete m_effectRangeList;
     delete m_pluginList;
+    //delete m_effectList;
 }
 
 Viewport *GUIManager::getViewport() const {
@@ -75,3 +77,7 @@ PluginList *GUIManager::getPluginList() const {
 EffectSettings *GUIManager::getEffectSettings() const {
     return m_effectSettings;
 }
+
+//EffectList *GUIManager::getEffectList() const {
+//    //return m_effectList;
+//}

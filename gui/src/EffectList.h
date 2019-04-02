@@ -28,8 +28,8 @@ public slots:
     void deleteEffect(int num);
     bool move(QWidget *widget, QString direction);
     void deleteMeSlot();
-    //void setStartTimeRange(int);
-    //void setStartEndRange(int);
+    void setStartTimeRange(int);
+    void setStartEndRange(int);
 signals:
     void deleteMe(int);
     void addEffect(QObject*, QString);

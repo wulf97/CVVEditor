@@ -14,10 +14,9 @@ EffectRangeList::~EffectRangeList() {
 }
 
 void EffectRangeList::setConnection() {
-    /* Подключение сигналов */
 }
 
-void EffectRangeList::addNewEffectRange(int num)
+EffectRange *EffectRangeList::addNewEffectRange(int num)
 {
     endTimeOfVideo = m_parent->getVideoCutterList()->getLengthFullVideo();
     EffectRange* effectRange = new EffectRange(this, endTimeOfVideo);
@@ -25,6 +24,7 @@ void EffectRangeList::addNewEffectRange(int num)
     listOfEffectRangeWidget.append(effectRange);
     layout->addWidget(effectRange);
     this->setLayout(layout);
+    return effectRange;
 }
 
 void EffectRangeList::updateEndTime(int time)
@@ -33,7 +33,6 @@ void EffectRangeList::updateEndTime(int time)
     for(int i = 0; i < listOfEffectRangeWidget.size(); i++) {
         listOfEffectRangeWidget[i]->updateEndTime(endTimeOfVideo);
     }
-
 }
 
 void EffectRangeList::deleteEffectRange(int num)

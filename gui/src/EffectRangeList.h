@@ -15,8 +15,8 @@ public:
     ~EffectRangeList();
 
     void setConnection();
+    EffectRange* addNewEffectRange(int);
 public slots:
-    void addNewEffectRange(int);
     void updateEndTime(int time);
     void deleteEffectRange(int);
 

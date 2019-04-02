@@ -12,6 +12,7 @@ EffectList::EffectList(QWidget *parent) :
     connect(ui->delBtn, SIGNAL(released()), this, SLOT(deleteMeSlot()));
 
     connect(this, SIGNAL(deleteMe(int)), m_parent->getParent()->getPluginList(), SLOT(deleteEffectList(int)));
+
 }
 
 EffectList::~EffectList() {
@@ -100,4 +101,16 @@ bool EffectList::move(QWidget *widget, QString direction)
 void EffectList::deleteMeSlot()
 {
     deleteMe(getNumInList());
+}
+
+void EffectList::setStartTimeRange(int val)
+{
+    qDebug()<<"St time"<<val;
+    emit setEffectStartTime(val);
+}
+
+void EffectList::setStartEndRange(int val)
+{
+    qDebug()<<"End time"<<val;
+    emit setEffectEndTime(val);
 }

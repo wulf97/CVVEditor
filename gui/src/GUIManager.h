@@ -10,6 +10,7 @@
 #include "PluginList.h"
 #include "EffectRangeList.h"
 #include "EffectSettings.h"
+#include "EffectList.h"
 
 
 /**
@@ -30,6 +31,7 @@ public:
     EffectRangeList *getEffectRangeList() const;
     PluginList *getPluginList() const;
     EffectSettings *getEffectSettings() const;
+    //EffectList *getEffectList() const;
 signals:
     /* Сигналы для внутренних модулей */
     void videoLen(int);
@@ -63,6 +65,7 @@ private:
     EffectRangeList *m_effectRangeList;
     PluginList *m_pluginList;
     EffectSettings *m_effectSettings;
+    //EffectList *m_effectList;
 };
 
 #endif // GUIMANAGER_H
