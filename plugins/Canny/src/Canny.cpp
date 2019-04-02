@@ -31,5 +31,11 @@ void Canny::display(QBoxLayout *layout) {
 }
 
 void Canny::handle(Mat &frame) {
+    if (frame.channels() == 3) {
+        cvtColor(frame, frame, CV_BGR2GRAY);
+    }
 
+    cv::Canny(frame, frame, ui->tresholdSpinbox->value(),
+              ui->tresholdSpinbox->value()*ui->ratioSpinbox->value(),
+              ui->kernalSizeSpinbox->value());
 }
