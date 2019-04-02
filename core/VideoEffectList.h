@@ -26,6 +26,8 @@ public:
     void handle(cv::Mat&);
 public slots:
     void addEffect(QObject*, QString);
+    void setEffectStartTime(int);
+    void setEffectEndTime(int);
 private:
     Core *m_core;
     VideoSeq *m_videoSeq;

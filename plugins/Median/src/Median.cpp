@@ -1,5 +1,6 @@
 #include <QBoxLayout>
 #include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
 
 #include "ui_Median.h"
 #include "Median.h"
@@ -31,6 +32,6 @@ void Median::display(QBoxLayout *layout) {
     layout->addWidget(this);
 }
 
-void Median::handle(Mat &img) {
-
+void Median::handle(Mat &frame) {
+    medianBlur(frame, frame, 9);
 }

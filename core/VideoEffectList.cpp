@@ -35,6 +35,12 @@ void VideoEffectList::setEndTime(int endTime) {
     m_endTime = endTime;
 }
 
+void VideoEffectList::handle(Mat &frame) {
+    for (int  i = 0; i < m_effects.size(); i++) {
+        m_effects[i]->handle(frame);
+    }
+}
+
 void VideoEffectList::addEffect(QObject *obj, QString effectName) {
     qDebug() << "slot: addEffect(QObject*, QString)" << endl;
     VideoEffect *effect = new VideoEffect(this, effectName);
@@ -43,8 +49,12 @@ void VideoEffectList::addEffect(QObject *obj, QString effectName) {
     connect(obj, SIGNAL(displayEffectSettings(QBoxLayout*)), effect, SLOT(displayEffectSettings(QBoxLayout*)));
 }
 
-void VideoEffectList::handle(Mat &frame) {
-    for (int  i = 0; i < m_effects.size(); i++) {
-        m_effects[i]->handle(frame);
-    }
+void VideoEffectList::setEffectStartTime(int startTime) {
+    qDebug() << "slot: setEffectStartTime(int)" << endl;
+    m_startTime = startTime;
+}
+
+void VideoEffectList::setEffectEndTime(int endTime) {
+    qDebug() << "slot: setEffectEndTime(int)" << endl;
+    m_endTime = endTime;
 }
