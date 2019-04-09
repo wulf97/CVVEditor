@@ -38,9 +38,10 @@ void PluginList::addEffectList()
     EffectRange* effectRange = m_parent->getEffectRangeList()->addNewEffectRange(listOfEffectList.size());
     connect(effectRange, SIGNAL(setStartTime(int)),effectList, SLOT(setStartTimeRange(int)));
     connect(effectRange, SIGNAL(setEndTime(int)), effectList, SLOT(setStartEndRange(int)));
+
     listOfEffectList.append(effectList);
     ui->pluginListLayout->addWidget(effectList);
-    emit addEffectList(effectList, 1000, 5000);
+    emit addEffectList(effectList, 0, m_parent->getVideoCutterList()->getLengthFullVideo());
 }
 
 void PluginList::setEffectsToEffectList(QStringList list)

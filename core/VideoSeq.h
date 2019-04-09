@@ -26,6 +26,7 @@ public:
 
     Core *getParent();
     void setConnection();
+    void delEffectList(QObject*);
 public slots:
     void clearSeq();
     void addToSeq(QString, int, int);
@@ -63,7 +64,7 @@ private:
     QTimer m_displayTimer;
     QTimer m_saveTimer;
     QList<VideoSeqItem*> m_seq;
-    QList<VideoEffectList*> m_effectWraps;
+    QList<VideoEffectList*> m_effectList;
     VideoCapture m_inVideo;
     VideoWriter m_outVideo;
     QImage *m_frame;

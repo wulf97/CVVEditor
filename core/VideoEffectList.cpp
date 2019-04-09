@@ -41,12 +41,27 @@ void VideoEffectList::handle(Mat &frame) {
     }
 }
 
+void VideoEffectList::delEffect(QObject *obj) {
+    for (int i = 0; i < m_effects.size(); i++) {
+        if (m_effects[i] == obj) {
+            delete obj;
+            m_effects.removeAt(i);
+        }
+    }
+}
+
 void VideoEffectList::addEffect(QObject *obj, QString effectName) {
     qDebug() << "slot: addEffect(QObject*, QString)" << endl;
     VideoEffect *effect = new VideoEffect(this, effectName);
     m_effects.push_back(effect);
 
     connect(obj, SIGNAL(displayEffectSettings(QBoxLayout*)), effect, SLOT(displayEffectSettings(QBoxLayout*)));
+    connect(obj, SIGNAL(delEffect()), effect, SLOT(delEffect()));
+}
+
+void VideoEffectList::delEffectList() {
+    qDebug() << ",,,,";
+    m_core->getVideoSeq()->delEffectList(this);
 }
 
 void VideoEffectList::setEffectStartTime(int startTime) {

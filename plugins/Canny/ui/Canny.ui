@@ -162,6 +162,9 @@
               <property name="minimum">
                <number>3</number>
               </property>
+              <property name="maximum">
+               <number>7</number>
+              </property>
               <property name="singleStep">
                <number>2</number>
               </property>

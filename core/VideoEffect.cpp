@@ -34,3 +34,7 @@ void VideoEffect::displayEffectSettings(QBoxLayout *layout) {
 
     m_effect->display(layout);
 }
+
+void VideoEffect::delEffect() {
+    m_videoEffectList->delEffect(this);
+}

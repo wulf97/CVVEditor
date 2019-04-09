@@ -24,8 +24,10 @@ public:
     void setStartTime(int);
     void setEndTime(int);
     void handle(cv::Mat&);
+    void delEffect(QObject*);
 public slots:
     void addEffect(QObject*, QString);
+    void delEffectList();
     void setEffectStartTime(int);
     void setEffectEndTime(int);
 private:

@@ -49,6 +49,7 @@ void Effect::showSettings() {
 
 void Effect::deleteMe()
 {
+    emit delEffect();
     emit deleteMe(getNumInList());
 }
 

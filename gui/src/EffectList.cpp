@@ -100,6 +100,7 @@ bool EffectList::move(QWidget *widget, QString direction)
 
 void EffectList::deleteMeSlot()
 {
+    emit delEffectList();
     deleteMe(getNumInList());
 }
 

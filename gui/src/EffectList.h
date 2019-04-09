@@ -35,6 +35,7 @@ signals:
     void addEffect(QObject*, QString);
     void setEffectStartTime(int);
     void setEffectEndTime(int);
+    void delEffectList();
 private:
     Ui::EffectList *ui;
     PluginList *m_parent = nullptr;

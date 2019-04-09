@@ -20,6 +20,7 @@ public:
     void handle(cv::Mat&);
 public slots:
     void displayEffectSettings(QBoxLayout*);
+    void delEffect();
 private:
     Core *m_core;
     VideoEffectList *m_videoEffectList;

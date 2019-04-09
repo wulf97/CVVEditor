@@ -31,6 +31,7 @@ signals:
     void upBtn(QWidget*,QString);
     void downBtn(QWidget*,QString);
     void displayEffectSettings(QBoxLayout*);
+    void delEffect();
 private:
     Ui::Effect *ui;
     GUIManager *m_gui;

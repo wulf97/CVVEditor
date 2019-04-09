@@ -45,6 +45,16 @@ void VideoSeq::setConnection() {
     connect(this, SIGNAL(isStoped()), m_core, SIGNAL(isStoped()));
 }
 
+void VideoSeq::delEffectList(QObject *obj) {
+    for (int i = 0; i < m_effectList.size(); i++) {
+        if (m_effectList[i] == obj) {
+            delete obj;
+            m_effectList.removeAt(i);
+            qDebug() << ";;;;;;;;;;;";
+        }
+    }
+}
+
 /**/
 void VideoSeq::clearSeq() {
     qDebug() << "slot: clearSeq()" << endl;
@@ -204,9 +214,10 @@ void VideoSeq::addEffectList(QObject *obj, int startTime, int endTime) {
     VideoEffectList *effectList = new VideoEffectList(this);
     effectList->setStartTime(startTime);
     effectList->setEndTime(endTime);
-    m_effectWraps.push_back(effectList);
+    m_effectList.push_back(effectList);
 
     connect(obj, SIGNAL(addEffect(QObject*,QString)), effectList, SLOT(addEffect(QObject*,QString)));
+    connect(obj, SIGNAL(delEffectList()), effectList, SLOT(delEffectList()));
     connect(obj, SIGNAL(setEffectStartTime(int)), effectList, SLOT(setEffectStartTime(int)));
     connect(obj, SIGNAL(setEffectEndTime(int)), effectList, SLOT(setEffectEndTime(int)));
 }
@@ -220,10 +231,10 @@ void VideoSeq::updateDisplayedFrame() {
             m_inVideo >> frame;
             if (!frame.empty()) {
                 /**/
-                for (int i = 0; i < m_effectWraps.size(); i++) {
-                    if (m_effectWraps[i]->getStartTime() <= m_time &&
-                        m_time < m_effectWraps[i]->getEndTime()) {
-                        m_effectWraps[i]->handle(frame);
+                for (int i = 0; i < m_effectList.size(); i++) {
+                    if (m_effectList[i]->getStartTime() <= m_time &&
+                        m_time < m_effectList[i]->getEndTime()) {
+                        m_effectList[i]->handle(frame);
                     }
                 }
                 /**/
