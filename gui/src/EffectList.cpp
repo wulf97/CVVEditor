@@ -44,7 +44,7 @@ int EffectList::getNumInList()
 
 void EffectList::addNewEffect()
 {
-    Effect *effect = new Effect(this, ui->comboBox->currentText());
+    Effect *effect = new Effect(this,ui->effectListLayout, ui->comboBox->currentText());
     effect->setNumInList(listOfEffectsWidget.size());
     listOfEffectsWidget.append(effect);
     ui->effectListLayout->addWidget(effect);
@@ -67,7 +67,8 @@ void EffectList::deleteEffect(int num)
 bool EffectList::move(QWidget *widget, QString direction)
 {
     if(listOfEffectsWidget.size() > 1) {
-        QVBoxLayout* myLayout = qobject_cast<QVBoxLayout*>(widget->parentWidget()->layout());
+        Effect* myEffect = qobject_cast<Effect*>(widget);
+        QVBoxLayout* myLayout = myEffect->getLayout();
         int index = myLayout->indexOf(widget);
         if (direction == "MoveUp" && index == 0) {
             return false;
@@ -85,7 +86,7 @@ bool EffectList::move(QWidget *widget, QString direction)
         }
 
         myLayout->removeWidget(widget);
-        myLayout->insertWidget(newIndex , widget);
+        myLayout->insertWidget(newIndex, widget);
 
         for (auto i : listOfEffectsWidget) {
             Effect* p = dynamic_cast<Effect*>(i);

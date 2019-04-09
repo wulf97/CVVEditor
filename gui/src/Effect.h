@@ -16,10 +16,11 @@ class Effect : public QWidget
     Q_OBJECT
 
 public:
-    explicit Effect(QWidget *parent = nullptr, QString text = "");
+    explicit Effect(QWidget *parent = nullptr, QVBoxLayout *layout = nullptr, QString text = "");
     ~Effect();
     void setNumInList(int);
     int getNumInList();
+    QVBoxLayout *getLayout();
 
 public slots:
     void showSettings();
@@ -36,6 +37,7 @@ private:
     GUIManager *m_gui;
     EffectList *m_effectList;
     int numInList;
+    QVBoxLayout *myLayout;
 };
 
 #endif // EFFECT_H

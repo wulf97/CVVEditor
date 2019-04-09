@@ -7,7 +7,7 @@
 #include "EffectList.h"
 #include "GUIManager.h"
 
-Effect::Effect(QWidget *parent, QString text) :
+Effect::Effect(QWidget *parent, QVBoxLayout *layout, QString text) :
                QWidget(parent),
                ui(new Ui::Effect) {
     m_effectList = dynamic_cast<EffectList*>(parent);
@@ -16,6 +16,8 @@ Effect::Effect(QWidget *parent, QString text) :
     ui->setupUi(this);
     ui->label_5->setStyleSheet("font: 15pt");
     ui->label_5->setText(text);
+
+    myLayout = layout;
 
     connect(ui->settingsBtn, SIGNAL(released()), this, SLOT(showSettings()));
     connect(ui->deleteBtn, SIGNAL(released()), this, SLOT(deleteMe()));
@@ -39,6 +41,11 @@ void Effect::setNumInList(int num)
 int Effect::getNumInList()
 {
     return numInList;
+}
+
+QVBoxLayout *Effect::getLayout()
+{
+    return myLayout;
 }
 
 void Effect::showSettings() {
