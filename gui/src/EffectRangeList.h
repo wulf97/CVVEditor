@@ -19,6 +19,7 @@ public:
 public slots:
     void updateEndTime(int time);
     void deleteEffectRange(int);
+    void updateStartTimeNextRange(int,int);
 
 private:
     GUIManager *m_parent = nullptr;

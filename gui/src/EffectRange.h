@@ -26,6 +26,9 @@ public:
     void setNumInList(int);
     int getNumInList();
 
+    int getLowerValue();
+    int getUpperValue();
+
     int getLengthOfVideo();
     void setLenghtOfVideo(int);
 
@@ -38,6 +41,7 @@ public slots:
 signals:
     void setStartTime(int);
     void setEndTime(int);
+    void updateStartTimeNextRange(int,int);
 private:
     Ui::EffectRange *ui;
     GUIManager *m_parent = nullptr;

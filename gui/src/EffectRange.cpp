@@ -14,9 +14,7 @@ EffectRange::EffectRange(QWidget *parent, int endTime) :
 
     connect(m_RangeSlider,SIGNAL(lowerValueChanged(int)), this, SLOT(onLowerValueChanged(int)));
     connect(m_RangeSlider,SIGNAL(upperValueChanged(int)), this, SLOT(onUpperValueChanged(int)));
-
     setMaximumValue(endTime);
-
 }
 
 EffectRange::~EffectRange() {
@@ -28,6 +26,7 @@ void EffectRange::setMaximumValue(int max)
 {
     m_RangeSlider->setMaximum(max);
     upperValue = max;
+    ui->endTime->setText(intTimeToStringTime(max));
 }
 
 int EffectRange::getMaximumValue()
@@ -37,8 +36,11 @@ int EffectRange::getMaximumValue()
 
 void EffectRange::setMinimumValue(int min)
 {
+    int upper = upperValue;
     m_RangeSlider->setMinimum(min);
+    m_RangeSlider->setUpperValue(upper);
     lowerValue = min;
+    ui->startTime->setText(intTimeToStringTime(min));
 }
 
 int EffectRange::getMinimumValue()
@@ -54,6 +56,16 @@ void EffectRange::setNumInList(int num)
 int EffectRange::getNumInList()
 {
     return numInList;
+}
+
+int EffectRange::getLowerValue()
+{
+    return lowerValue;
+}
+
+int EffectRange::getUpperValue()
+{
+    return upperValue;
 }
 
 
@@ -116,11 +128,15 @@ void EffectRange::onLowerValueChanged(int aLowerValue)
     qDebug()<<aLowerValue;
     lowerValue = aLowerValue;
     emit setStartTime(lowerValue);
+    ui->startTime->setText(intTimeToStringTime(lowerValue));
+    emit updateStartTimeNextRange(upperValue, numInList);
 }
 
 void EffectRange::onUpperValueChanged(int aUpperValue)
 {
     qDebug()<<aUpperValue;
     upperValue = aUpperValue;
+    ui->endTime->setText(intTimeToStringTime(upperValue));
     emit setEndTime(upperValue);
+    emit updateStartTimeNextRange(upperValue, numInList);
 }
