@@ -5,4 +5,5 @@ SUBDIRS += \
     gui \
     plugins/Canny \
     plugins/Median \
-    plugins/Grayscale
+    plugins/Grayscale \
+    plugins/SwapFace

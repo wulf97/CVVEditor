@@ -23,6 +23,7 @@ public:
     QVBoxLayout *getLayout();
 
 public slots:
+    void showViewport();
     void showSettings();
     void deleteMe();
     void upBtnSlot();

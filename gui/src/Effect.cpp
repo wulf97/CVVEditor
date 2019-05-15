@@ -19,6 +19,7 @@ Effect::Effect(QWidget *parent, QVBoxLayout *layout, QString text) :
 
     myLayout = layout;
 
+    connect(ui->viewBtn, SIGNAL(released()), this, SLOT(showViewport()));
     connect(ui->settingsBtn, SIGNAL(released()), this, SLOT(showSettings()));
     connect(ui->deleteBtn, SIGNAL(released()), this, SLOT(deleteMe()));
     connect(ui->upBtn, SIGNAL(released()), this, SLOT(upBtnSlot()));
@@ -48,9 +49,13 @@ QVBoxLayout *Effect::getLayout()
     return myLayout;
 }
 
+void Effect::showViewport() {
+    m_gui->getEffectViewport()->show();
+    emit displayEffectSettings(m_gui->getEffectViewport()->getDisplayLayout());
+}
+
 void Effect::showSettings() {
-    qDebug() << "llllllllll";
-    m_gui->getEffectSettings()->show();//->display("Canny");
+    m_gui->getEffectSettings()->show();
     emit displayEffectSettings(m_gui->getEffectSettings()->getDisplayLayout());
 }
 

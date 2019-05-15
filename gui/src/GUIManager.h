@@ -10,6 +10,7 @@
 #include "PluginList.h"
 #include "EffectRangeList.h"
 #include "EffectSettings.h"
+#include "EffectViewport.h"
 #include "EffectList.h"
 
 
@@ -31,6 +32,7 @@ public:
     EffectRangeList *getEffectRangeList() const;
     PluginList *getPluginList() const;
     EffectSettings *getEffectSettings() const;
+    EffectViewport *getEffectViewport() const;
     //EffectList *getEffectList() const;
 signals:
     /* Сигналы для внутренних модулей */
@@ -42,6 +44,7 @@ signals:
     void effectsList(QStringList);
 
     /* Сигналы для внешних модулей */
+    void addViewport(QObject*);
     void uploadVideo(QString*, bool);
     void unloadVideo();
     void playVideo();
@@ -65,6 +68,7 @@ private:
     EffectRangeList *m_effectRangeList;
     PluginList *m_pluginList;
     EffectSettings *m_effectSettings;
+    EffectViewport *m_effectViewport;
     //EffectList *m_effectList;
 };
 

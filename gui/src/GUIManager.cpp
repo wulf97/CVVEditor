@@ -8,6 +8,7 @@ GUIManager::GUIManager(QWidget *parent) :
     m_videoCutterList = new VideoCutterList(this);
     m_pluginList = new PluginList(this);
     m_effectSettings = new EffectSettings(this);
+    m_effectViewport = new EffectViewport(this);
     //m_effectList = new EffectList(this);
 
 
@@ -76,6 +77,10 @@ PluginList *GUIManager::getPluginList() const {
 
 EffectSettings *GUIManager::getEffectSettings() const {
     return m_effectSettings;
+}
+
+EffectViewport *GUIManager::getEffectViewport() const {
+    return m_effectViewport;
 }
 
 //EffectList *GUIManager::getEffectList() const {

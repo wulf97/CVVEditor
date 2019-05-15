@@ -47,7 +47,8 @@ SOURCES += \
     src/EffectRange.cpp \
     src/EffectList.cpp \
     src/Effect.cpp \
-    src/EffectSettings.cpp
+    src/EffectSettings.cpp \
+    src/EffectViewport.cpp
 
 HEADERS += \
     src/MainWindow.h \
@@ -62,7 +63,8 @@ HEADERS += \
     src/EffectRange.h \
     src/EffectList.h \
     src/Effect.h \
-    src/EffectSettings.h
+    src/EffectSettings.h \
+    src/EffectViewport.h
 
 FORMS += \
     ui/MainWindow.ui \
@@ -74,7 +76,8 @@ FORMS += \
     ui/EffectRange.ui \
     ui/EffectList.ui \
     ui/Effect.ui \
-    ui/EffectSettings.ui
+    ui/EffectSettings.ui \
+    ui/EffectViewport.ui
 
 RESOURCES += \
     ../res.qrc

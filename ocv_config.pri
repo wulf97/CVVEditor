@@ -10,6 +10,11 @@ win32-msvc*{
         LIBS += -lopencv_imgproc$${VERSION_BUILD}d
         LIBS += -lopencv_imgcodecs$${VERSION_BUILD}d
         LIBS += -lopencv_videoio$${VERSION_BUILD}d
+        LIBS += -lopencv_face$${VERSION_BUILD}d
+        LIBS += -lopencv_objdetect$${VERSION_BUILD}d
+        LIBS += -lopencv_features2d$${VERSION_BUILD}d
+        LIBS += -lopencv_highgui$${VERSION_BUILD}d
+        LIBS += -lopencv_photo$${VERSION_BUILD}d
     }
 
     CONFIG(release, debug|release) {
@@ -17,13 +22,23 @@ win32-msvc*{
         LIBS += -lopencv_imgproc$${VERSION_BUILD}
         LIBS += -lopencv_imgcodecs$${VERSION_BUILD}
         LIBS += -lopencv_videoio$${VERSION_BUILD}
+        LIBS += -lopencv_face$${VERSION_BUILD}
+        LIBS += -lopencv_objdetect$${VERSION_BUILD}
+        LIBS += -lopencv_features2d$${VERSION_BUILD}
+        LIBS += -lopencv_highgui$${VERSION_BUILD}
+        LIBS += -lopencv_photo$${VERSION_BUILD}
     }
 }
-
 unix {
+        INCLUDEPATH += /usr/local/include
         LIBS += -L"/usr/local/lib"
         LIBS += -lopencv_core
         LIBS += -lopencv_imgproc
         LIBS += -lopencv_imgcodecs
         LIBS += -lopencv_videoio
+        LIBS += -lopencv_face
+        LIBS += -lopencv_objdetect
+        LIBS += -lopencv_features2d
+        LIBS += -lopencv_highgui
+        LIBS += -lopencv_photo
 }

@@ -22,6 +22,7 @@ public slots:
     void getEffectsList();
 signals:
     /* Сигналы для внутренних модулей */
+    void addViewport(QObject*);
     void uploadVideo(QString*, bool);
     void unloadVideo();
     void playVideo();
