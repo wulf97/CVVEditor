@@ -1,5 +1,18 @@
-#VERSION_BUILD = 343
-VERSION_BUILD = 345
+VERSION_BUILD = 430
+
+unix {
+    INCLUDEPATH += /usr/local/include/opencv4
+    LIBS += -L/usr/local/lib
+    LIBS += -lopencv_core
+    LIBS += -lopencv_imgproc
+    LIBS += -lopencv_imgcodecs
+    LIBS += -lopencv_videoio
+    LIBS += -lopencv_face
+    LIBS += -lopencv_objdetect
+    LIBS += -lopencv_features2d
+    LIBS += -lopencv_highgui
+    LIBS += -lopencv_photo
+}
 
 win32-msvc*{
     #INCLUDEPATH += C:/Projects/OpenCV/opencv/build/install/include
@@ -28,17 +41,4 @@ win32-msvc*{
         LIBS += -lopencv_highgui$${VERSION_BUILD}
         LIBS += -lopencv_photo$${VERSION_BUILD}
     }
-}
-unix {
-        INCLUDEPATH += /usr/local/include
-        LIBS += -L"/usr/local/lib"
-        LIBS += -lopencv_core
-        LIBS += -lopencv_imgproc
-        LIBS += -lopencv_imgcodecs
-        LIBS += -lopencv_videoio
-        LIBS += -lopencv_face
-        LIBS += -lopencv_objdetect
-        LIBS += -lopencv_features2d
-        LIBS += -lopencv_highgui
-        LIBS += -lopencv_photo
 }

@@ -75,7 +75,7 @@
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
                  <property name="currentIndex">
-                  <number>1</number>
+                  <number>2</number>
                  </property>
                  <widget class="QWidget" name="videoTab">
                   <property name="cursor">
@@ -142,8 +142,8 @@
                             <rect>
                              <x>0</x>
                              <y>0</y>
-                             <width>240</width>
-                             <height>487</height>
+                             <width>270</width>
+                             <height>474</height>
                             </rect>
                            </property>
                            <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -231,8 +231,8 @@
                          <rect>
                           <x>0</x>
                           <y>0</y>
-                          <width>242</width>
-                          <height>487</height>
+                          <width>272</width>
+                          <height>474</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -285,6 +285,28 @@
                    </item>
                   </layout>
                  </widget>
+                 <widget class="QWidget" name="NodeEditTab">
+                  <attribute name="title">
+                   <string>Node Edir</string>
+                  </attribute>
+                  <layout class="QVBoxLayout" name="verticalLayout_13">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <layout class="QVBoxLayout" name="NodeEditorLayout"/>
+                   </item>
+                  </layout>
+                 </widget>
                 </widget>
                </item>
               </layout>
@@ -323,8 +345,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>617</width>
-             <height>532</height>
+             <width>587</width>
+             <height>524</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -366,7 +388,7 @@
      <x>0</x>
      <y>0</y>
      <width>900</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

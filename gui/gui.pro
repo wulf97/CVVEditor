@@ -48,7 +48,11 @@ SOURCES += \
     src/EffectList.cpp \
     src/Effect.cpp \
     src/EffectSettings.cpp \
-    src/EffectViewport.cpp
+    src/EffectViewport.cpp \
+    src/NodeEditor.cpp \
+    src/NodeGui.cpp \
+    src/NodeGuiPort.cpp \
+    src/NodeGuiLink.cpp
 
 HEADERS += \
     src/MainWindow.h \
@@ -64,7 +68,11 @@ HEADERS += \
     src/EffectList.h \
     src/Effect.h \
     src/EffectSettings.h \
-    src/EffectViewport.h
+    src/EffectViewport.h \
+    src/NodeEditor.h \
+    src/NodeGui.h \
+    src/NodeGuiPort.h \
+    src/NodeGuiLink.h
 
 FORMS += \
     ui/MainWindow.ui \
@@ -77,7 +85,8 @@ FORMS += \
     ui/EffectList.ui \
     ui/Effect.ui \
     ui/EffectSettings.ui \
-    ui/EffectViewport.ui
+    ui/EffectViewport.ui \
+    ui/NodeEditor.ui
 
 RESOURCES += \
     ../res.qrc

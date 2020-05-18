@@ -9,6 +9,7 @@ GUIManager::GUIManager(QWidget *parent) :
     m_pluginList = new PluginList(this);
     m_effectSettings = new EffectSettings(this);
     m_effectViewport = new EffectViewport(this);
+    m_nodeEditor = new NodeEditor(this);
     //m_effectList = new EffectList(this);
 
 
@@ -52,6 +53,7 @@ GUIManager::~GUIManager() {
     delete m_videoCutterList;
     delete m_effectRangeList;
     delete m_pluginList;
+    delete m_nodeEditor;
     //delete m_effectList;
 }
 
@@ -81,6 +83,10 @@ EffectSettings *GUIManager::getEffectSettings() const {
 
 EffectViewport *GUIManager::getEffectViewport() const {
     return m_effectViewport;
+}
+
+NodeEditor *GUIManager::getNodeEditor() const {
+    return m_nodeEditor;
 }
 
 //EffectList *GUIManager::getEffectList() const {

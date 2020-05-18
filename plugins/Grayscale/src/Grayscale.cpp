@@ -32,6 +32,6 @@ void Grayscale::display(QBoxLayout *layout) {
 
 void Grayscale::handle(Mat &frame) {
     if (frame.channels() == 3) {
-        cvtColor(frame, frame, CV_BGR2GRAY);
+        cvtColor(frame, frame, cv::COLOR_BGR2GRAY);
     }
 }

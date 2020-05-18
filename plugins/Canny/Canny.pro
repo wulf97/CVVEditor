@@ -1,5 +1,5 @@
 include(../plugin_config.pri)
-include(../ocv_config.pri)
+include(./ocv_config.pri)
 
 QT += core widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -24,8 +24,7 @@ FORMS += \
     ui/Canny.ui
 
 
-#VERSION_BUILD = 343
-VERSION_BUILD = 345
+VERSION_BUILD = 430
 
 win32-msvc*{
     #INCLUDEPATH += C:/Projects/OpenCV/opencv/build/install/include
@@ -47,7 +46,7 @@ win32-msvc*{
 }
 
 unix {
-        LIBS += -L"/usr/local/lib"
+        LIBS += -L/usr/local/lib
         LIBS += -lopencv_core
         LIBS += -lopencv_imgproc
         LIBS += -lopencv_imgcodecs

@@ -12,6 +12,7 @@
 #include "EffectSettings.h"
 #include "EffectViewport.h"
 #include "EffectList.h"
+#include "NodeEditor.h"
 
 
 /**
@@ -33,6 +34,8 @@ public:
     PluginList *getPluginList() const;
     EffectSettings *getEffectSettings() const;
     EffectViewport *getEffectViewport() const;
+    NodeEditor *getNodeEditor() const;
+
     //EffectList *getEffectList() const;
 signals:
     /* Сигналы для внутренних модулей */
@@ -69,6 +72,7 @@ private:
     PluginList *m_pluginList;
     EffectSettings *m_effectSettings;
     EffectViewport *m_effectViewport;
+    NodeEditor *m_nodeEditor;
     //EffectList *m_effectList;
 };
 

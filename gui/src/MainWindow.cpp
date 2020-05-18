@@ -24,11 +24,14 @@ MainWindow::MainWindow(QWidget *parent) :
     m_videoCutterList = m_gui->getVideoCutterList();
     m_effectRangeList = m_gui->getEffectRangeList();
     m_pluginList = m_gui->getPluginList();
+    m_nodeEditor = m_gui->getNodeEditor();
 
     m_progress = new QProgressBar(this);
 
     ui->setupUi(this);
 
+
+    m_nodeEditor->setCore(m_core);
     m_progress->setValue(0);
     m_progress->hide();
     /* Компановка виджетов */
@@ -37,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->videoCutterLayout->addWidget(m_videoCutterList);
     ui->effectCutterLayout->addWidget(m_effectRangeList);
     ui->PluginListLayout->addWidget(m_pluginList);
+    ui->NodeEditorLayout->addWidget(dynamic_cast<QWidget*>(m_nodeEditor));//////////////////////
     ui->statusBar->addPermanentWidget(m_progress, 1);
 
     addMenu();

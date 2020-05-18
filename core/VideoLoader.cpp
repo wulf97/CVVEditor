@@ -158,7 +158,7 @@ void VideoLoader::updateDisplayedFrame() {
         if (m_time < m_endTime) {
             m_video >> frame;
             if (!frame.empty()) {
-                cvtColor(frame, frame, CV_BGR2RGB);
+                cvtColor(frame, frame, cv::COLOR_BGR2RGB);
                 m_frame = new QImage(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
                 m_time = m_video.get(CAP_PROP_POS_MSEC);
                 emit updateFrame(m_frame);

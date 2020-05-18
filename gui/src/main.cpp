@@ -5,7 +5,7 @@
 
 
 int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
     MainWindow w;
     w.show();
 
@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
     QFile styleFile(":/res/stylesheet/style.qss");
     styleFile.open(QFile::ReadOnly);
     QString style(styleFile.readAll());
-    a.setStyleSheet(style);
+    app.setStyleSheet(style);
 
-    return a.exec();
+    return app.exec();
 }

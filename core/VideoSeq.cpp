@@ -117,7 +117,7 @@ void VideoSeq::saveSeq(QString fileName) {
     m_it = 0;
     m_time = 0;
 
-    m_outVideo.open(fileName.toStdString(), CV_FOURCC('M','J','P','G'), 24, Size(500, 400));
+    m_outVideo.open(fileName.toStdString(), VideoWriter::fourcc('M','J','P','G'), 24, Size(500, 400));
     m_inVideo.open(m_seq[m_it]->path->toStdString());
     m_inVideo.set(CAP_PROP_POS_MSEC, m_seq[m_it]->startTime);
 
@@ -239,7 +239,7 @@ void VideoSeq::updateDisplayedFrame() {
                 }
                 /**/
                 if (frame.channels() == 3) {
-                    cvtColor(frame, frame, CV_BGR2RGB);
+                    cvtColor(frame, frame, COLOR_BGR2RGB);
                     m_frame = new QImage(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
                 } else if (frame.channels() == 1) {
                     m_frame = new QImage(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_Grayscale8);

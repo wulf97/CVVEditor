@@ -2,13 +2,14 @@
 #define CORE_H
 
 #include <QObject>
+#include <QBoxLayout>
 
 #include "PluginManager.h"
 #include "VideoLoader.h"
 #include "VideoSeq.h"
 
-
-class QBoxLayout;
+class CvvINode;
+class CvvINodeFactory;
 
 class Core : public QObject {
     Q_OBJECT
@@ -18,9 +19,12 @@ public:
     PluginManager *getPluginManager();
     VideoLoader *getVideoLoader();
     VideoSeq *getVideoSeq();
+    CvvINode *createNode(QString);
 public slots:
     void getEffectsList();
 signals:
+    void update();
+
     /* Сигналы для внутренних модулей */
     void addViewport(QObject*);
     void uploadVideo(QString*, bool);
@@ -50,6 +54,8 @@ private:
     PluginManager *m_pManager;
     VideoLoader *m_VLoader;
     VideoSeq *m_VSeq;
+    QVector<CvvINodeFactory*> m_nodeFactory;
+    QVector<CvvINode*> m_node;
 };
 
 #endif // CORE_H

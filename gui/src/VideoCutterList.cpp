@@ -327,26 +327,26 @@ void VideoCutterList::readFromJson()
     emit unloadSeq();
     emit clearSeq();
     emit stopVideo();
-    for (auto i : listOfVideoCutterWidgets) {
-        VideoCutter* p = dynamic_cast<VideoCutter*>(i);
-        delete p;
-        listOfVideoCutterWidgets.removeOne(p);
-        countOfVideo--;
-    }
+//    for (auto i : listOfVideoCutterWidgets) {
+//        VideoCutter* p = dynamic_cast<VideoCutter*>(i);
+//        delete p;
+//        listOfVideoCutterWidgets.removeOne(p);
+//        countOfVideo--;
+//    }
 
-    QString jsonFilePath = QFileDialog::getOpenFileName(this, tr("Open Project"), "/",
-                                                        tr("Project (*.json)"));
-                                                        QFile jsonFile(jsonFilePath);
-                                                        QByteArray loadData = jsonFile.readAll();
+//    QString jsonFilePath = QFileDialog::getOpenFileName(this, tr("Open Project"), "/",
+//                                                        tr("Project (*.json)"));
+//                                                        QFile jsonFile(jsonFilePath);
+//                                                        QByteArray loadData = jsonFile.readAll();
 
-    QFile file(jsonFilePath);
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
-    QString val = file.readAll();
-    file.close();
-    QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
-    QJsonObject sett2 = d.object();
-    QJsonArray modulesArray = sett2[0].toArray();
-    for (int moduleIndex = 0; moduleIndex < modulesArray.size(); ++moduleIndex) {
-           QJsonObject moduleObject = modulesArray[moduleIndex].toObject();
-       }
+//    QFile file(jsonFilePath);
+//    file.open(QIODevice::ReadOnly | QIODevice::Text);
+//    QString val = file.readAll();
+//    file.close();
+//    QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
+//    QJsonObject sett2 = d.object();
+//    QJsonArray modulesArray = sett2(0).toArray();
+//    for (int moduleIndex = 0; moduleIndex < modulesArray.size(); ++moduleIndex) {
+//           QJsonObject moduleObject = modulesArray[moduleIndex].toObject();
+//       }
 }

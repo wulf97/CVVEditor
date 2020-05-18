@@ -3,7 +3,35 @@
 #include "Core.h"
 #include "IEffect.h"
 
+#include "CvvINode.h"
+#include "CvvINodePort.h"
+#include "TestNode.h"
+
 Core::Core(QObject *parent) : QObject(parent) {
+    /*******/
+    //TestNode node1(this);
+//    CvvINodeFuctory *f1 = new TestNodeFactory(this);
+
+//    CvvINode *node1 = f1->addNode();
+//    CvvINode *node2 = f1->addNode();
+
+//    if (node1) {
+//        connect(this, SIGNAL(update()), node1, SLOT(update()));
+//    }
+
+//    if (node2) {
+//        connect(this, SIGNAL(update()), node2, SLOT(update()));
+//    }
+
+//    qDebug() << f1->getName();
+//    qDebug() << node1->getItemName();
+//    qDebug() << node2->getItemName();
+
+//    emit update();
+    m_nodeFactory.append(new TestNodeFactory(this));
+
+
+
     QStringList effects;
     m_pManager = new PluginManager(this);
     m_VLoader = new VideoLoader(this);
@@ -22,6 +50,18 @@ VideoLoader *Core::getVideoLoader() {
 
 VideoSeq *Core::getVideoSeq() {
     return m_VSeq;
+}
+
+CvvINode *Core::createNode(QString nodeName) {
+    for (int i = 0; i < m_nodeFactory.size(); i++) {
+        if (m_nodeFactory.at(i)->getName() == nodeName) {
+            CvvINode *node = m_nodeFactory.at(i)->createNode();
+            m_node.append(node);
+            return node;
+        }
+    }
+
+    return nullptr;
 }
 
 //void Core::displaySettings(QString effectName, QBoxLayout *layout) {

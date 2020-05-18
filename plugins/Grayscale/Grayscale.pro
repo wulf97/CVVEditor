@@ -1,5 +1,5 @@
 include(../plugin_config.pri)
-include(../ocv_config.pri)
+include(./ocv_config.pri)
 
 QT += core widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -23,10 +23,21 @@ HEADERS += \
 FORMS += \
     ui/Grayscale.ui
 
+VERSION_BUILD = 430
 
-#VERSION_BUILD = 343
-VERSION_BUILD = 345
+##################################################################################
+unix {
+        INCLUDEPATH += /usr/local/include/python4
 
+        LIBS += -L/usr/local/lib
+        LIBS += -lopencv_core
+        LIBS += -lopencv_imgproc
+        LIBS += -lopencv_imgcodecs
+        LIBS += -lopencv_videoio
+}
+
+
+##################################################################################
 win32-msvc*{
     #INCLUDEPATH += C:/Projects/OpenCV/opencv/build/install/include
     INCLUDEPATH += C:/opencv/mybuild/install/include
@@ -44,12 +55,4 @@ win32-msvc*{
         LIBS += -lopencv_imgcodecs$${VERSION_BUILD}
         LIBS += -lopencv_videoio$${VERSION_BUILD}
     }
-}
-
-unix {
-        LIBS += -L"/usr/local/lib"
-        LIBS += -lopencv_core
-        LIBS += -lopencv_imgproc
-        LIBS += -lopencv_imgcodecs
-        LIBS += -lopencv_videoio
 }
