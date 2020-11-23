@@ -6,12 +6,12 @@
 EffectList::EffectList(QWidget *parent) :
                QWidget(parent),
                ui(new Ui::EffectList) {
-    m_parent = dynamic_cast<PluginList*>(parent);
+//    m_parent = dynamic_cast<PluginList*>(parent);
     ui->setupUi(this);
     connect(ui->addBtn, SIGNAL(released()), this, SLOT(addNewEffect()));
     connect(ui->delBtn, SIGNAL(released()), this, SLOT(deleteMeSlot()));
 
-    connect(this, SIGNAL(deleteMe(int)), m_parent->getParent()->getPluginList(), SLOT(deleteEffectList(int)));
+//    connect(this, SIGNAL(deleteMe(int)), m_parent->getParent()->getPluginList(), SLOT(deleteEffectList(int)));
 
 }
 
@@ -19,9 +19,9 @@ EffectList::~EffectList() {
     delete ui;
 }
 
-PluginList *EffectList::getParent() {
-    return m_parent;
-}
+//PluginList *EffectList::getParent() {
+//    return m_parent;
+//}
 
 void EffectList::setConnection() {
     /* Подключение сигналов */

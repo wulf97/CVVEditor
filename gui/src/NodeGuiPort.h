@@ -6,10 +6,12 @@
 #include <QPainter>
 #include <QString>
 #include <QGraphicsSceneMouseEvent>
+#include <QVector>
 
 
 class CvvINode;
 class CvvINodePort;
+class NodeGuiLink;
 
 class NodeGuiPort : public QObject, public QGraphicsItem {
     Q_OBJECT
@@ -22,21 +24,25 @@ public:
     QString getName() const;
     int getDataType() const;
     bool isTaken() const;
+    bool isActive() const;
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
-    void linkInc();
-    void linkDec();
+//    void linkInc();
+//    void linkDec();
+    void addLink(NodeGuiLink*);
+    void removeLink(NodeGuiLink*);
     bool isSelected();
-    void unselect();
+//    void unselect();
+    void select(bool);
+    void activate(bool);
 
     void updateConnection(NodeGuiPort*, bool);
 
 private:
     CvvINodePort *m_port;
+    QVector<NodeGuiLink*> m_link;
     bool m_isSelected = false;
-    bool m_isTaken = false;
-    int m_linkIncrement = 0;
 };
 
 #endif // NODE_GUI_PORT_H

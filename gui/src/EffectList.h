@@ -18,7 +18,7 @@ public:
     explicit EffectList(QWidget *parent = nullptr);
     ~EffectList();
 
-    PluginList *getParent();
+//    PluginList *getParent();
     void setConnection();
     void setEffectList(QString item);
     void setNumInList(int);

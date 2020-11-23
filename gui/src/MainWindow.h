@@ -12,6 +12,7 @@ class VideoCutterList;
 class EffectRangeList;
 class PluginList;
 class NodeEditor;
+class PluginSettings;
 class QBoxLayout;
 
 namespace Ui {
@@ -49,6 +50,7 @@ private:
     EffectRangeList *m_effectRangeList;
     PluginList *m_pluginList;
     NodeEditor *m_nodeEditor;
+    PluginSettings *m_pluginSettings;
 
     QProgressBar *m_progress;
     /* Меню */

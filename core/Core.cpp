@@ -1,62 +1,56 @@
 #include <QDebug>
+#include <QPluginLoader>
+#include <QDir>
 
 #include "Core.h"
-#include "IEffect.h"
+//#include "IEffect.h"
 
 #include "CvvINode.h"
 #include "CvvINodePort.h"
-#include "TestNode.h"
+#include "NodeControl.h"
+
+//#include "TestNode.h"
+//#include "VideoNode.h"
+//#include "ViewportNode.h"
+//#include "CombineNode.h"
+//#include "CombineNode.h"
+//#include "WriteFileNode.h"
+//#include "GrayscaleNode.h"
 
 Core::Core(QObject *parent) : QObject(parent) {
-    /*******/
-    //TestNode node1(this);
-//    CvvINodeFuctory *f1 = new TestNodeFactory(this);
+    QDir pluginDir = QDir::currentPath();
+    pluginDir.cd("./plugins");
 
-//    CvvINode *node1 = f1->addNode();
-//    CvvINode *node2 = f1->addNode();
+    QFileInfoList fileList = pluginDir.entryInfoList(QDir::Files);
+    for (int i = 0; i < fileList.size(); i++) {
+        qDebug() << fileList.at(i).absoluteFilePath();
+        QPluginLoader loader(fileList.at(i).absoluteFilePath());
+        QObject *plugin = loader.instance();
 
-//    if (node1) {
-//        connect(this, SIGNAL(update()), node1, SLOT(update()));
-//    }
-
-//    if (node2) {
-//        connect(this, SIGNAL(update()), node2, SLOT(update()));
-//    }
-
-//    qDebug() << f1->getName();
-//    qDebug() << node1->getItemName();
-//    qDebug() << node2->getItemName();
-
-//    emit update();
-    m_nodeFactory.append(new TestNodeFactory(this));
-
-
-
-    QStringList effects;
-    m_pManager = new PluginManager(this);
-    m_VLoader = new VideoLoader(this);
-    m_VSeq = new VideoSeq(this);
-
-    m_pManager->load();
+        if (loader.isLoaded()) {
+            CvvINodeFactory *nodeFactory = qobject_cast<CvvINodeFactory*>(plugin);
+            m_nodeFactory.append(nodeFactory);
+            qDebug() << nodeFactory->getName();
+        }
+    }
 }
 
-PluginManager *Core::getPluginManager() {
-    return m_pManager;
-}
+Core::~Core() {
 
-VideoLoader *Core::getVideoLoader() {
-    return m_VLoader;
-}
-
-VideoSeq *Core::getVideoSeq() {
-    return m_VSeq;
 }
 
 CvvINode *Core::createNode(QString nodeName) {
     for (int i = 0; i < m_nodeFactory.size(); i++) {
+        qDebug() << m_nodeFactory.at(i)->getName() << " d" << nodeName;
         if (m_nodeFactory.at(i)->getName() == nodeName) {
             CvvINode *node = m_nodeFactory.at(i)->createNode();
-            m_node.append(node);
+            NodeControl *nodeControl = new NodeControl(node);
+            m_nodeControl.append(nodeControl);
+
+            if (nodeName == "Viewport") {
+                makeGlobal(nodeControl);
+            }
+
             return node;
         }
     }
@@ -64,20 +58,54 @@ CvvINode *Core::createNode(QString nodeName) {
     return nullptr;
 }
 
-//void Core::displaySettings(QString effectName, QBoxLayout *layout) {
-//    qDebug() << "slot displaySettings(QString, QBoxLayout*)" << endl;
-//    for (int i = 0; i < m_pManager->size(); i++) {
-//        if (effectName == m_pManager->get(i)->getName()) {
-//            m_pManager->get(i)->display(layout);
+void Core::displaySettings(CvvINode *node) {
+    qDebug() << "Display";
+    if (node) {
+//        for (int i = 0; i < m_settingsLayout->count(); i++) {
+//            m_settingsLayout->itemAt(i)->widget()->setParent(nullptr);
+//            delete m_settingsLayout->itemAt(i);
 //        }
-//    }
-//}
 
-void Core::getEffectsList() {
-    QStringList effects;
-    for (int i = 0; i < m_pManager->size(); i++) {
-        effects.push_back(m_pManager->get(i));
+//        for (int i = 0; i < m_displayLayout->count(); i++) {
+//            m_displayLayout->itemAt(i)->widget()->setParent(nullptr);
+//            delete m_displayLayout->itemAt(i);
+//        }
+
+//        m_label->setText(node->getItemName() + QString::number(getController(node)->getDuration()));
+
+//        node->displaySettings(m_settingsLayout);
+//        node->display(m_displayLayout);
+    }
+}
+
+NodeControl *Core::getController(CvvINode *node) const {
+    for (int i = 0; m_nodeControl.size(); i++) {
+        if (m_nodeControl.at(i)->getNode() == node) {
+            return m_nodeControl.at(i);
+        }
     }
 
-    emit effectsList(effects);
+    return nullptr;
+}
+
+void Core::makeGlobal(NodeControl *nodeControl) {
+    for (int i = 0; i < m_nodeControl.size(); i++) {
+        if (m_nodeControl.at(i) != nodeControl) {
+            m_nodeControl.at(i)->makeGlobal(false);
+            m_nodeControl.at(i)->disconnect();
+        } else {
+            m_nodeControl.at(i)->makeGlobal(true);
+            connect(m_nodeControl.at(i), SIGNAL(sendLocalTime(int)), this, SLOT(setGlobalTime(int)));
+        }
+    }
+}
+
+void Core::setGlobalTime(int globalTime) {
+    qDebug() << globalTime;
+    m_globalTime = globalTime;
+    for (int i = 0; i < m_nodeControl.size(); i++) {
+        if (!m_nodeControl.at(i)->isGlobal()) {
+            m_nodeControl.at(i)->setGlobalTime(globalTime);
+        }
+    }
 }

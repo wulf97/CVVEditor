@@ -40,6 +40,8 @@ private:
 private slots:
     void createVideoNode();
     void createViewportNode();
+    void createGaussianBlureNode();
+    void createGammaCorrectionNode();
     void zoomIn();
     void zoomOut();
 private:

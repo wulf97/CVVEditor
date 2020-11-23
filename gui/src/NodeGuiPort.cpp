@@ -1,6 +1,7 @@
 #include "NodeGuiPort.h"
 #include "CvvINode.h"
 #include "CvvINodePort.h"
+#include "NodeGuiLink.h"
 
 NodeGuiPort::NodeGuiPort(CvvINodePort *port, QObject *parent) : QObject(parent) {
     m_port = port;
@@ -59,7 +60,12 @@ int NodeGuiPort::getDataType() const {
 }
 
 bool NodeGuiPort::isTaken() const {
-    return m_isTaken;
+    if (m_link.size() > 0) return true;
+    return false;
+}
+
+bool NodeGuiPort::isActive() const {
+    return m_port->isActive();
 }
 
 QRectF NodeGuiPort::boundingRect() const {
@@ -67,25 +73,33 @@ QRectF NodeGuiPort::boundingRect() const {
 }
 
 void NodeGuiPort::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
-    painter->setPen(QPen(QColor("#ff8533"), 3));
-    if (m_linkIncrement > 0 || m_isTaken) {
-        painter->setBrush(QColor("#ff8533"));
+    QColor portColor;
+
+    if (isActive()) {
+        portColor = QColor("#ff8533");
+    } else {
+        portColor = QColor("#cccccc");
+    }
+
+    painter->setPen(QPen(portColor, 3));
+    if (m_link.size() > 0 || isSelected()) {
+        painter->setBrush(portColor);
     }
 
     painter->drawEllipse(0, 0, 12, 12);
 }
 
-void NodeGuiPort::linkInc() {
-    if (!m_isSelected) {
-        m_linkIncrement++;
-        m_isSelected = true;
-    }
+void NodeGuiPort::addLink(NodeGuiLink *link) {
+    m_link.append(link);
 }
 
-void NodeGuiPort::linkDec() {
-    if (m_linkIncrement > 0) {
-        m_linkIncrement--;
-        m_isSelected = false;
+void NodeGuiPort::removeLink(NodeGuiLink *link) {
+    for (int i = 0; i < m_link.size(); i++) {
+        if (m_link.at(i) == link) {
+            m_link.remove(i);
+            i--;
+            break;
+        }
     }
 }
 
@@ -93,12 +107,35 @@ bool NodeGuiPort::isSelected() {
     return m_isSelected;
 }
 
-void NodeGuiPort::unselect() {
-    m_isSelected = false;
+void NodeGuiPort::select(bool isSelected) {
+    m_isSelected = isSelected;
+
+    update();
+}
+
+void NodeGuiPort::activate(bool isActive) {
+    bool fl = false;
+
+    if (m_port->getConfig() == PORT_CONFIG_SRC) {
+        for (int i = 0; i < m_link.size(); i++) {
+            if (m_link.at(i)->isActive()) {
+                fl = true;
+                break;
+            }
+        }
+
+        m_port->activate(fl);
+    }
 }
 
 void NodeGuiPort::updateConnection(NodeGuiPort *port, bool fl) {
     CvvINodePort *srcPort = port->getPort();
     m_port->updateConnection(srcPort, fl);
-    m_isTaken = fl;
+    if (fl) {
+        if (m_port->isActive())
+            port->activate(true);
+    } else {
+        if (m_port->isActive())
+            port->activate(false);
+    }
 }

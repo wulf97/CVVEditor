@@ -26,15 +26,7 @@
       <layout class="QVBoxLayout" name="pluginListLayout"/>
      </item>
      <item>
-      <widget class="QPushButton" name="addBtn">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../../res.qrc">
-         <normaloff>:/res/img/plus.png</normaloff>:/res/img/plus.png</iconset>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="settingsLayout"/>
      </item>
      <item>
       <spacer name="verticalSpacer">
@@ -53,8 +45,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../res.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

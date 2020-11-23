@@ -16,6 +16,7 @@
 
 
 class Core;
+class GUIManager;
 class CvvINode;
 class NodeGuiPort;
 class NodeGuiLink;
@@ -23,14 +24,12 @@ class NodeGuiLink;
 class NodeGui : public QObject, public QGraphicsItemGroup {
     Q_OBJECT
 public:
-    NodeGui(QString nodeName, Core *core, QObject *parent = nullptr);
+    NodeGui(QString nodeName, Core *core, GUIManager *gui, QObject *parent = nullptr);
     ~NodeGui();
 
     CvvINode *getNode() const;
     int isSelected() const;
     void unselect();
-    void addLink(NodeGuiLink*);
-    void removeLink(NodeGuiLink*);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
@@ -43,18 +42,21 @@ private:
     void mousePressEvent(QGraphicsSceneMouseEvent*);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent*);
 
+private slots:
+    void updatePaint();
 private:
-     Core *m_core = nullptr;
-     CvvINode *m_node = nullptr;
-     QVector<NodeGuiPort*> m_dstPort;
-     QVector<NodeGuiPort*> m_srcPort;
-     QVector<NodeGuiLink*> m_link;
-     bool m_isSelected = false;
-     int m_width = 180;
-     int m_height = 70;
-     int m_topHeadHeight = 50;
-     int m_x;
-     int m_y;
+    QTimer *m_timer;
+    Core *m_core = nullptr;
+    GUIManager *m_gui = nullptr;
+    CvvINode *m_node = nullptr;
+    QVector<NodeGuiPort*> m_dstPort;
+    QVector<NodeGuiPort*> m_srcPort;
+    bool m_isSelected = false;
+    int m_width = 180;
+    int m_height = 70;
+    int m_topHeadHeight = 50;
+    int m_x;
+    int m_y;
 };
 
 #endif // NODE_GUI_H

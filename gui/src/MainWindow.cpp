@@ -12,12 +12,14 @@
 #include "MainWindow.h"
 #include "GUIManager.h"
 #include "Core.h"
+//#include "PluginList.h"
+#include "PluginSettings.h"
 
 MainWindow::MainWindow(QWidget *parent) :
                        QMainWindow(parent),
                        ui(new Ui::MainWindow) {
     m_core = new Core();
-    m_gui = new GUIManager();
+    m_gui = new GUIManager(this);
     /* Получение модулей gui от GUIManager */
     m_viewport = m_gui->getViewport();
     m_vControlBar = m_gui->getVideoControlBar();
@@ -25,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_effectRangeList = m_gui->getEffectRangeList();
     m_pluginList = m_gui->getPluginList();
     m_nodeEditor = m_gui->getNodeEditor();
+    m_pluginSettings = m_gui->getPluginSettings();
 
     m_progress = new QProgressBar(this);
 
@@ -37,9 +40,10 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Компановка виджетов */
     ui->topAria->addWidget(m_viewport);
     ui->topAria->addWidget(m_vControlBar);
-    ui->videoCutterLayout->addWidget(m_videoCutterList);
-    ui->effectCutterLayout->addWidget(m_effectRangeList);
-    ui->PluginListLayout->addWidget(m_pluginList);
+//    ui->videoCutterLayout->addWidget(m_videoCutterList);
+//    ui->effectCutterLayout->addWidget(m_effectRangeList);
+//    ui->PluginListLayout->addWidget(m_pluginList);
+    ui->PluginListLayout->addWidget(m_pluginSettings);
     ui->NodeEditorLayout->addWidget(dynamic_cast<QWidget*>(m_nodeEditor));//////////////////////
     ui->statusBar->addPermanentWidget(m_progress, 1);
 
@@ -68,7 +72,7 @@ void MainWindow::setConnection() {
     connect(m_gui, SIGNAL(loadSeq()), m_core, SIGNAL(loadSeq()));
     connect(m_gui, SIGNAL(unloadSeq()), m_core, SIGNAL(unloadSeq()));
     connect(m_gui, SIGNAL(saveSeq(QString)), m_core, SIGNAL(saveSeq(QString)));
-    connect(m_gui, SIGNAL(getEffectsList()), m_core, SLOT(getEffectsList()));
+//    connect(m_gui, SIGNAL(getEffectsList()), m_core, SLOT(getEffectsList()));
     connect(m_gui, SIGNAL(addEffectList(QObject*,int,int)), m_core, SIGNAL(addEffectList(QObject*,int,int)));
 
     /* Получение сигналов */

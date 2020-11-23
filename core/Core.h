@@ -4,24 +4,31 @@
 #include <QObject>
 #include <QBoxLayout>
 
-#include "PluginManager.h"
-#include "VideoLoader.h"
-#include "VideoSeq.h"
+//#include "PluginManager.h"
+//#include "VideoLoader.h"
+//#include "VideoSeq.h"
 
 class CvvINode;
 class CvvINodeFactory;
+class NodeControl;
 
 class Core : public QObject {
     Q_OBJECT
 public:
     Core(QObject *parent = nullptr);
+    ~Core();
 
-    PluginManager *getPluginManager();
-    VideoLoader *getVideoLoader();
-    VideoSeq *getVideoSeq();
+//    PluginManager *getPluginManager();
+//    VideoLoader *getVideoLoader();
+//    VideoSeq *getVideoSeq();
     CvvINode *createNode(QString);
 public slots:
-    void getEffectsList();
+//    void getEffectsList();
+    void displaySettings(CvvINode*);
+
+    NodeControl *getController(CvvINode*) const;
+    void makeGlobal(NodeControl*);
+    void setGlobalTime(int);
 signals:
     void update();
 
@@ -50,12 +57,11 @@ signals:
     void ended();
     void updateProgress(int);
     void effectsList(QStringList);
+
 private:
-    PluginManager *m_pManager;
-    VideoLoader *m_VLoader;
-    VideoSeq *m_VSeq;
     QVector<CvvINodeFactory*> m_nodeFactory;
-    QVector<CvvINode*> m_node;
+    QVector<NodeControl*> m_nodeControl;
+    int m_globalTime = 0;
 };
 
 #endif // CORE_H

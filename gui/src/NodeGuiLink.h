@@ -30,12 +30,17 @@ public:
     bool validate(NodeGuiPort*);
     bool isSelected();
     bool isConnected(NodeGui*);
+    bool isActive();
     void unselect();
 
 private:
     void mousePressEvent(QGraphicsSceneMouseEvent*);
 
+private slots:
+    void updatePaint();
+
 private:
+    QTimer *m_timer;
     NodeGuiPort *m_srcPort = nullptr;
     NodeGuiPort *m_dstPort = nullptr;
     QPointF m_startPoint;
@@ -43,6 +48,7 @@ private:
     QPolygonF m_selectionPolygon;
     qreal m_selectionOffset = 4;
     bool m_isSelected = false;
+    bool m_active = false;
 };
 
 #endif // NODE_GUI_LINK_H

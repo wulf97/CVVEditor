@@ -34,6 +34,7 @@ win32 {
 }
 
 SOURCES += \
+    src/PluginSettings.cpp \
     src/main.cpp \
     src/MainWindow.cpp \
     src/PluginList.cpp \
@@ -57,6 +58,7 @@ SOURCES += \
 HEADERS += \
     src/MainWindow.h \
     src/PluginList.h \
+    src/PluginSettings.h \
     src/Viewport.h \
     src/VideoControlBar.h \
     src/VideoCutterList.h \

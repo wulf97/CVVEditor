@@ -1,4 +1,6 @@
 #include "GUIManager.h"
+#include "PluginList.h"
+#include "PluginSettings.h"
 
 GUIManager::GUIManager(QWidget *parent) :
                        QWidget(parent) {
@@ -10,7 +12,10 @@ GUIManager::GUIManager(QWidget *parent) :
     m_effectSettings = new EffectSettings(this);
     m_effectViewport = new EffectViewport(this);
     m_nodeEditor = new NodeEditor(this);
+    m_pluginSettings = new PluginSettings(this);
     //m_effectList = new EffectList(this);
+
+    m_pluginSettings->metaObject();
 
 
     /* Проброс сигналов к модулям GUIManager */
@@ -18,7 +23,6 @@ GUIManager::GUIManager(QWidget *parent) :
     connect(this, SIGNAL(isStoped()), m_videoControlBar, SLOT(isStoped()));
     connect(this, SIGNAL(updateTime(int)), m_videoControlBar, SLOT(updateTime(int)));
     connect(this, SIGNAL(videoLen(int)), m_videoCutterList, SLOT(videoLen(int)));
-    connect(this, SIGNAL(effectsList(QStringList)), m_pluginList, SLOT(setEffectsToEffectList(QStringList)));
 
     /* Проброс сигналов от модулей GUIManager */
     connect(m_videoControlBar, SIGNAL(playVideo()), SIGNAL(playVideo()));
@@ -27,19 +31,6 @@ GUIManager::GUIManager(QWidget *parent) :
     connect(m_videoControlBar, SIGNAL(setTime(int)), SIGNAL(setTime(int)));
 
     connect(m_videoControlBar, SIGNAL(sendTime(int)), m_videoCutterList, SLOT(sendCurrentTimeToCutter(int)));
-
-    connect(m_videoCutterList, SIGNAL(uploadVideo(QString*, bool)), SIGNAL(uploadVideo(QString*, bool)));
-    connect(m_videoCutterList, SIGNAL(unloadVideo()), SIGNAL(unloadVideo()));
-    connect(m_videoCutterList, SIGNAL(setStartTime(int)), SIGNAL(setStartTime(int)));
-    connect(m_videoCutterList, SIGNAL(setEndTime(int)), SIGNAL(setEndTime(int)));
-    connect(m_videoCutterList, SIGNAL(addToSeq(QString,int,int)), SIGNAL(addToSeq(QString,int,int)));
-    connect(m_videoCutterList, SIGNAL(clearSeq()), SIGNAL(clearSeq()));
-    connect(m_videoCutterList, SIGNAL(loadSeq()), SIGNAL(loadSeq()));
-    connect(m_videoCutterList, SIGNAL(unloadSeq()), SIGNAL(unloadSeq()));
-    connect(m_videoCutterList, SIGNAL(saveSeq(QString)), SIGNAL(saveSeq(QString)));
-
-    connect(m_videoCutterList, SIGNAL(sendLengthOfVideo(int)), m_videoControlBar, SLOT(setEndTime(int)));
-    connect(m_videoCutterList, SIGNAL(sendCurrentPositionSlider(int)), m_videoControlBar, SLOT(slotSetSliderPosition(int)));
 }
 
 void GUIManager::testSignals() {
@@ -54,6 +45,7 @@ GUIManager::~GUIManager() {
     delete m_effectRangeList;
     delete m_pluginList;
     delete m_nodeEditor;
+    delete m_pluginSettings;
     //delete m_effectList;
 }
 
@@ -89,6 +81,14 @@ NodeEditor *GUIManager::getNodeEditor() const {
     return m_nodeEditor;
 }
 
-//EffectList *GUIManager::getEffectList() const {
-//    //return m_effectList;
-//}
+PluginSettings *GUIManager::getPluginSettings() const {
+    return m_pluginSettings;
+}
+
+void GUIManager::displaySettings(CvvINode *node) {
+    m_pluginSettings->displaySettings(node);
+}
+
+void GUIManager::display(CvvINode *node) {
+
+}

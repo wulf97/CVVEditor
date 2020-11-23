@@ -12,28 +12,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Core.cpp \
     CvvINodePort.cpp \
-    PluginManager.cpp \
-    TestNode.cpp \
-    VideoLoader.cpp \
-    VideoSeq.cpp \
-    VideoSeqItem.cpp \
-    VideoEffectList.cpp \
-    VideoEffect.cpp
+    NodeControl.cpp
 
 HEADERS += \
     Core.h \
     CvvINode.h \
     CvvINodePort.h \
-    PluginManager.h \
-    TestNode.h \
-    VideoLoader.h \
-    VideoSeq.h \
-    VideoSeqItem.h \
-    IEffect.h \
-    VideoEffectList.h \
-    VideoEffect.h
+    NodeControl.h
 
 message("Build core")
 
-DISTFILES += \
-    ../plugins/plugin_config.pri
+#DISTFILES += \
+#    ../plugins/plugin_config.pri

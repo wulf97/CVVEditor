@@ -11,7 +11,7 @@ Effect::Effect(QWidget *parent, QVBoxLayout *layout, QString text) :
                QWidget(parent),
                ui(new Ui::Effect) {
     m_effectList = dynamic_cast<EffectList*>(parent);
-    m_gui = m_effectList->getParent()->getParent();
+//    m_gui = m_effectList->getParent()->getParent();
 
     ui->setupUi(this);
     ui->label_5->setStyleSheet("font: 15pt");

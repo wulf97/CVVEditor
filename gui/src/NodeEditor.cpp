@@ -23,6 +23,10 @@ NodeEditor::NodeEditor(QWidget *parent) :
 
     connect(ui->actionVideo, &QAction::triggered, this, &NodeEditor::createVideoNode);
     connect(ui->actionViewport, &QAction::triggered, this, &NodeEditor::createViewportNode);
+    connect(ui->actionGaussianBlure, &QAction::triggered, this, &NodeEditor::createGaussianBlureNode);
+    connect(ui->actionGammaCorrection, &QAction::triggered, this, &NodeEditor::createGammaCorrectionNode);
+
+
     connect(ui->actionZoomIn, &QAction::triggered, this, &NodeEditor::zoomIn);
     connect(ui->actionZoomOut, &QAction::triggered, this, &NodeEditor::zoomOut);
 
@@ -61,32 +65,31 @@ void NodeEditor::setDstLink(NodeGuiPort *dstPort) {
             if (!m_link.last()->isValid() && m_link.last()->validate(dstPort)) {
                 qDebug() << "Dst port";
                 m_link.last()->setDstPort(dstPort);
-                dynamic_cast<NodeGui*>(dstPort->parent())->addLink(m_link.last());
                 m_scene->addItem(m_link.last());
-//                m_scene->update();
-//                ui->graphicsView->update();
             }
         }
     }
 
-    qDebug() << "**************";
-    for (int i = 0; i < m_node.size(); i++) {
-        qDebug() << "***";
-            for (int j = 0; j < m_node.at(i)->getNode()->getDst().size(); j++) {
-               m_node.at(i)->getNode()->getDst().at(j)->printMetaData();
-            }
+//    qDebug() << "**************";
+//    for (int i = 0; i < m_node.size(); i++) {
+//        qDebug() << "***";
+//            for (int j = 0; j < m_node.at(i)->getNode()->getDst().size(); j++) {
+//               m_node.at(i)->getNode()->getDst().at(j)->printMetaData();
+//            }
 
-            for (int j = 0; j < m_node.at(i)->getNode()->getSrc().size(); j++) {
-               m_node.at(i)->getNode()->getSrc().at(j)->printMetaData();
-            }
-    }
+//            for (int j = 0; j < m_node.at(i)->getNode()->getSrc().size(); j++) {
+//               m_node.at(i)->getNode()->getSrc().at(j)->printMetaData();
+//            }
+//    }
 }
 
 void NodeEditor::mousePressEvent(QMouseEvent *event) {
+    // Снятие выделения с ноды
     for (int i = 0; i < m_node.size(); i++) {
         m_node.at(i)->unselect();
     }
 
+    // Снятие выделения со связи
     for (int i = 0; i < m_link.size(); i++) {
         m_link.at(i)->unselect();
     }
@@ -95,7 +98,6 @@ void NodeEditor::mousePressEvent(QMouseEvent *event) {
         if (!m_link.last()->isValid()) {
             delete m_link.last();
             m_link.remove(m_link.size() - 1);
-            qDebug() << "rem " << m_link.size();
         }
     }
 }
@@ -130,7 +132,7 @@ void NodeEditor::keyPressEvent(QKeyEvent *event) {
 }
 
 void NodeEditor::createNode(QString nodeName) {
-    NodeGui *node = new NodeGui(nodeName, m_core, this);
+    NodeGui *node = new NodeGui(nodeName, m_core, m_gui, this);
 
     m_scene->addItem(node);
     node->setPos(randomBetween(0, 600), randomBetween(0, 300));
@@ -143,12 +145,22 @@ void NodeEditor::createNode(QString nodeName) {
 
 void NodeEditor::createVideoNode() {
     qDebug() << "video";
-    createNode("Test");
+    createNode("Video");
 }
 
 void NodeEditor::createViewportNode() {
     qDebug() << "viewport";
     createNode("Viewport");
+}
+
+void NodeEditor::createGaussianBlureNode() {
+    qDebug() << "gause";
+    createNode("GaussianBlure");
+}
+
+void NodeEditor::createGammaCorrectionNode() {
+    qDebug() << "gamma";
+    createNode("GammaCorrection");
 }
 
 void NodeEditor::zoomIn() {

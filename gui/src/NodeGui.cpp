@@ -1,12 +1,15 @@
 #include "NodeGui.h"
 #include "Core.h"
+#include "GUIManager.h"
 #include "CvvINode.h"
 #include "CvvINodePort.h"
 #include "NodeGuiPort.h"
 #include "NodeGuiLink.h"
 
-NodeGui::NodeGui(QString nodeName, Core *core, QObject *parent) : QObject(parent) {
+NodeGui::NodeGui(QString nodeName, Core *core, GUIManager *gui, QObject *parent) : QObject(parent) {
+    m_timer = new QTimer(this);
     m_core = core;
+    m_gui = gui;
 
     if (m_core) {
         m_node = m_core->createNode(nodeName);
@@ -31,10 +34,24 @@ NodeGui::NodeGui(QString nodeName, Core *core, QObject *parent) : QObject(parent
             }
         }
     }
+
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(updatePaint()));
+
+    m_timer->start(300);
 }
 
 NodeGui::~NodeGui() {
+//    delete m_node;
 
+//    for (int i = 0; i < m_dstPort.size(); i++) {
+//        delete m_dstPort.at(i);
+//    }
+//    m_dstPort.clear();
+
+//    for (int i = 0; i < m_srcPort.size(); i++) {
+//        delete m_srcPort.at(i);
+//    }
+//    m_srcPort.clear();
 }
 
 CvvINode *NodeGui::getNode() const {
@@ -48,14 +65,6 @@ int NodeGui::isSelected() const {
 void NodeGui::unselect() {
     m_isSelected = false;
     update();
-}
-
-void NodeGui::addLink(NodeGuiLink *link) {
-    m_link.append(link);
-}
-
-void NodeGui::removeLink(NodeGuiLink *link) {
-
 }
 
 QRectF NodeGui::boundingRect() const {
@@ -73,7 +82,9 @@ void NodeGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     painter->drawRect(0, 0, m_width, m_height);
     painter->setBrush(QColor("#94a9b8"));
     painter->drawRect(0, 0, m_width, m_topHeadHeight - 10);
-    painter->drawText(QRectF(0, 10, m_width, 20), Qt::AlignCenter, m_node->getItemName());
+    if (m_node) {
+        painter->drawText(QRectF(0, 10, m_width, 20), Qt::AlignCenter, m_node->getItemName());
+    }
 
     for (int i = 0; i < m_dstPort.size(); i++) {
         painter->drawText(QRectF(0, m_topHeadHeight - 25 + 20*(i + 1), m_width/2, 20), Qt::AlignCenter, m_dstPort.at(i)->getName());
@@ -88,10 +99,6 @@ void NodeGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 void NodeGui::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     setPos(mapToScene(event->pos()) - QPointF(m_x, m_y));
     setCursor(QCursor(Qt::ClosedHandCursor));
-
-//    for (int i = 0; i < m_link.size(); i++) {
-//        m_link.at(i)->update();
-//    }
 }
 
 void NodeGui::mousePressEvent(QGraphicsSceneMouseEvent *event) {
@@ -99,6 +106,7 @@ void NodeGui::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         m_isSelected = true;
         m_x = event->pos().x();
         m_y = event->pos().y();
+        m_gui->displaySettings(m_node);
     }
 
     for (int i = 0; i < m_dstPort.size(); i++) {
@@ -120,4 +128,8 @@ void NodeGui::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
 void NodeGui::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     setCursor(QCursor(Qt::ArrowCursor));
+}
+
+void NodeGui::updatePaint() {
+    update();
 }

@@ -7,13 +7,15 @@
 #include "Viewport.h"
 #include "VideoControlBar.h"
 #include "VideoCutterList.h"
-#include "PluginList.h"
+//#include "PluginList.h"
 #include "EffectRangeList.h"
 #include "EffectSettings.h"
 #include "EffectViewport.h"
 #include "EffectList.h"
 #include "NodeEditor.h"
 
+class PluginList;
+class PluginSettings;
 
 /**
  * @brief Класс GUIManager связывает модули графического интерфейса с внешними модулями.
@@ -35,6 +37,11 @@ public:
     EffectSettings *getEffectSettings() const;
     EffectViewport *getEffectViewport() const;
     NodeEditor *getNodeEditor() const;
+    PluginSettings *getPluginSettings() const;
+
+//public slots:
+    void displaySettings(CvvINode*);
+    void display(CvvINode*);
 
     //EffectList *getEffectList() const;
 signals:
@@ -73,6 +80,7 @@ private:
     EffectSettings *m_effectSettings;
     EffectViewport *m_effectViewport;
     NodeEditor *m_nodeEditor;
+    PluginSettings *m_pluginSettings;
     //EffectList *m_effectList;
 };
 
